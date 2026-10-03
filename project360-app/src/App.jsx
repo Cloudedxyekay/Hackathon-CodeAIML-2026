@@ -73,10 +73,12 @@ export default function App() {
             <p className="eyebrow">Evidence-grounded AI workspace</p>
             <h1>{tabs.find((tab) => tab.id === active)?.label}</h1>
           </div>
-          <div className="status-pill">
-            <FileSearch size={16} />
-            {loading ? "Loading corpus" : `${dashboard?.documents?.length ?? 0} evidence files`}
-          </div>
+          {active === "dossier" && (
+            <div className="status-pill">
+              <FileSearch size={16} />
+              {loading ? "Loading corpus" : `${dashboard?.documents?.length ?? 0} evidence files`}
+            </div>
+          )}
         </header>
         <ActiveComponent dashboard={dashboard} />
       </main>

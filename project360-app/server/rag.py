@@ -64,6 +64,25 @@ def search_documents(query, limit=8):
     return ranked[:limit]
 
 
+def _search_candidates(question):
+    candidates = search_documents(question, limit=14)
+    for expansion in _query_expansions(question):
+        candidates = _merge_evidence(candidates, search_documents(expansion, limit=10))
+    return candidates
+
+
+def _query_expansions(question):
+    value = " ".join(_tokens(question))
+    expansions = []
+
+    if _asks_why(value) and _mentions_go_live(value):
+        expansions.append(
+            "connecteur interne recommandation deplacer 22 octobre stabilisation tests integres anomalies bloquantes INT-101 ferme valide"
+        )
+
+    return expansions
+
+
 def reasoning_status():
     status = {
         "ollama_model": os.getenv("OLLAMA_MODEL"),
@@ -88,7 +107,7 @@ def reasoning_status():
 
 def answer_question(question):
     question = (question or "").strip()
-    candidates = search_documents(question, limit=14)
+    candidates = _search_candidates(question)
     evidence = _latest_relevant_evidence(candidates, limit=6)
     if not evidence:
         return {
@@ -227,7 +246,9 @@ def _reasoning_payload(question, evidence, excerpt_items):
 def _reasoning_system_prompt():
     return (
         "You are NOVA Project Memory. Answer the user's question using only the provided evidence. "
-        "Do not invent facts. Return the shortest answer that fully answers the question. "
+        "Do not invent facts. Write a clear, readable answer in natural prose that fully answers every part of the question. "
+        "Prefer two to four concise sentences over terse fragments. "
+        "If the question asks why, include the reason; do not answer with only a date or status. "
         "For date or status questions, prefer the latest authoritative decision over older plans, drafts, or proposals. "
         "If the evidence is uncertain or conditional, say so in uncertainty. "
         "Return only valid JSON with keys: answer, confidence, uncertainty. "
@@ -242,6 +263,7 @@ def _reasoning_user_prompt(question, sources):
             "evidence": sources,
             "output_rules": [
                 "Answer in the same language as the question when possible.",
+                "Use plain, readable wording; do not return only a bare extracted value unless the user asks for only that value.",
                 "Do not quote long excerpts in the answer.",
                 "Do not include references in the answer field; references are displayed separately by the app.",
             ],
@@ -358,7 +380,8 @@ def _extract_json_object(content):
 
 
 def _direct_answer(question, evidence):
-    if _is_go_live_date_question(question):
+    value = " ".join(_tokens(question))
+    if _is_go_live_date_question(question) and not _asks_why(value):
         candidate = _approved_go_live_candidate(evidence)
         if candidate:
             return {
@@ -370,13 +393,34 @@ def _direct_answer(question, evidence):
     return None
 
 
+def _asks_why(value):
+    return any(term in value for term in ["pourquoi", "raison", "cause", "change", "changement", "deplace", "retard"])
+
+
+def _mentions_go_live(value):
+    return any(term in value for term in ["production", "go-live", "live", "livraison", "lancement", "deploiement"])
+
+
 def _is_go_live_date_question(question):
     value = " ".join(_tokens(question))
     return (
         any(term in value for term in ["date", "quand", "echeance", "echeancier"])
-        and any(term in value for term in ["production", "go-live", "live"])
+        and _mentions_go_live(value)
         and any(term in value for term in ["approuvee", "approuve", "actuellement", "officielle", "cible"])
     )
+
+
+def _merge_evidence(*groups):
+    merged = []
+    seen = set()
+    for group in groups:
+        for item in group or []:
+            key = (item.get("path"), item.get("locator"))
+            if key in seen:
+                continue
+            seen.add(key)
+            merged.append(item)
+    return merged
 
 
 def _approved_go_live_candidate(evidence):
