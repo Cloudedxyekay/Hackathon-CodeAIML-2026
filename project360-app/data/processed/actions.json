@@ -1,0 +1,19 @@
+[
+  {
+    "id": "A01",
+    "title": "Completer les reponses Q01-Q10",
+    "owner": "Equipe NOVA Memory",
+    "due": "A confirmer",
+    "status": "open",
+    "evidence": "Chaque reponse doit citer un fichier et un repere precis."
+  },
+  {
+    "id": "A02",
+    "title": "Verifier les conditions de go-live",
+    "owner": "Equipe NOVA Memory",
+    "due": "A confirmer",
+    "status": "open",
+    "evidence": "Relier les conditions aux sources et au runbook."
+  }
+]
+

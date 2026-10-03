@@ -1,0 +1,13 @@
+{
+  "as_of": "2026-09-30 09:00 America/Montreal",
+  "status": "Baseline a completer apres ingestion du corpus.",
+  "scope": "Memoire operationnelle NOVA avec preuves, chronologie et actions.",
+  "go_live": "A confirmer",
+  "budget": "A confirmer",
+  "risks": [
+    "Sources contradictoires ou perimees.",
+    "Validation distincte de livraison.",
+    "Nouvelle information a integrer sans effacer le baseline."
+  ]
+}
+

@@ -1,0 +1,73 @@
+[
+  {
+    "id": "Q01",
+    "question": "Quelle est la date de mise en production actuellement approuvee, et avec quelle reserve?",
+    "answer": "A completer apres revue des preuves.",
+    "confidence": "todo",
+    "sources": []
+  },
+  {
+    "id": "Q02",
+    "question": "Pourquoi la date a-t-elle change, et quel est l'etat actuel de la cause initiale?",
+    "answer": "A completer apres revue des preuves.",
+    "confidence": "todo",
+    "sources": []
+  },
+  {
+    "id": "Q03",
+    "question": "Qui a approuve le changement et quand? Distinguez proposition et approbation.",
+    "answer": "A completer apres revue des preuves.",
+    "confidence": "todo",
+    "sources": []
+  },
+  {
+    "id": "Q04",
+    "question": "Qui est responsable du projet et depuis quand?",
+    "answer": "A completer apres revue des preuves.",
+    "confidence": "todo",
+    "sources": []
+  },
+  {
+    "id": "Q05",
+    "question": "Quel est le montant contractuel autorise et comment se calcule-t-il?",
+    "answer": "A completer apres revue des preuves.",
+    "confidence": "todo",
+    "sources": []
+  },
+  {
+    "id": "Q06",
+    "question": "Quel probleme presente INV-003? Precisez le montant concerne et le traitement a prevoir.",
+    "answer": "A completer apres revue des preuves.",
+    "confidence": "todo",
+    "sources": []
+  },
+  {
+    "id": "Q07",
+    "question": "Ou les donnees de production doivent-elles etre hebergees? Quelle preuve confirme la mise en oeuvre?",
+    "answer": "A completer apres revue des preuves.",
+    "confidence": "todo",
+    "sources": []
+  },
+  {
+    "id": "Q08",
+    "question": "La securite est-elle acceptee? Distinguez livraison et validation.",
+    "answer": "A completer apres revue des preuves.",
+    "confidence": "todo",
+    "sources": []
+  },
+  {
+    "id": "Q09",
+    "question": "L'accessibilite est-elle completee? Identifiez ce qui reste a corriger.",
+    "answer": "A completer apres revue des preuves.",
+    "confidence": "todo",
+    "sources": []
+  },
+  {
+    "id": "Q10",
+    "question": "Quelles sont les trois conditions de go-live? Precisez les travaux manquants du runbook a partir de sa capture.",
+    "answer": "A completer apres revue des preuves.",
+    "confidence": "todo",
+    "sources": []
+  }
+]
+

@@ -1,0 +1,85 @@
+import { useEffect, useState } from "react";
+import { Activity, Bot, FileSearch, GitCompare, History, LayoutDashboard, ListChecks, RefreshCw, Search } from "lucide-react";
+import Dashboard from "./components/Dashboard.jsx";
+import AskAgent from "./components/AskAgent.jsx";
+import EvidenceSearch from "./components/EvidenceSearch.jsx";
+import QuestionAnswers from "./components/QuestionAnswers.jsx";
+import Timeline from "./components/Timeline.jsx";
+import UpdateSimulator from "./components/UpdateSimulator.jsx";
+import BonusComparison from "./components/BonusComparison.jsx";
+
+const tabs = [
+  { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { id: "ask", label: "Ask Agent", icon: Bot },
+  { id: "search", label: "Evidence", icon: Search },
+  { id: "questions", label: "Questions", icon: ListChecks },
+  { id: "timeline", label: "Timeline", icon: History },
+  { id: "updates", label: "Updates", icon: RefreshCw },
+  { id: "bonus", label: "Bonus", icon: GitCompare }
+];
+
+export default function App() {
+  const [active, setActive] = useState("dashboard");
+  const [dashboard, setDashboard] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/dashboard")
+      .then((response) => response.json())
+      .then(setDashboard)
+      .finally(() => setLoading(false));
+  }, []);
+
+  const ActiveComponent = {
+    dashboard: Dashboard,
+    ask: AskAgent,
+    search: EvidenceSearch,
+    questions: QuestionAnswers,
+    timeline: Timeline,
+    updates: UpdateSimulator,
+    bonus: BonusComparison
+  }[active];
+
+  return (
+    <div className="app-shell">
+      <aside className="sidebar">
+        <div className="brand">
+          <div className="brand-mark"><Activity size={22} /></div>
+          <div>
+            <strong>NOVA</strong>
+            <span>Project Memory</span>
+          </div>
+        </div>
+        <nav>
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
+            return (
+              <button
+                key={tab.id}
+                className={active === tab.id ? "active" : ""}
+                onClick={() => setActive(tab.id)}
+                title={tab.label}
+              >
+                <Icon size={18} />
+                <span>{tab.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+      </aside>
+      <main>
+        <header className="topbar">
+          <div>
+            <p className="eyebrow">Evidence-grounded AI workspace</p>
+            <h1>{tabs.find((tab) => tab.id === active)?.label}</h1>
+          </div>
+          <div className="status-pill">
+            <FileSearch size={16} />
+            {loading ? "Loading corpus" : `${dashboard?.answers?.length ?? 0} challenge questions`}
+          </div>
+        </header>
+        <ActiveComponent dashboard={dashboard} />
+      </main>
+    </div>
+  );
+}

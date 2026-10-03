@@ -1,0 +1,10 @@
+[
+  {
+    "date": "2026-09-30T09:00:00-04:00",
+    "type": "baseline",
+    "title": "Baseline du dossier NOVA",
+    "summary": "Etat initial a reconstruire depuis le corpus avant toute nouvelle information.",
+    "sources": ["consignes.pdf"]
+  }
+]
+

@@ -1,0 +1,5 @@
+{
+  "mode": "not-generated-yet",
+  "note": "Run python -m server.ingest to create lexical chunks. Add real embeddings later."
+}
+
