@@ -1,20 +1,16 @@
 import { useEffect, useState } from "react";
-<<<<<<< HEAD
-import { Activity, Bot, FileSearch, FolderKanban, GitCompare, History, LayoutDashboard, RefreshCw, Search } from "lucide-react";
-=======
 import {
   Activity,
   Bot,
   CalendarDays,
   FileSearch,
+  FolderKanban,
   GitCompare,
   History,
   LayoutDashboard,
-  ListChecks,
   RefreshCw,
   Search,
 } from "lucide-react";
->>>>>>> aris
 import Dashboard from "./components/Dashboard.jsx";
 import AskAgent from "./components/AskAgent.jsx";
 import Dossier from "./components/Dossier.jsx";
@@ -28,13 +24,8 @@ const tabs = [
   { id: "dossier", label: "Dossier", icon: FolderKanban },
   { id: "ask", label: "Ask NOVA", icon: Bot },
   { id: "search", label: "Evidence", icon: Search },
-<<<<<<< HEAD
   { id: "timeline", label: "Timeline", icon: History },
-=======
-  { id: "questions", label: "Questions", icon: ListChecks },
-  { id: "timeline", label: "Mémoire du projet", icon: History },
   { id: "calendar", label: "Calendrier", icon: CalendarDays },
->>>>>>> aris
   { id: "updates", label: "Updates", icon: RefreshCw },
   { id: "bonus", label: "Bonus", icon: GitCompare },
 ];
@@ -51,7 +42,7 @@ export default function App() {
       .then((response) => {
         if (!response.ok)
           throw new Error(
-            "Le serveur Python est indisponible. Démarrez-le sur le port 8000.",
+            "Le serveur Python est indisponible. Demarrez-le sur le port 8000.",
           );
         return response.json();
       })
@@ -59,6 +50,7 @@ export default function App() {
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }
+
   useEffect(() => {
     loadDashboard();
   }, []);
@@ -106,7 +98,7 @@ export default function App() {
           <span className="sidebar-project-dot" />
           <div>
             <strong>Projet NOVA</strong>
-            <span>Phase 1 · espace documentaire</span>
+            <span>Phase 1 - espace documentaire</span>
           </div>
         </div>
       </aside>
@@ -116,23 +108,16 @@ export default function App() {
             <p className="eyebrow">NOVA / ESPACE PROJET</p>
             <h1>{tabs.find((tab) => tab.id === active)?.label}</h1>
           </div>
-<<<<<<< HEAD
-          {active === "dossier" && (
-            <div className="status-pill">
-              <FileSearch size={16} />
-              {loading ? "Loading corpus" : `${dashboard?.documents?.length ?? 0} evidence files`}
-            </div>
-          )}
-=======
           <div className="status-pill">
             <FileSearch size={16} />
             {loading
-              ? "Lecture du corpus…"
+              ? "Lecture du corpus..."
               : dashboard?.memory
-                ? `${dashboard.memory.stats.documents} documents · sources reliées`
-                : "API à connecter"}
+                ? `${dashboard.memory.stats.documents} documents - sources reliees`
+                : dashboard?.documents
+                  ? `${dashboard.documents.length} evidence files`
+                  : "API a connecter"}
           </div>
->>>>>>> aris
         </header>
         {error && active !== "timeline" && active !== "calendar" && (
           <p className="memory-error" role="alert">
