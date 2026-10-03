@@ -412,9 +412,9 @@ function ActivityStrip({ events, month, setMonth }) {
           <button
             key={key}
             className={month === key ? "selected" : ""}
-            onClick={() => setMonth(key)}
+            onClick={() => setMonth(month === key ? "" : key)}
             aria-pressed={month === key}
-            title={`${formatDate(`${key}-01`, { month: "long", year: "numeric" })} · ${count} événements`}
+            title={`${count} événements`}
           >
             <span className="activity-bar">
               <i
@@ -914,6 +914,8 @@ export default function Timeline({
     [selection, setSelection] = useState(null),
     [showMethod, setShowMethod] = useState(false);
   const closeDrawer = useMemo(() => () => setSelection(null), []);
+  const [timelinePage, setTimelinePage] = useState(1);
+  const timelineHeading = useRef(null);
   useEffect(() => {
     setView(initialView);
   }, [initialView]);
@@ -987,17 +989,6 @@ export default function Timeline({
       setEnriching(false);
     }
   }
-  const timelineMonths = useMemo(() => {
-    const keys = [...new Set((memory?.events || [])
-      .filter((event) => event.date)
-      .map((event) => event.date.slice(0, 7)))].sort();
-    if ((memory?.events || []).some((event) => !event.date)) keys.push("undated");
-    return keys;
-  }, [memory]);
-  const activeMonth = timelineMonths.includes(month)
-    ? month
-    : timelineMonths.filter((key) => key !== "undated").at(-1) || timelineMonths[0] || "";
-  const monthIndex = timelineMonths.indexOf(activeMonth);
   const events = useMemo(
     () =>
       (memory?.events || []).filter(
@@ -1009,31 +1000,40 @@ export default function Timeline({
           (!owner || event.owner === owner) &&
           (!type || event.type === type) &&
           (!topic || event.topic === topic) &&
-          (view !== "timeline" || (activeMonth === "undated"
-            ? !event.date
-            : event.date?.startsWith(activeMonth))) &&
+          (!month || event.date?.startsWith(month)) &&
           (!dateKind || event.date_kind === dateKind),
       ),
-    [memory, query, owner, type, topic, activeMonth, dateKind, view],
+    [memory, query, owner, type, topic, month, dateKind],
   );
-  const grouped = useMemo(() => {
-    const groups = {};
-    const sorted = [...events].sort(
+  const sortedEvents = useMemo(() => [...events].sort(
       (a, b) =>
         (a.date || "").localeCompare(b.date || "") * (ascending ? 1 : -1),
-    );
-    for (const event of sorted)
+    ), [events, ascending]);
+  const pageSize = 10;
+  const pageCount = Math.max(1, Math.ceil(events.length / pageSize));
+  const currentPage = Math.min(timelinePage, pageCount);
+  useEffect(() => {
+    setTimelinePage(1);
+  }, [events, ascending]);
+  const changeTimelinePage = (page) => {
+    setTimelinePage(page);
+    timelineHeading.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  const grouped = useMemo(() => {
+    const groups = {};
+    for (const event of sortedEvents.slice((currentPage - 1) * pageSize, currentPage * pageSize))
       (groups[event.date || "undated"] ||= []).push(event);
     return Object.entries(groups);
-  }, [events, ascending]);
+  }, [sortedEvents, currentPage]);
   const filtered = Boolean(
-    query || owner || type || topic || dateKind,
+    query || owner || type || topic || month || dateKind,
   );
   const resetFilters = () => {
     setQuery("");
     setOwner("");
     setType("");
     setTopic("");
+    setMonth("");
     setDateKind("");
   };
   if (loading)
@@ -1317,8 +1317,8 @@ export default function Timeline({
                   <ListFilter size={14} />
                   <span>
                     {events.length} événements correspondent
-                    {view === "timeline" && activeMonth
-                      ? ` · ${activeMonth === "undated" ? "Sans date" : formatDate(`${activeMonth}-01`, { month: "long", year: "numeric" })}`
+                    {month
+                      ? ` · ${formatDate(`${month}-01`, { month: "long", year: "numeric" })}`
                       : ""}
                   </span>
                   <button onClick={resetFilters}>
@@ -1332,28 +1332,10 @@ export default function Timeline({
             <>
               <ActivityStrip
                 events={memory.events}
-                month={activeMonth}
+                month={month}
                 setMonth={setMonth}
               />
-              <div className="timeline-month-navigation" aria-label="Navigation par mois">
-                <button className="quiet-button" disabled={monthIndex <= 0}
-                  onClick={() => setMonth(timelineMonths[monthIndex - 1])} aria-label="Mois précédent">
-                  <ChevronLeft size={18} />
-                </button>
-                <select aria-label="Mois affiché" value={activeMonth}
-                  onChange={(event) => setMonth(event.target.value)}>
-                  {timelineMonths.map((key) => (
-                    <option key={key} value={key}>
-                      {key === "undated" ? "Sans date" : formatDate(`${key}-01`, { month: "long", year: "numeric" })}
-                    </option>
-                  ))}
-                </select>
-                <button className="quiet-button" disabled={monthIndex < 0 || monthIndex >= timelineMonths.length - 1}
-                  onClick={() => setMonth(timelineMonths[monthIndex + 1])} aria-label="Mois suivant">
-                  <ChevronRight size={18} />
-                </button>
-              </div>
-              <div className="timeline-list-heading">
+              <div className="timeline-list-heading" ref={timelineHeading}>
                 <span>
                   {events.length} événements · cliquez pour voir les preuves
                 </span>
@@ -1409,6 +1391,33 @@ export default function Timeline({
                   </div>
                 )}
               </div>
+              {events.length > 0 && (
+                <nav className="timeline-pagination" aria-label="Pages de la chronologie">
+                  <span aria-live="polite">
+                    Événements {(currentPage - 1) * pageSize + 1}–{Math.min(currentPage * pageSize, events.length)} sur {events.length}
+                  </span>
+                  <div>
+                    <button className="quiet-button" disabled={currentPage === 1}
+                      onClick={() => changeTimelinePage(currentPage - 1)} aria-label="Page précédente">
+                      <ChevronLeft size={16} /> Précédent
+                    </button>
+                    <label>
+                      Page
+                      <select aria-label="Page de la chronologie" value={currentPage}
+                        onChange={(event) => changeTimelinePage(Number(event.target.value))}>
+                        {Array.from({ length: pageCount }, (_, index) => (
+                          <option key={index + 1} value={index + 1}>{index + 1}</option>
+                        ))}
+                      </select>
+                      sur {pageCount}
+                    </label>
+                    <button className="quiet-button" disabled={currentPage === pageCount}
+                      onClick={() => changeTimelinePage(currentPage + 1)} aria-label="Page suivante">
+                      Suivant <ChevronRight size={16} />
+                    </button>
+                  </div>
+                </nav>
+              )}
             </>
           )}
           {view === "calendar" && (

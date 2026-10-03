@@ -436,24 +436,36 @@ a:focus-visible {
   display: flex;
   gap: 22px;
 }
-.timeline-month-navigation {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin: 16px 0;
+.timeline-list-heading {
+  scroll-margin-top: 24px;
 }
-.timeline-month-navigation select {
-  max-width: 70%;
-  padding: 9px 14px;
+.timeline-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 18px 0;
+  color: #77839c;
+  font-size: 12px;
+}
+.timeline-pagination > div,
+.timeline-pagination label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.timeline-pagination select {
+  padding: 7px;
   border: 1px solid #d9d2ee;
-  border-radius: 8px;
+  border-radius: 6px;
   background: white;
-  color: #59647c;
+  color: inherit;
   font: inherit;
 }
-.timeline-month-navigation button:disabled {
-  opacity: 0.35;
+.timeline-pagination button:disabled {
+  opacity: 0.4;
   cursor: default;
 }
 .activity-months button {
