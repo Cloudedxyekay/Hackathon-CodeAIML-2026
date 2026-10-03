@@ -1,15 +1,19 @@
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from dotenv import load_dotenv
 
 from .rag import answer_question, search_documents
 from .ingest import ingest_corpus
 from .prompts import build_update_analysis, generate_executive_brief
+from .intelligence import get_project_memory
+from .ai_extraction import attach_enrichment, enrich, EnrichmentError
 
 ROOT = Path(__file__).resolve().parents[1]
+load_dotenv(ROOT / ".env")
 PROCESSED = ROOT / "data" / "processed"
 
 app = FastAPI(title="NOVA Project Memory API")
@@ -63,6 +67,7 @@ def dashboard():
         "timeline": read_json("timeline.json", []),
         "actions": read_json("actions.json", []),
         "answers": read_json("answers.json", []),
+        "memory": attach_enrichment(get_project_memory()),
     }
 
 
@@ -73,7 +78,28 @@ def answers():
 
 @app.get("/api/timeline")
 def timeline():
-    return read_json("timeline.json", [])
+    return get_project_memory()["events"]
+
+
+@app.get("/api/project-memory")
+def project_memory():
+    return attach_enrichment(get_project_memory())
+
+
+@app.post("/api/project-memory/enrich")
+def enrich_project_memory():
+    try:
+        return enrich(get_project_memory())
+    except EnrichmentError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from None
+
+
+@app.get("/api/documents/{document_id}")
+def document(document_id: str):
+    for item in read_json("documents.json", []):
+        if item["id"] == document_id:
+            return item
+    raise HTTPException(status_code=404, detail="Document introuvable")
 
 
 @app.get("/api/documents")

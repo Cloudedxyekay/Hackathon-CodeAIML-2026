@@ -12,8 +12,9 @@ def read_xlsx(path: Path) -> str:
     for sheet in workbook.worksheets:
         lines.append(f"[sheet {sheet.title}]")
         for row in sheet.iter_rows(values_only=True):
-            values = [str(value) for value in row if value is not None]
-            if values:
+            values = [str(value) if value is not None else "" for value in row]
+            if any(values):
                 lines.append(" | ".join(values))
+    workbook.close()
     return "\n".join(lines)
 

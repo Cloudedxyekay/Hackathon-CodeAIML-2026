@@ -79,7 +79,7 @@ def ingest_corpus(corpus_path=None):
             continue
         rel = path.relative_to(corpus).as_posix()
         try:
-            text = normalize_space(reader(path))
+            text = reader(path)
         except Exception as exc:
             text = f"Extraction failed: {exc}"
         tags = infer_tags(rel, text)
@@ -89,7 +89,7 @@ def ingest_corpus(corpus_path=None):
             "title": path.stem.replace("_", " "),
             "extension": path.suffix.lower(),
             "tags": tags,
-            "summary": text[:260],
+            "summary": normalize_space(text)[:260],
             "text": text,
         }
         documents.append(doc)
@@ -122,7 +122,12 @@ def ingest_corpus(corpus_path=None):
         ),
         encoding="utf-8",
     )
-    return {"ok": True, "documents": len(documents), "chunks": len(chunks)}
+    from .intelligence import build_project_memory, save_project_memory
+
+    memory = build_project_memory(documents)
+    save_project_memory(memory)
+    return {"ok": True, "documents": len(documents), "chunks": len(chunks),
+            "events": len(memory["events"]), "decisions": memory["stats"]["decisions"]}
 
 
 if __name__ == "__main__":

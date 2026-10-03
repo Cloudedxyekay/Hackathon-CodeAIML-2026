@@ -36,6 +36,17 @@ If `pip` is not available on your machine yet, install Python 3.11+ first.
 
 ## Run
 
+On Windows, run each command below in a separate PowerShell terminal inside
+`project360-app`. Reopen VS Code after installing Node.js so its PATH is refreshed.
+
+```powershell
+# Backend (local virtual environment)
+.\.venv\Scripts\python.exe -m uvicorn server.main:app --reload --host 127.0.0.1 --port 8000
+
+# Frontend (in the second terminal)
+npm.cmd run dev
+```
+
 Terminal 1:
 
 ```bash
@@ -66,6 +77,62 @@ python -m server.ingest
 - `data/processed/embeddings.json`
 
 4. The frontend reads API endpoints exposed by FastAPI.
+
+## Project memory, calendar and progress
+
+The default **Mémoire du projet** workspace provides three linked views:
+
+- **Chronologie**: dated decisions, proposals, deliveries, validations and risks;
+  search and filters by actor, topic, event type, month and date meaning.
+- **Calendrier**: monthly navigation, multi-day planned activities and a daily agenda.
+- **Avancement**: the documented project plan, cumulative ticket creations and
+  explicit closures, and a ticket register with source references.
+
+Every event opens an evidence drawer with original excerpts, source locators and
+the full extracted document. The workspace also shows project-owner transitions,
+approved target changes, open production gates, and discrepancies in stale plans
+or status reports. Export the filtered events as an `.ics` calendar or JSON.
+**Ré-analyser** re-ingests the local corpus and rebuilds project memory.
+
+The extractor runs locally without an API key or connected LLM. It uses explicit
+date fields, French date parsing, structured ticket/plan fields and linguistic
+rules. Authors and requesters are labelled separately from assigned owners.
+Planning targets are not recorded as actual deliveries; undated publication
+dates and unknown closure dates remain unknown. Global project completion is
+not inferred from ticket counts. The latest plan's declared statuses remain
+historical claims. Only explicit governance sources set the approved target.
+
+API: `GET /api/project-memory`, `GET /api/timeline`,
+`GET /api/documents/{document_id}`, `POST /api/ingest`.
+Generated files: `data/processed/project_memory.json` and `timeline.json`.
+
+### Optional LLM enrichment
+
+Copy `.env.example` to `.env`, set `OPENAI_API_KEY` on the backend, and restart
+Uvicorn. `NOVA_AI_MODEL` is configurable (default: `gpt-4.1-mini`). Click
+**Enrichir IA** to explicitly send evidence excerpts to the configured model.
+No provider request is made during page loading or local re-ingestion.
+
+The connector uses the [OpenAI Responses API with structured outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
+to extract concise summaries, decision descriptions, dates and named actors.
+Annotations must reference an existing event and quote exact source text;
+unsupported dates, names and citations are discarded. AI summaries are labelled
+and kept separate from canonical approvals, ticket states and assigned roles.
+Results are cached against a corpus fingerprint. A changed corpus invalidates
+the annotations, and a provider error preserves local extraction.
+The API key is never sent to the browser. Provider storage is disabled using
+`store: false`. This optional mode requires a working API account; live provider
+calls have not been validated without a configured key.
+
+API: `POST /api/project-memory/enrich`. Cache: `data/processed/ai_enrichment.json`.
+
+Run extraction and regression checks:
+
+```powershell
+.\.venv\Scripts\python.exe -m server.ingest
+.\.venv\Scripts\python.exe -m unittest server.test_intelligence server.test_ai_extraction -v
+npm.cmd run build
+```
 
 ## Demo Flow
 
