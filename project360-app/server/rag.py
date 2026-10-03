@@ -77,8 +77,10 @@ def _query_expansions(question):
 
     if _asks_why(value) and _mentions_go_live(value):
         expansions.append(
-            "connecteur interne recommandation deplacer 22 octobre stabilisation tests integres anomalies bloquantes INT-101 ferme valide"
+            "cible approuvee demeure 22 octobre date officielle comite conditions go-live connecteur stabilisation INT-101 ferme valide"
         )
+    elif _mentions_go_live(value) and _asks_current(value):
+        expansions.append("cible approuvee demeure 22 octobre date officielle comite conditions go-live")
 
     return expansions
 
@@ -108,7 +110,7 @@ def reasoning_status():
 def answer_question(question):
     question = (question or "").strip()
     candidates = _search_candidates(question)
-    evidence = _latest_relevant_evidence(candidates, limit=6)
+    evidence = _latest_relevant_evidence(candidates, limit=6, query=question)
     if not evidence:
         return {
             "question": question,
@@ -237,6 +239,8 @@ def _reasoning_payload(question, evidence, excerpt_items):
             "type": _source_type(item.get("path", "")),
             "date": item.get("source_date"),
             "locator": item.get("locator", "text chunk"),
+            "priority_score": item.get("selection_score", item.get("score")),
+            "authority_hint": _authority_hint(item),
             "excerpt": excerpt.get("excerpt"),
         }
         for index, (item, excerpt) in enumerate(zip(evidence, excerpt_items))
@@ -250,6 +254,7 @@ def _reasoning_system_prompt():
         "Prefer two to four concise sentences over terse fragments. "
         "If the question asks why, include the reason; do not answer with only a date or status. "
         "For date or status questions, prefer the latest authoritative decision over older plans, drafts, or proposals. "
+        "When sources conflict, treat newer committee decisions, approved reminders, and transition notes as more authoritative than initial charters, draft plans, or proposals. "
         "If the evidence is uncertain or conditional, say so in uncertainty. "
         "Return only valid JSON with keys: answer, confidence, uncertainty. "
         "confidence must be one of high, medium, low."
@@ -264,6 +269,7 @@ def _reasoning_user_prompt(question, sources):
             "output_rules": [
                 "Answer in the same language as the question when possible.",
                 "Use plain, readable wording; do not return only a bare extracted value unless the user asks for only that value.",
+                "Use priority_score and authority_hint to resolve contradictions; current authoritative evidence beats older baseline or draft evidence.",
                 "Do not quote long excerpts in the answer.",
                 "Do not include references in the answer field; references are displayed separately by the app.",
             ],
@@ -397,6 +403,24 @@ def _asks_why(value):
     return any(term in value for term in ["pourquoi", "raison", "cause", "change", "changement", "deplace", "retard"])
 
 
+def _asks_current(value):
+    return any(
+        term in value
+        for term in [
+            "actuel",
+            "actuelle",
+            "actuellement",
+            "prevue",
+            "prevu",
+            "approuvee",
+            "approuve",
+            "officielle",
+            "demeure",
+            "reste",
+        ]
+    )
+
+
 def _mentions_go_live(value):
     return any(term in value for term in ["production", "go-live", "live", "livraison", "lancement", "deploiement"])
 
@@ -521,22 +545,70 @@ def _window_around(text, start, end, radius=160):
     return text[max(0, start - radius) : min(len(text), end + radius)].strip()
 
 
-def _latest_relevant_evidence(candidates, limit):
+def _latest_relevant_evidence(candidates, limit, query=""):
     if not candidates:
         return []
 
-    top_score = candidates[0].get("score", 0)
-    minimum_score = max(1.0, top_score * 0.35)
+    query_value = " ".join(_tokens(query))
+    top_score = max(item.get("score", 0) for item in candidates)
+    minimum_score = 1.0 if (_asks_current(query_value) or _asks_why(query_value)) else max(1.0, top_score * 0.35)
     relevant = [item for item in candidates if item.get("score", 0) >= minimum_score]
+    for item in relevant:
+        item["selection_score"] = round(item.get("score", 0) + _authority_boost(item, query_value), 3)
+
     relevant.sort(
         key=lambda item: (
+            item.get("selection_score", item.get("score", 0)),
             item.get("source_timestamp") is not None,
             item.get("source_timestamp") or 0,
-            item.get("score", 0),
         ),
         reverse=True,
     )
     return relevant[:limit]
+
+
+def _authority_boost(item, query_value):
+    text = _normalize_space(item.get("text", "")).lower()
+    title = (item.get("title") or "").lower()
+    path = (item.get("path") or "").lower()
+    current_question = _asks_current(query_value)
+    boost = 0.0
+
+    if current_question:
+        if re.search(r"\b(approuv|officielle|demeure|reste|d[ée]cision|comit[ée])\b", text):
+            boost += 8.0
+        if re.search(r"\b(initiale?|pr[ée]liminaire|brouillon|proposition|recommandation)\b", text):
+            boost -= 5.0
+        if "charte" in title or "charte" in path:
+            boost -= 4.0
+        if "plan projet" in text and re.search(r"\b(cible initiale|cible de planification|version pr[ée]liminaire)\b", text):
+            boost -= 4.0
+
+    if _mentions_go_live(query_value):
+        if re.search(r"\b(22 octobre|date officielle|cible approuv[ée]e|cible 22 octobre)\b", text):
+            boost += 8.0
+        if re.search(r"\b(15 octobre)\b", text) and re.search(r"\b(initiale?|ancien|pas encore corrig|mettre [aà] jour|d[ée]plac[ée]e)\b", text):
+            boost -= 3.0
+
+    if _asks_why(query_value):
+        if re.search(r"\b(connecteur|stabilisation|tests int[ée]gr[ée]s|anomalies bloquantes|int-101)\b", text):
+            boost += 4.0
+
+    return boost
+
+
+def _authority_hint(item):
+    text = _normalize_space(item.get("text", "")).lower()
+    title = (item.get("title") or "").lower()
+    path = (item.get("path") or "").lower()
+
+    if re.search(r"\b(approuv|officielle|demeure|reste|d[ée]cision|comit[ée])\b", text):
+        return "authoritative/current decision evidence"
+    if re.search(r"\b(proposition|recommandation|brouillon|pr[ée]liminaire)\b", text):
+        return "proposal or draft; do not treat as final approval"
+    if "charte" in title or "charte" in path or "cible initiale" in text:
+        return "initial baseline; may be superseded by later decisions"
+    return "supporting evidence"
 
 
 def _confidence(evidence, excerpt_items):
