@@ -10,7 +10,7 @@ import BonusComparison from "./components/BonusComparison.jsx";
 
 const tabs = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { id: "ask", label: "Ask Agent", icon: Bot },
+  { id: "ask", label: "Ask NOVA", icon: Bot },
   { id: "search", label: "Evidence", icon: Search },
   { id: "questions", label: "Questions", icon: ListChecks },
   { id: "timeline", label: "Timeline", icon: History },

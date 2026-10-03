@@ -77,10 +77,23 @@ python -m server.ingest
 6. Paste a new event in Update Simulator.
 7. Generate the executive brief.
 
+## Ask NOVA Agent
+
+The `Ask NOVA` tab calls `POST /api/ask` with a user question and returns an evidence-grounded response. The screen shows the text answer first, then lists the documents, emails, spreadsheets, notes, or other sources used to produce that answer.
+When multiple relevant sources are found, NOVA favors the latest dated source document or email and shows that source date in the reference list.
+
+- `answer`: concise synthesis from retrieved corpus excerpts.
+- `confidence`: `high`, `medium`, or `low`, based on retrieval strength and source coverage.
+- `cited_source_files`: unique source files used by the answer.
+- `references`: typed source references shown after the answer.
+- `excerpts`: exact cited text snippets with locator and score.
+- `uncertainty`: what NOVA cannot confirm or what still needs human review.
+
+This implementation is local and self-contained. It uses lexical retrieval over `data/processed/chunks.json`; add a hosted LLM later if you want stronger synthesis while keeping the same response shape.
+
 ## What To Improve Next
 
 - Fill `answers.json` with final evidence-backed answers to Q01-Q10.
 - Add PDF and XLSX extraction dependencies if needed.
 - Add real embeddings and LLM synthesis if you have an API key.
 - Add exact page/cell locators for PDF/XLSX evidence.
-

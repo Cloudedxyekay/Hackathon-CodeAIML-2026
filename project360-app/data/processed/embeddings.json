@@ -1,5 +1,4 @@
 {
-  "mode": "not-generated-yet",
-  "note": "Run python -m server.ingest to create lexical chunks. Add real embeddings later."
+  "mode": "lexical-starter",
+  "note": "Replace this file with vector embeddings when adding a model provider."
 }
-

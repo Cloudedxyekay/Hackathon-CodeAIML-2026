@@ -212,9 +212,151 @@ textarea {
   white-space: nowrap;
 }
 
+.error-text {
+  margin: 10px 0 0;
+  color: #b42318;
+  font-weight: 700;
+}
+
+.answer-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+
+.answer-header h2 {
+  margin-bottom: 0;
+}
+
+.answer-text {
+  margin-bottom: 0;
+  color: #18212f;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.answer-text strong {
+  font-weight: 800;
+}
+
+.confidence {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.confidence.high {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.confidence.medium {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.confidence.low {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+  margin: 18px 0;
+}
+
+.section-label {
+  margin-bottom: 8px;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.references-block,
+.uncertainty-block {
+  margin: 18px 0;
+}
+
+.reference-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.reference-list li {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 8px;
+  align-items: flex-start;
+  border: 1px solid #d9e1ee;
+  border-radius: 8px;
+  background: #fbfdff;
+  padding: 10px;
+}
+
+.reference-list strong {
+  display: block;
+  color: #18212f;
+}
+
+.reference-list span {
+  display: block;
+  color: #6b7280;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.source-files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.source-files span,
+.uncertainty {
+  border: 1px solid #d9e1ee;
+  border-radius: 8px;
+  background: #fbfdff;
+}
+
+.source-files span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  padding: 7px 9px;
+  color: #374151;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.uncertainty {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 10px;
+  color: #4b5563;
+}
+
 .evidence-list {
   display: grid;
   gap: 12px;
+}
+
+.evidence-card blockquote {
+  margin: 10px 0 0;
+  border-left: 3px solid #2563eb;
+  padding-left: 12px;
+  color: #374151;
 }
 
 .compact {
@@ -291,7 +433,9 @@ textarea {
 
   .topbar,
   .input-row,
-  .timeline-event {
+  .timeline-event,
+  .answer-header,
+  .result-grid {
     display: grid;
   }
 
