@@ -136,6 +136,24 @@ npm.cmd run build
 
 ## Demo Flow
 
+## Suivi par catégorie dans le Dossier
+
+L’onglet **Dossier** conserve ses catégories du projet et présente dans chacune
+les décisions, responsables explicitement désignés, engagements, échéances
+et risques via `GET /api/dossier`.
+Chaque élément conserve ses extraits, son document et son localisateur.
+Les propositions, décisions conditionnelles et dates périmées sont distinguées.
+Les engagements sont des obligations ou promesses documentées ; leur réalisation
+n’est pas déduite. Les échéances relatives restent dans l’extrait et les dates
+inconnues restent inconnues. Les demandeurs de tickets ne sont pas assimilés à
+des responsables assignés. Les divergences du plan et du registre sont affichées.
+Les filtres sélectionnent les catégories du projet ; l’export JSON inclut le dossier complet.
+**Ré-analyser le corpus** régénère les sources et la mémoire locale sans appel LLM.
+
+Vérification : `.\.venv\Scripts\python.exe -m unittest server.test_synthesis server.test_dossier`.
+Export Markdown et JSON : `.\.venv\Scripts\python.exe -m server.synthesis`
+(fichiers dans `data/reports`).
+
 1. Open Dashboard.
 2. Ask: `Quelle est la date de mise en production actuellement approuvee?`
 3. Show the answer with source excerpts.
