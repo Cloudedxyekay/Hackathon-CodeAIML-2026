@@ -1,6 +1,10 @@
 import json
 import math
+import os
 import re
+import socket
+import urllib.error
+import urllib.request
 from collections import Counter
 from datetime import datetime
 from email.utils import parsedate_to_datetime
@@ -60,6 +64,28 @@ def search_documents(query, limit=8):
     return ranked[:limit]
 
 
+def reasoning_status():
+    status = {
+        "ollama_model": os.getenv("OLLAMA_MODEL"),
+        "ollama_base_url": os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434"),
+        "ollama_reachable": False,
+        "ollama_models": [],
+        "openai_configured": bool(os.getenv("OPENAI_API_KEY")),
+    }
+    base_url = status["ollama_base_url"].rstrip("/")
+    request = urllib.request.Request(f"{base_url}/api/tags", method="GET")
+
+    try:
+        with urllib.request.urlopen(request, timeout=5) as response:
+            data = json.loads(response.read().decode("utf-8"))
+        status["ollama_reachable"] = True
+        status["ollama_models"] = [model.get("name") for model in data.get("models", []) if model.get("name")]
+    except (OSError, urllib.error.URLError, json.JSONDecodeError, TimeoutError, socket.timeout):
+        pass
+
+    return status
+
+
 def answer_question(question):
     question = (question or "").strip()
     candidates = search_documents(question, limit=14)
@@ -76,14 +102,28 @@ def answer_question(question):
             "uncertainty": "Aucune source pertinente trouvee. Lancez l'ingestion ou ajoutez des documents traites avant de tirer une conclusion.",
         }
 
-    excerpt_items = [_build_excerpt(item, question) for item in evidence]
-    answer = _draft_answer(question, excerpt_items)
+    direct_answer = _direct_answer(question, evidence)
+    if direct_answer and direct_answer.get("evidence"):
+        evidence = direct_answer["evidence"]
+
+    focus_terms = direct_answer.get("focus_terms", []) if direct_answer else []
+    excerpt_items = [_build_excerpt(item, question, focus_terms=focus_terms) for item in evidence]
+    model_answer = _external_reasoning_answer(question, evidence, excerpt_items)
+    answer = model_answer.get("answer") if model_answer else direct_answer["answer"] if direct_answer else _draft_answer(question, excerpt_items)
     confidence = _confidence(evidence, excerpt_items)
-    uncertainty = _uncertainty(evidence, excerpt_items, confidence)
+    if model_answer and model_answer.get("confidence") in {"high", "medium", "low"}:
+        confidence = model_answer["confidence"]
+    reasoning_mode = model_answer.get("provider", "external_model") if model_answer else "local"
+    uncertainty = (
+        model_answer.get("uncertainty")
+        if model_answer
+        else _uncertainty(evidence, excerpt_items, confidence, direct_answer=direct_answer)
+    )
 
     return {
         "question": question,
         "answer": answer,
+        "reasoning_mode": reasoning_mode,
         "confidence": confidence,
         "cited_source_files": _source_files(evidence),
         "references": _references(evidence),
@@ -111,15 +151,19 @@ def answer_question(question):
     }
 
 
-def _build_excerpt(item, question, max_chars=520):
+def _build_excerpt(item, question, focus_terms=None, max_chars=360):
     text = _normalize_space(item.get("text", ""))
     sentences = _sentences(text)
     key_terms = set(_tokens(question))
+    answer_terms = set(_tokens(" ".join(focus_terms or [])))
     best_index = 0
     best_overlap = 0
 
     for index, sentence in enumerate(sentences):
-        overlap = len(key_terms.intersection(_tokens(sentence)))
+        sentence_terms = set(_tokens(sentence))
+        overlap = len(key_terms.intersection(sentence_terms))
+        if answer_terms:
+            overlap += len(answer_terms.intersection(sentence_terms)) * 4
         if overlap > best_overlap:
             best_index = index
             best_overlap = overlap
@@ -130,7 +174,8 @@ def _build_excerpt(item, question, max_chars=520):
     if len(selected) <= max_chars:
         return {"excerpt": selected, "matched_terms": best_overlap}
 
-    return {"excerpt": _trim_around_terms(selected, key_terms, max_chars), "matched_terms": best_overlap}
+    trim_terms = answer_terms or key_terms
+    return {"excerpt": _trim_around_terms(selected, trim_terms, max_chars), "matched_terms": best_overlap}
 
 
 def _draft_answer(question, excerpt_items):
@@ -150,6 +195,286 @@ def _draft_answer(question, excerpt_items):
     if not useful:
         useful = [excerpt_items[0]["excerpt"]]
     return " ".join(useful)
+
+
+def _external_reasoning_answer(question, evidence, excerpt_items):
+    ollama_answer = _ollama_reasoning_answer(question, evidence, excerpt_items)
+    if ollama_answer:
+        return {**ollama_answer, "provider": "ollama"}
+
+    openai_answer = _openai_reasoning_answer(question, evidence, excerpt_items)
+    if openai_answer:
+        return {**openai_answer, "provider": "openai"}
+
+    return None
+
+
+def _reasoning_payload(question, evidence, excerpt_items):
+    return [
+        {
+            "id": index + 1,
+            "file": item.get("path"),
+            "title": item.get("title"),
+            "type": _source_type(item.get("path", "")),
+            "date": item.get("source_date"),
+            "locator": item.get("locator", "text chunk"),
+            "excerpt": excerpt.get("excerpt"),
+        }
+        for index, (item, excerpt) in enumerate(zip(evidence, excerpt_items))
+    ]
+
+
+def _reasoning_system_prompt():
+    return (
+        "You are NOVA Project Memory. Answer the user's question using only the provided evidence. "
+        "Do not invent facts. Return the shortest answer that fully answers the question. "
+        "For date or status questions, prefer the latest authoritative decision over older plans, drafts, or proposals. "
+        "If the evidence is uncertain or conditional, say so in uncertainty. "
+        "Return only valid JSON with keys: answer, confidence, uncertainty. "
+        "confidence must be one of high, medium, low."
+    )
+
+
+def _reasoning_user_prompt(question, sources):
+    return json.dumps(
+        {
+            "question": question,
+            "evidence": sources,
+            "output_rules": [
+                "Answer in the same language as the question when possible.",
+                "Do not quote long excerpts in the answer.",
+                "Do not include references in the answer field; references are displayed separately by the app.",
+            ],
+        },
+        ensure_ascii=False,
+    )
+
+
+def _ollama_reasoning_answer(question, evidence, excerpt_items):
+    model = os.getenv("OLLAMA_MODEL")
+    if not model:
+        return None
+
+    sources = _reasoning_payload(question, evidence, excerpt_items)
+    body = {
+        "model": model,
+        "stream": False,
+        "format": "json",
+        "messages": [
+            {"role": "system", "content": _reasoning_system_prompt()},
+            {"role": "user", "content": _reasoning_user_prompt(question, sources)},
+        ],
+        "options": {
+            "temperature": 0,
+        },
+    }
+    base_url = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434").rstrip("/")
+    request = urllib.request.Request(
+        f"{base_url}/api/chat",
+        data=json.dumps(body).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+
+    try:
+        timeout = float(os.getenv("OLLAMA_TIMEOUT", "120"))
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            data = json.loads(response.read().decode("utf-8"))
+        content = data.get("message", {}).get("content", "")
+        return _parse_reasoning_json(content)
+    except (OSError, urllib.error.URLError, json.JSONDecodeError, TimeoutError, socket.timeout):
+        return None
+
+
+def _openai_reasoning_answer(question, evidence, excerpt_items):
+    if not os.getenv("OPENAI_API_KEY"):
+        return None
+
+    try:
+        from openai import OpenAI
+    except ImportError:
+        return None
+
+    sources = _reasoning_payload(question, evidence, excerpt_items)
+    schema = {
+        "type": "object",
+        "additionalProperties": False,
+        "properties": {
+            "answer": {"type": "string"},
+            "confidence": {"type": "string", "enum": ["high", "medium", "low"]},
+            "uncertainty": {"type": "string"},
+        },
+        "required": ["answer", "confidence", "uncertainty"],
+    }
+
+    try:
+        client = OpenAI()
+        response = client.responses.create(
+            model=os.getenv("NOVA_REASONING_MODEL", "gpt-4.1-mini"),
+            input=[
+                {"role": "system", "content": _reasoning_system_prompt()},
+                {"role": "user", "content": _reasoning_user_prompt(question, sources)},
+            ],
+            text={
+                "format": {
+                    "type": "json_schema",
+                    "name": "nova_answer",
+                    "schema": schema,
+                    "strict": True,
+                }
+            },
+        )
+        return _parse_reasoning_json(response.output_text)
+    except Exception:
+        return None
+
+
+def _parse_reasoning_json(content):
+    parsed = json.loads(_extract_json_object(content or ""))
+    if not isinstance(parsed, dict):
+        return None
+    answer = str(parsed.get("answer", "")).strip()
+    confidence = str(parsed.get("confidence", "")).strip().lower()
+    uncertainty = str(parsed.get("uncertainty", "")).strip()
+    if not answer or confidence not in {"high", "medium", "low"}:
+        return None
+    return {
+        "answer": answer,
+        "confidence": confidence,
+        "uncertainty": uncertainty,
+    }
+
+
+def _extract_json_object(content):
+    content = content.strip()
+    if content.startswith("```"):
+        content = re.sub(r"^```(?:json)?\s*", "", content, flags=re.I)
+        content = re.sub(r"\s*```$", "", content)
+    start = content.find("{")
+    end = content.rfind("}")
+    if start >= 0 and end >= start:
+        return content[start : end + 1]
+    return content
+
+
+def _direct_answer(question, evidence):
+    if _is_go_live_date_question(question):
+        candidate = _approved_go_live_candidate(evidence)
+        if candidate:
+            return {
+                "answer": f"La date de mise en production actuellement approuvée est le {candidate['date']}.",
+                "focus_terms": [candidate["date"], "approuvée", "mise en production"],
+                "evidence": candidate["evidence"],
+            }
+
+    return None
+
+
+def _is_go_live_date_question(question):
+    value = " ".join(_tokens(question))
+    return (
+        any(term in value for term in ["date", "quand", "echeance", "echeancier"])
+        and any(term in value for term in ["production", "go-live", "live"])
+        and any(term in value for term in ["approuvee", "approuve", "actuellement", "officielle", "cible"])
+    )
+
+
+def _approved_go_live_candidate(evidence):
+    candidates = []
+    for item in evidence:
+        text = _normalize_space(item.get("text", ""))
+        for date_match in _french_date_matches(text):
+            if _is_metadata_date(text, date_match.start()):
+                continue
+
+            window = _window_around(text, date_match.start(), date_match.end(), radius=170)
+            window_lower = window.lower()
+            if not any(term in window_lower for term in ["production", "go-live", "cible", "date"]):
+                continue
+
+            authority = _authority_score(window_lower)
+            if authority == 0:
+                continue
+
+            if re.search(r"\b(proposition|recommandation|brouillon|pas encore|non approuv|aucune approbation)\b", window_lower):
+                authority -= 2
+
+            if authority <= 0:
+                continue
+
+            candidates.append(
+                {
+                    "date": _normalize_french_date(date_match.group(0), item.get("source_date")),
+                    "authority": authority,
+                    "source_timestamp": item.get("source_timestamp") or 0,
+                    "score": item.get("score", 0),
+                    "item": item,
+                }
+            )
+
+    if not candidates:
+        return None
+
+    candidates.sort(
+        key=lambda candidate: (
+            candidate["authority"],
+            candidate["source_timestamp"],
+            candidate["score"],
+        ),
+        reverse=True,
+    )
+    best = candidates[0]
+    supporting = []
+    seen_paths = set()
+    for candidate in candidates:
+        item = candidate["item"]
+        path = item.get("path")
+        if candidate["date"] != best["date"] or path in seen_paths:
+            continue
+        seen_paths.add(path)
+        supporting.append(item)
+
+    best["evidence"] = supporting[:4]
+    return best
+
+
+def _authority_score(text):
+    score = 0
+    for term in ["approuve", "approuvée", "approuvee", "officielle", "demeure", "reste", "comite", "comité"]:
+        if term in text:
+            score += 2
+    for term in ["conditionnelle", "conditions", "critères", "criteres"]:
+        if term in text:
+            score += 1
+    return score
+
+
+def _is_metadata_date(text, start):
+    prefix = text[max(0, start - 18) : start].lower()
+    return any(marker in prefix for marker in ["date:", "date :", "créé :", "cree :", "created", "subject:"])
+
+
+def _french_date_matches(text):
+    month_pattern = (
+        "janvier|fevrier|février|mars|avril|mai|juin|juillet|aout|août|"
+        "sept|septembre|oct|octobre|novembre|decembre|décembre"
+    )
+    return list(re.finditer(rf"\b\d{{1,2}}\s+(?:{month_pattern})(?:\s+20\d{{2}})?\b", text or "", re.I))
+
+
+def _normalize_french_date(value, source_date=None):
+    value = _normalize_space(value).lower()
+    if re.search(r"\b20\d{2}\b", value):
+        return value
+
+    year = (source_date or "")[:4]
+    if year:
+        return f"{value} {year}"
+    return value
+
+
+def _window_around(text, start, end, radius=160):
+    return text[max(0, start - radius) : min(len(text), end + radius)].strip()
 
 
 def _latest_relevant_evidence(candidates, limit):
@@ -182,13 +507,15 @@ def _confidence(evidence, excerpt_items):
     return "low"
 
 
-def _uncertainty(evidence, excerpt_items, confidence):
+def _uncertainty(evidence, excerpt_items, confidence, direct_answer=None):
     text = " ".join(item["excerpt"].lower() for item in excerpt_items)
     notes = []
 
+    if direct_answer:
+        notes.append("Réponse extraite automatiquement à partir des sources citées.")
     if confidence == "low":
         notes.append("Les preuves retrouvees sont faibles ou peu nombreuses.")
-    elif confidence == "medium":
+    elif confidence == "medium" and not direct_answer:
         notes.append("La reponse repose sur une recherche lexicale locale, sans validation par un modele de raisonnement externe.")
 
     if re.search(r"\b(proposition|brouillon|a confirmer|confirmer|question|risque|peu de marge|pas approuv)", text):

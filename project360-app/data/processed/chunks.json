@@ -433,27 +433,36 @@
     "document_id": "doc-031",
     "path": "04_Documents_projet/Plan_Projet_NOVA_v2.xlsx",
     "title": "Plan Projet NOVA v2",
-    "tags": [],
+    "tags": [
+      "go-live",
+      "architecture"
+    ],
     "locator": "chunk 1",
-    "text": "XLSX extraction unavailable. Install openpyxl from requirements.txt."
+    "text": "[sheet Plan projet] ID | Activité | Statut | Responsable | Début planifié | Fin planifiée | Note P-01 | Cadrage | Terminé | Élodie Caron | 2026-07-07 | 2026-07-18 | P-02 | Architecture | Terminé | Marc Gervais | 2026-07-14 | 2026-08-28 | Migration Canada requise P-03 | Développement phase 1 | En cours | Boréal Numérique | 2026-07-20 | 2026-09-30 | P-04 | Tests intégrés | À venir | Mélissa Gagnon | 2026-09-21 | 2026-10-05 | P-05 | Préparation exploitation | À venir | Olivier Côté | 2026-09-28 | 2026-10-10 | P-06 | Mise en production | À venir | Élodie Caron | 2026-10-15 | 2026-10-15 | Cible initiale"
   },
   {
     "id": "doc-032-chunk-001",
     "document_id": "doc-032",
     "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
     "title": "Plan Projet NOVA v3 12sept",
-    "tags": [],
+    "tags": [
+      "go-live",
+      "architecture"
+    ],
     "locator": "chunk 1",
-    "text": "XLSX extraction unavailable. Install openpyxl from requirements.txt."
+    "text": "[sheet Plan projet] ID | Activité | Statut | Responsable | Début planifié | Fin planifiée | Note P-01 | Cadrage | Terminé | Élodie Caron | 2026-07-07 | 2026-07-18 | P-02 | Architecture | Terminé | Marc Gervais | 2026-07-14 | 2026-08-28 | Migration Canada requise P-03 | Développement phase 1 | En cours | Boréal Numérique | 2026-07-20 | 2026-09-30 | P-04 | Tests intégrés | À venir | Mélissa Gagnon | 2026-09-21 | 2026-10-05 | P-05 | Préparation exploitation | À venir | Olivier Côté | 2026-09-28 | 2026-10-10 | P-06 | Mise en production | À venir | Nicolas Perron | 2026-10-15 | 2026-10-15 | Cible de planification"
   },
   {
     "id": "doc-033-chunk-001",
     "document_id": "doc-033",
     "path": "04_Documents_projet/Rapport_Statut_21sept.pdf",
     "title": "Rapport Statut 21sept",
-    "tags": [],
+    "tags": [
+      "security",
+      "accessibility"
+    ],
     "locator": "chunk 1",
-    "text": "PDF extraction unavailable. Install pypdf from requirements.txt."
+    "text": "[page 1] Rapport de statut fictif Page 1 RAPPORT DE STATUT - NOVA - 21 SEPTEMBRE 2026 Synthèse Dimension Statut Commentaire Échéancier VERT Cible 22 octobre Budget VERT Sous le plafond contractuel Sécurité VERT Correctif SEC-210 livré Accessibilité VERT Correctifs appliqués Exploitation JAUNE Runbook à finaliser Commentaire de gestion Le projet est présenté comme globalement sous contrôle. Le rapport a été préparé avant la dernière vérification détaillée de certains tickets."
   },
   {
     "id": "doc-034-chunk-001",
@@ -461,19 +470,24 @@
     "path": "04_Documents_projet/Registre_Risques_29sept.xlsx",
     "title": "Registre Risques 29sept",
     "tags": [
+      "go-live",
+      "security",
+      "accessibility",
       "risk"
     ],
     "locator": "chunk 1",
-    "text": "XLSX extraction unavailable. Install openpyxl from requirements.txt."
+    "text": "[sheet Risques] ID | Risque | Probabilité | Impact | Propriétaire | Statut | Mitigation | Commentaire R-01 | Retard du connecteur interne | Moyenne | Élevé | Marc Gervais | Ouvert | Suivi fournisseur hebdomadaire | Suivi au 9 septembre 2026 R-02 | Validation sécurité incomplète | Élevée | Élevé | Sophie Lambert | Ouvert | Re-test de SEC-210 avant go-live | R-03 | Préparation exploitation incomplète | Moyenne | Élevé | Olivier Côté | Ouvert | Finaliser le runbook et le rollback | R-04 | Accessibilité | Moyenne | Moyen | Mélissa Gagnon | Ouvert | Fermer ACC-303 | R-05 | Migration données | Faible | Moyen | Camille Beaulieu | Fermé | Contrôle de doublons |"
   },
   {
     "id": "doc-035-chunk-001",
     "document_id": "doc-035",
     "path": "05_Contrats_et_finances/CONTRAT_Boreal_NOVA.pdf",
     "title": "CONTRAT Boreal NOVA",
-    "tags": [],
+    "tags": [
+      "change-request"
+    ],
     "locator": "chunk 1",
-    "text": "PDF extraction unavailable. Install pypdf from requirements.txt."
+    "text": "[page 1] Contrat fictif - Défi Projet 360 Page 1 CONTRAT DE SERVICES - PROJET NOVA Parties Client fictif : Organisation Démo Fournisseur fictif : Boréal Numérique Inc. Objet Conception et réalisation de la phase 1 du portail NOVA. Valeur contractuelle Élément Valeur Montant maximal initial 180 000 $ Devise CAD Période 7 juillet au 31 octobre 2026 Portée incluse SSO, création et suivi de demandes, pièces jointes, workflow de traitement, tableau de suivi et rapports standards. Gestion des changements Tout travail hors portée doit faire l’objet d’une demande de changement écrite et approuvée avant exécution et facturation."
   },
   {
     "id": "doc-036-chunk-001",
@@ -484,7 +498,7 @@
       "change-request"
     ],
     "locator": "chunk 1",
-    "text": "PDF extraction unavailable. Install pypdf from requirements.txt."
+    "text": "[page 1] Document fictif - Changement approuvé Page 1 DEMANDE DE CHANGEMENT CR-01 Objet Ajout de rapports avancés et export de synthèse. Impact financier Montant 24 000 $ Décision APPROUVÉE Date de décision 14 août 2026 Autorité Comité de projet Impact calendrier Aucun changement de la date cible annoncé au moment de l’approbation."
   },
   {
     "id": "doc-037-chunk-001",
@@ -495,7 +509,7 @@
       "change-request"
     ],
     "locator": "chunk 1",
-    "text": "PDF extraction unavailable. Install pypdf from requirements.txt."
+    "text": "[page 1] BROUILLON - Document fictif Page 1 DEMANDE DE CHANGEMENT CR-04 - BROUILLON Objet Optimisation avancée de l’expérience mobile pour écrans de moins de 768 px. Estimation Montant estimé 18 000 $ Statut BROUILLON - APPROBATION REQUISE Demande initiale 4 septembre 2026 Demandeur Boréal Numérique Note Aucun numéro d’approbation ni signature de comité n’est présent dans ce document."
   },
   {
     "id": "doc-038-chunk-001",
@@ -506,7 +520,7 @@
       "invoice"
     ],
     "locator": "chunk 1",
-    "text": "PDF extraction unavailable. Install pypdf from requirements.txt."
+    "text": "[page 1] Document synthétique - Aucun fournisseur réel Page 1 FACTURE INV-001 Fournisseur Boréal Numérique Inc. 1450, rue des Ateliers, Montréal (QC) H3X 0A1 Numéro fournisseur fictif : BN-4481 Détails Facture INV-001 Projet NOVA Date 2026-07-31 Statut Payée Facturation Description Montant Développement phase 1 - acompte 60 000 $ TOTAL 60 000 $"
   },
   {
     "id": "doc-039-chunk-001",
@@ -514,10 +528,11 @@
     "path": "05_Contrats_et_finances/INV-002.pdf",
     "title": "INV-002",
     "tags": [
-      "invoice"
+      "invoice",
+      "change-request"
     ],
     "locator": "chunk 1",
-    "text": "PDF extraction unavailable. Install pypdf from requirements.txt."
+    "text": "[page 1] Document synthétique - Aucun fournisseur réel Page 1 FACTURE INV-002 Fournisseur Boréal Numérique Inc. 1450, rue des Ateliers, Montréal (QC) H3X 0A1 Numéro fournisseur fictif : BN-4481 Détails Facture INV-002 Projet NOVA Date 2026-08-31 Statut Payée Facturation Description Montant Développement phase 1 - jalon 2 48 000 $ Rapports avancés - CR-01 24 000 $ TOTAL 72 000 $"
   },
   {
     "id": "doc-040-chunk-001",
@@ -525,10 +540,11 @@
     "path": "05_Contrats_et_finances/INV-003.pdf",
     "title": "INV-003",
     "tags": [
-      "invoice"
+      "invoice",
+      "change-request"
     ],
     "locator": "chunk 1",
-    "text": "PDF extraction unavailable. Install pypdf from requirements.txt."
+    "text": "[page 1] Document synthétique - Aucun fournisseur réel Page 1 FACTURE INV-003 Fournisseur Boréal Numérique Inc. 1450, rue des Ateliers, Montréal (QC) H3X 0A1 Numéro fournisseur fictif : BN-4481 Détails Facture INV-003 Projet NOVA Date 2026-09-22 Statut En validation Facturation Description Montant Développement phase 1 - jalon 3 36 000 $ Optimisation interface mobile - CR-04 18 000 $ TOTAL 54 000 $ Note La référence CR-04 apparaît sur la ligne mobile."
   },
   {
     "id": "doc-041-chunk-001",
@@ -552,7 +568,7 @@
       "architecture"
     ],
     "locator": "chunk 1",
-    "text": "PDF extraction unavailable. Install pypdf from requirements.txt."
+    "text": "[page 1] Architecture NOVA - v1 - 18 juillet 2026 Version initiale préparée avant la décision de localisation des données. Utilisateur Portail NOVA API Données East US Schéma fictif - Projet 360"
   },
   {
     "id": "doc-043-chunk-001",
@@ -563,7 +579,7 @@
       "architecture"
     ],
     "locator": "chunk 1",
-    "text": "PDF extraction unavailable. Install pypdf from requirements.txt."
+    "text": "[page 1] Architecture NOVA - v2 - 25 août 2026 Version révisée après ADR-007. Utilisateur Portail NOVA API Données Canada Central Schéma fictif - Projet 360"
   },
   {
     "id": "doc-044-chunk-001",
@@ -637,7 +653,7 @@
       "invoice"
     ],
     "locator": "chunk 1",
-    "text": "PDF extraction unavailable. Install pypdf from requirements.txt."
+    "text": "[page 1] Document synthétique - Aucun fournisseur réel Page 1 FACTURE INV-778 Fournisseur Boréal Numérique Inc. 1450, rue des Ateliers, Montréal (QC) H3X 0A1 Numéro fournisseur fictif : BN-4481 Détails Facture INV-778 Projet ORION Date 2026-09-20 Statut Payée Facturation Description Montant Migration données - projet ORION 41 000 $ TOTAL 41 000 $ Note Cette facture concerne un autre projet."
   },
   {
     "id": "doc-051-chunk-001",
@@ -673,9 +689,11 @@
     "document_id": "doc-054",
     "path": "08_Archives_et_documents_connexes/Plan_NOVA_preliminaire_juin.xlsx",
     "title": "Plan NOVA preliminaire juin",
-    "tags": [],
+    "tags": [
+      "go-live"
+    ],
     "locator": "chunk 1",
-    "text": "XLSX extraction unavailable. Install openpyxl from requirements.txt."
+    "text": "[sheet Plan projet] ID | Activité | Statut | Responsable | Début | Fin | Note P-01 | Cadrage | À venir | Élodie Caron | 2026-07-07 | 2026-07-18 | P-06 | Mise en production | À venir | Élodie Caron | 2026-10-15 | 2026-10-15 | Version préliminaire"
   },
   {
     "id": "doc-055-chunk-001",

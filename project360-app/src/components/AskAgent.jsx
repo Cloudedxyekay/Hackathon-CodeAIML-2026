@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AlertCircle, FileText, Mail, Send, Table2 } from "lucide-react";
+import { FileText, Mail, Send, Table2 } from "lucide-react";
 
 const sourceIcons = {
   email: Mail,
@@ -69,9 +69,11 @@ export default function AskAgent() {
         <div className="panel">
           <div className="answer-header">
             <div>
-              <p className="answer-text"><strong>Answer:</strong> {answer.answer}</p>
+              <p className="answer-text"><strong>Answer: </strong> {answer.answer}</p>
             </div>
-            <span className={`confidence ${answer.confidence}`}>{answer.confidence}</span>
+            <div className="answer-badges">
+              <span className="reasoning-mode">{answer.reasoning_mode ?? "local"}</span>
+            </div>
           </div>
 
           <div className="references-block">
@@ -95,16 +97,6 @@ export default function AskAgent() {
                 );
               })}
             </ol>
-          </div>
-
-          <div className="uncertainty-block">
-            <div>
-              <p className="section-label">What is uncertain</p>
-              <p className="uncertainty">
-                <AlertCircle size={16} />
-                {answer.uncertainty}
-              </p>
-            </div>
           </div>
 
           <p className="section-label">Exact excerpts</p>

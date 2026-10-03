@@ -31,14 +31,9 @@ export default function BonusComparison() {
         </ul>
       </div>
       <div className="metric">
-        <span>Evidence Answers</span>
-        <strong>{brief.evidence_ready_answers}</strong>
-      </div>
-      <div className="metric">
         <span>Timeline Events</span>
         <strong>{brief.timeline_events}</strong>
       </div>
     </section>
   );
 }
-

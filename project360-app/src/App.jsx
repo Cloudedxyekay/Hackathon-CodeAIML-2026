@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import { Activity, Bot, FileSearch, GitCompare, History, LayoutDashboard, ListChecks, RefreshCw, Search } from "lucide-react";
+import { Activity, Bot, FileSearch, FolderKanban, GitCompare, History, LayoutDashboard, RefreshCw, Search } from "lucide-react";
 import Dashboard from "./components/Dashboard.jsx";
 import AskAgent from "./components/AskAgent.jsx";
+import Dossier from "./components/Dossier.jsx";
 import EvidenceSearch from "./components/EvidenceSearch.jsx";
-import QuestionAnswers from "./components/QuestionAnswers.jsx";
 import Timeline from "./components/Timeline.jsx";
 import UpdateSimulator from "./components/UpdateSimulator.jsx";
 import BonusComparison from "./components/BonusComparison.jsx";
 
 const tabs = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { id: "dossier", label: "Dossier", icon: FolderKanban },
   { id: "ask", label: "Ask NOVA", icon: Bot },
   { id: "search", label: "Evidence", icon: Search },
-  { id: "questions", label: "Questions", icon: ListChecks },
   { id: "timeline", label: "Timeline", icon: History },
   { id: "updates", label: "Updates", icon: RefreshCw },
   { id: "bonus", label: "Bonus", icon: GitCompare }
@@ -32,9 +32,9 @@ export default function App() {
 
   const ActiveComponent = {
     dashboard: Dashboard,
+    dossier: Dossier,
     ask: AskAgent,
     search: EvidenceSearch,
-    questions: QuestionAnswers,
     timeline: Timeline,
     updates: UpdateSimulator,
     bonus: BonusComparison
@@ -75,7 +75,7 @@ export default function App() {
           </div>
           <div className="status-pill">
             <FileSearch size={16} />
-            {loading ? "Loading corpus" : `${dashboard?.answers?.length ?? 0} challenge questions`}
+            {loading ? "Loading corpus" : `${dashboard?.documents?.length ?? 0} evidence files`}
           </div>
         </header>
         <ActiveComponent dashboard={dashboard} />

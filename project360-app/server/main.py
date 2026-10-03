@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from .rag import answer_question, search_documents
+from .rag import answer_question, reasoning_status, search_documents
 from .ingest import ingest_corpus
 from .prompts import build_update_analysis, generate_executive_brief
 
@@ -50,6 +50,11 @@ def health():
     return {"ok": True, "service": "nova-project-memory"}
 
 
+@app.get("/api/reasoning-status")
+def reasoning():
+    return reasoning_status()
+
+
 @app.post("/api/ingest")
 def ingest():
     result = ingest_corpus()
@@ -62,6 +67,7 @@ def dashboard():
         "baseline": read_json("baseline.json", {}),
         "timeline": read_json("timeline.json", []),
         "actions": read_json("actions.json", []),
+        "documents": read_json("documents.json", []),
         "answers": read_json("answers.json", []),
     }
 
@@ -79,6 +85,11 @@ def timeline():
 @app.get("/api/documents")
 def documents():
     return read_json("documents.json", [])
+
+
+@app.get("/api/dossier")
+def dossier():
+    return read_json("dossier.json", {"sections": []})
 
 
 @app.post("/api/search")
@@ -106,4 +117,3 @@ def brief():
         timeline=read_json("timeline.json", []),
         actions=read_json("actions.json", []),
     )
-

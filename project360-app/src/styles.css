@@ -172,6 +172,151 @@ h1 {
   padding-left: 18px;
 }
 
+.dossier-brief {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.dossier-brief h2 {
+  margin-bottom: 8px;
+}
+
+.dossier-brief p {
+  margin-bottom: 0;
+  color: #4b5563;
+}
+
+.brief-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.brief-item {
+  border: 1px solid #d9e1ee;
+  border-radius: 8px;
+  background: #fbfdff;
+  padding: 10px;
+}
+
+.brief-item span,
+.action-row span,
+.source-chip span {
+  display: block;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.brief-item strong {
+  display: block;
+  color: #18212f;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.section-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.section-tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid #d9e1ee;
+  border-radius: 8px;
+  background: white;
+  color: #374151;
+  padding: 9px 11px;
+  cursor: pointer;
+}
+
+.section-tabs button.active,
+.section-tabs button:hover {
+  border-color: #2563eb;
+  color: #1d4ed8;
+  background: #eff6ff;
+}
+
+.dossier-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.dossier-section {
+  display: grid;
+  gap: 16px;
+}
+
+.dossier-section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.dossier-section-header h3 {
+  margin-bottom: 4px;
+}
+
+.dossier-section-header p {
+  margin-bottom: 0;
+  color: #4b5563;
+}
+
+.section-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: #f8fafc;
+  color: #374151;
+  border: 1px solid #d9e1ee;
+  padding: 6px 9px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.dossier-column {
+  display: grid;
+  gap: 8px;
+}
+
+.dossier-column .clean-list {
+  display: grid;
+  gap: 6px;
+}
+
+.action-list,
+.source-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.action-row,
+.source-chip {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 8px;
+  align-items: flex-start;
+  border: 1px solid #d9e1ee;
+  border-radius: 8px;
+  background: #fbfdff;
+  padding: 10px;
+}
+
+.action-row strong,
+.source-chip strong {
+  display: block;
+  color: #18212f;
+  overflow-wrap: anywhere;
+}
+
 .field-label {
   display: block;
   font-weight: 700;
@@ -244,6 +389,25 @@ textarea {
 .confidence {
   flex: 0 0 auto;
   border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.answer-badges {
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.reasoning-mode {
+  border: 1px solid #d9e1ee;
+  border-radius: 999px;
+  background: #fbfdff;
+  color: #4b5563;
   padding: 6px 10px;
   font-size: 12px;
   font-weight: 800;
@@ -385,23 +549,6 @@ textarea {
   font-size: 12px;
 }
 
-.qa {
-  display: grid;
-  grid-template-columns: 68px minmax(0, 1fr);
-  gap: 16px;
-}
-
-.question-id {
-  width: 52px;
-  height: 52px;
-  display: grid;
-  place-items: center;
-  border-radius: 8px;
-  background: #ecfdf5;
-  color: #047857;
-  font-weight: 800;
-}
-
 .timeline {
   display: grid;
   gap: 14px;
@@ -435,11 +582,16 @@ textarea {
   .input-row,
   .timeline-event,
   .answer-header,
-  .result-grid {
+  .answer-badges,
+  .result-grid,
+  .dossier-brief,
+  .dossier-section-header {
     display: grid;
   }
 
-  .page-grid {
+  .page-grid,
+  .dossier-grid,
+  .brief-grid {
     grid-template-columns: 1fr;
   }
 

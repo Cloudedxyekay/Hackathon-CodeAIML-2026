@@ -1,0 +1,302 @@
+{
+  "as_of": "2026-09-30 09:00 America/Montreal",
+  "summary": {
+    "title": "Dossier de reprise NOVA",
+    "status": "Projet en cible 22 octobre 2026, conditionnel aux validations securite, accessibilite et exploitation.",
+    "owner": "Nicolas Perron depuis le 16 septembre 2026",
+    "budget": "180 000 $ CAD initial + CR-01 approuve. CR-04 mobile avance n'est pas approuve.",
+    "principle": "Une proposition, une livraison ou une capture ancienne ne vaut pas approbation finale."
+  },
+  "sections": [
+    {
+      "id": "pilotage",
+      "title": "Pilotage et decisions",
+      "status": "A jour",
+      "purpose": "Identifier qui porte le projet et quelles decisions font autorite.",
+      "facts": [
+        "Elodie Caron etait chargee de projet au demarrage; Nicolas Perron reprend officiellement le projet le 16 septembre 2026.",
+        "Les decisions et suivis futurs doivent etre diriges vers Nicolas.",
+        "Le comite du 10 septembre approuve le deplacement de la date de mise en production du 15 au 22 octobre 2026."
+      ],
+      "open_items": [
+        {
+          "label": "Mettre a jour les communications et plans qui mentionnent encore le 15 octobre.",
+          "owner": "Nicolas Perron",
+          "due": "A confirmer"
+        }
+      ],
+      "sources": [
+        {
+          "file": "04_Documents_projet/Note_transition_Elodie_16sept.txt",
+          "locator": "lignes 3-8",
+          "note": "Nicolas reprend le role et doit mettre la date a jour."
+        },
+        {
+          "file": "02_Reunions/M04_Transcript_Comite_direction_10sept.txt",
+          "locator": "15:22-15:25",
+          "note": "Decision approuvee: date officielle au 22 octobre."
+        },
+        {
+          "file": "07_Conversations_Teams/Teams_16sept_Transition.txt",
+          "locator": "08:45-08:47",
+          "note": "Rappel Teams de transition."
+        }
+      ]
+    },
+    {
+      "id": "go-live",
+      "title": "Mise en production",
+      "status": "Conditionnelle",
+      "purpose": "Distinguer la date approuvee des conditions de go-live.",
+      "facts": [
+        "La date actuellement approuvee est le 22 octobre 2026.",
+        "Le 22 octobre n'est pas un go garanti; il depend de trois validations restantes.",
+        "La date a change a cause du risque cree par le connecteur interne et du besoin de stabilisation."
+      ],
+      "open_items": [
+        {
+          "label": "Obtenir l'acceptation securite de SEC-210.",
+          "owner": "Sophie Lambert",
+          "due": "A confirmer"
+        },
+        {
+          "label": "Fermer ACC-303 sur la navigation clavier de la modale.",
+          "owner": "Melissa Gagnon / Boreal",
+          "due": "Prochaine build"
+        },
+        {
+          "label": "Faire approuver le runbook incluant rollback et validation post-deploiement.",
+          "owner": "Olivier Cote / Boreal ops",
+          "due": "A confirmer"
+        }
+      ],
+      "sources": [
+        {
+          "file": "01_Courriels/E09_Rappel_mise_en_production.eml",
+          "locator": "message du 27 septembre",
+          "note": "Cible approuvee demeure le 22 octobre, sous conditions."
+        },
+        {
+          "file": "02_Reunions/M06_Transcript_Comite_26sept.txt",
+          "locator": "10:09-10:15",
+          "note": "Trois conditions concretes confirmees."
+        },
+        {
+          "file": "03_Tickets/OPS-601_runbook.png",
+          "locator": "capture version 25 septembre",
+          "note": "Rollback TODO; validation fonctionnelle post-deploiement a completer."
+        }
+      ]
+    },
+    {
+      "id": "portee",
+      "title": "Portee et changements",
+      "status": "Sous controle",
+      "purpose": "Separer la phase 1 approuvee des demandes reportees.",
+      "facts": [
+        "La phase 1 inclut SSO, demandes, pieces jointes, workflow, tableau de suivi et rapports standards.",
+        "La compatibilite mobile de base reste attendue.",
+        "Les optimisations mobiles avancees CR-04 sont reportees a la phase 2 et ne sont pas approuvees pour facturation."
+      ],
+      "open_items": [
+        {
+          "label": "Verifier que toute facture liee a CR-04 est bloquee sans nouvelle approbation.",
+          "owner": "Amelie Fortin / Nicolas Perron",
+          "due": "Avant liberation d'INV-003"
+        }
+      ],
+      "sources": [
+        {
+          "file": "02_Reunions/M01_CR_Demarrage_07juillet.txt",
+          "locator": "Decisions",
+          "note": "Portee phase 1 initiale."
+        },
+        {
+          "file": "06_Architecture_et_decisions/Decision_Portee_Phase2.md",
+          "locator": "decision du 24 septembre",
+          "note": "CR-04 reporte a la phase 2."
+        },
+        {
+          "file": "07_Conversations_Teams/Teams_22sept_Mobile.txt",
+          "locator": "13:06",
+          "note": "Le package CR-04 a 18k n'est pas approuve."
+        }
+      ]
+    },
+    {
+      "id": "finance",
+      "title": "Contrats et finances",
+      "status": "Attention requise",
+      "purpose": "Clarifier les montants autorises, factures et depenses contestables.",
+      "facts": [
+        "Le budget initial maximal documente est de 180 000 $ CAD.",
+        "CR-01 est approuve; CR-04 est seulement un brouillon/reporte.",
+        "INV-003 contient une ligne de 18 000 $ pour CR-04, sans approbation correspondante."
+      ],
+      "open_items": [
+        {
+          "label": "Mettre INV-003 en attente ou retirer la ligne CR-04 tant qu'aucune approbation n'existe.",
+          "owner": "Amelie Fortin",
+          "due": "A confirmer"
+        }
+      ],
+      "sources": [
+        {
+          "file": "04_Documents_projet/Charte_Projet_NOVA_v1.txt",
+          "locator": "budget initial",
+          "note": "Budget initial: 180 000 $ CAD."
+        },
+        {
+          "file": "01_Courriels/E07_Facture_003_question.eml",
+          "locator": "message du 23 septembre",
+          "note": "Question sur la ligne de 18 000 $ CR-04."
+        },
+        {
+          "file": "01_Courriels/E10_Fonction_mobile.eml",
+          "locator": "message du 24 septembre",
+          "note": "Aucune depense CR-04 sans nouvelle approbation."
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "title": "Architecture et donnees",
+      "status": "Decision implementee",
+      "purpose": "Fixer la localisation de production et les preuves de mise en oeuvre.",
+      "facts": [
+        "Les donnees de production NOVA doivent demeurer au Canada.",
+        "La region de production retenue est Canada Central.",
+        "Boreal confirme le 26 aout que la migration vers Canada Central est completee; le comite du 27 aout la considere verifiee."
+      ],
+      "open_items": [
+        {
+          "label": "Conserver Architecture_NOVA_v1 comme obsolete sur la localisation; referencer v2 pour la production.",
+          "owner": "Marc Gervais",
+          "due": "Fait / a surveiller dans les communications"
+        }
+      ],
+      "sources": [
+        {
+          "file": "06_Architecture_et_decisions/ADR-007_Localisation_donnees.md",
+          "locator": "decision",
+          "note": "Production dans Canada Central."
+        },
+        {
+          "file": "01_Courriels/E03_Confirmation_Canada_Central.eml",
+          "locator": "message du 26 aout",
+          "note": "Migration completee et test de connectivite."
+        },
+        {
+          "file": "02_Reunions/M03_CR_Comite_27aout.txt",
+          "locator": "resume de gestion",
+          "note": "Migration declaree terminee et verifiee."
+        }
+      ]
+    },
+    {
+      "id": "securite",
+      "title": "Securite",
+      "status": "En validation",
+      "purpose": "Distinguer correctif livre et acceptation securite.",
+      "facts": [
+        "SEC-210 concerne une journalisation incomplete de l'export CSV administrateur.",
+        "Boreal a livre un correctif le 19 septembre.",
+        "Sophie maintient que le ticket ne doit pas etre ferme avant re-test et validation securite."
+      ],
+      "open_items": [
+        {
+          "label": "Executer le re-test securite et confirmer l'acceptation de SEC-210.",
+          "owner": "Sophie Lambert",
+          "due": "A confirmer"
+        }
+      ],
+      "sources": [
+        {
+          "file": "03_Tickets/SEC-210.txt",
+          "locator": "commentaires 19 et 26 septembre",
+          "note": "Statut EN VALIDATION."
+        },
+        {
+          "file": "07_Conversations_Teams/Teams_19sept_Securite.txt",
+          "locator": "10:24-10:34",
+          "note": "Livre ne veut pas dire accepte."
+        },
+        {
+          "file": "02_Reunions/M06_Transcript_Comite_26sept.txt",
+          "locator": "10:01-10:03",
+          "note": "Acceptation securite non donnee."
+        }
+      ]
+    },
+    {
+      "id": "accessibilite",
+      "title": "Accessibilite",
+      "status": "Bloquant ouvert",
+      "purpose": "Identifier ce qui est corrige et ce qui bloque encore la production.",
+      "facts": [
+        "Les anomalies de labels et contraste ont ete corrigees et validees en aout.",
+        "ACC-303 reste ouvert: le bouton Enregistrer de la modale n'est pas atteignable au clavier.",
+        "Melissa considere ACC-303 bloquant avant production."
+      ],
+      "open_items": [
+        {
+          "label": "Livrer et valider le correctif ACC-303.",
+          "owner": "Boreal / Melissa Gagnon",
+          "due": "Prochaine build"
+        }
+      ],
+      "sources": [
+        {
+          "file": "03_Tickets/ACC-303.txt",
+          "locator": "commentaires 17-26 septembre",
+          "note": "Statut OUVERT."
+        },
+        {
+          "file": "02_Reunions/M06_Transcript_Comite_26sept.txt",
+          "locator": "10:05",
+          "note": "Bloquant accessibilite avant production."
+        },
+        {
+          "file": "02_Reunions/M03_CR_Comite_27aout.txt",
+          "locator": "points discutes",
+          "note": "Labels et contraste corriges; second passage clavier requis."
+        }
+      ]
+    },
+    {
+      "id": "risques",
+      "title": "Risques et contradictions",
+      "status": "A surveiller",
+      "purpose": "Expliquer les informations contradictoires par date, autorite et statut.",
+      "facts": [
+        "Les sources du 7 juillet et certaines notes personnelles mentionnent encore le 15 octobre, mais elles sont depassees par la decision du 10 septembre.",
+        "Le brouillon de communication du 21 septembre dit securite/accessibilite completees; il est contredit par SEC-210, ACC-303 et le comite du 26 septembre.",
+        "INT-101 a cause le risque de report, mais il est ferme depuis le 17 septembre apres correction et tests rejoues."
+      ],
+      "open_items": [
+        {
+          "label": "Marquer les sources anciennes, brouillons et notes personnelles comme non autoritatives dans les reponses.",
+          "owner": "Equipe NOVA Memory",
+          "due": "Continu"
+        }
+      ],
+      "sources": [
+        {
+          "file": "03_Tickets/INT-101.txt",
+          "locator": "resolution du 17 septembre",
+          "note": "Cause initiale fermee."
+        },
+        {
+          "file": "01_Courriels/E11_Communication_statut.eml",
+          "locator": "brouillon du 21 septembre",
+          "note": "Brouillon trop optimiste, non final."
+        },
+        {
+          "file": "08_Archives_et_documents_connexes/Notes_personnelles_quelquun.txt",
+          "locator": "note personnelle",
+          "note": "Source non officielle."
+        }
+      ]
+    }
+  ]
+}

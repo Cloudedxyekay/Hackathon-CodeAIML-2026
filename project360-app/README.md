@@ -81,6 +81,7 @@ python -m server.ingest
 
 The `Ask NOVA` tab calls `POST /api/ask` with a user question and returns an evidence-grounded response. The screen shows the text answer first, then lists the documents, emails, spreadsheets, notes, or other sources used to produce that answer.
 When multiple relevant sources are found, NOVA favors the latest dated source document or email and shows that source date in the reference list.
+For direct factual questions, such as the currently approved go-live date, NOVA extracts only the requested fact for the answer and keeps the longer proof text in the excerpts section.
 
 - `answer`: concise synthesis from retrieved corpus excerpts.
 - `confidence`: `high`, `medium`, or `low`, based on retrieval strength and source coverage.
@@ -89,7 +90,44 @@ When multiple relevant sources are found, NOVA favors the latest dated source do
 - `excerpts`: exact cited text snippets with locator and score.
 - `uncertainty`: what NOVA cannot confirm or what still needs human review.
 
-This implementation is local and self-contained. It uses lexical retrieval over `data/processed/chunks.json`; add a hosted LLM later if you want stronger synthesis while keeping the same response shape.
+This implementation is local and self-contained. It uses lexical retrieval over `data/processed/chunks.json`; add a hosted LLM later if you want stronger synthesis while keeping the same response shape. PDF and Excel ingestion are supported through `pypdf` and `openpyxl` from `requirements.txt`.
+
+### Optional External Reasoning Model
+
+Ask NOVA can use a reasoning model after local retrieval. The app still retrieves evidence locally, then sends only the selected snippets to the model for concise synthesis.
+
+For a hackathon demo, Ollama is the most reliable option because it runs locally and does not require API keys.
+
+Ollama setup:
+
+```powershell
+ollama pull qwen2.5:7b
+$env:OLLAMA_MODEL="qwen2.5:7b"
+uvicorn server.main:app --reload --port 8000
+```
+
+If Ollama runs somewhere other than `http://127.0.0.1:11434`, set:
+
+```powershell
+$env:OLLAMA_BASE_URL="http://127.0.0.1:11434"
+```
+
+OpenAI remains optional if you prefer a hosted model:
+
+PowerShell:
+
+```powershell
+pip install openai
+$env:OPENAI_API_KEY="your-api-key"
+$env:NOVA_REASONING_MODEL="gpt-4.1-mini"
+uvicorn server.main:app --reload --port 8000
+```
+
+Reasoning order:
+
+1. Use `OLLAMA_MODEL` when set.
+2. Use OpenAI when `OPENAI_API_KEY` is set.
+3. Fall back to the local answer extractor.
 
 ## What To Improve Next
 
