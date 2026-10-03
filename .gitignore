@@ -208,6 +208,13 @@ cython_debug/
 # Temporary file for partial code execution
 tempCodeRunnerFile.py
 
+# Project 360 local/generated artifacts
+project360-app/node_modules/
+project360-app/dist/
+project360-app/.vite/
+project360-app/data/processed/embeddings.json
+project360-app/data/processed/ai_enrichment.json
+
 # Ruff stuff:
 .ruff_cache/
 
