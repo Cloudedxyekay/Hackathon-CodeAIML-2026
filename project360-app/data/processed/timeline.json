@@ -1,10 +1,2856 @@
 [
   {
-    "date": "2026-09-30T09:00:00-04:00",
-    "type": "baseline",
-    "title": "Baseline du dossier NOVA",
-    "summary": "Etat initial a reconstruire depuis le corpus avant toute nouvelle information.",
-    "sources": ["consignes.pdf"]
+    "date": "2026-07-07",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Charte Projet NOVA v1",
+    "summary": "CHARTE DE PROJET NOVA - VERSION 1 Date : 7 juillet 2026 Chargée de projet : Élodie Caron Fournisseur : Boréal Numérique Budget initial : 180 000 $ CAD Date cible de mise en production : 15 octobre 2026 Objectif Remplacer le suivi dispersé par courriel et fichiers locaux par un portail centralisé de demandes opérationnelles. Portée phase 1 - Authentification SSO - Création et suivi de demandes - Ajout de pièces jointes - Workflow de traitement - Tableau de suivi - Rapports standards Cette charte constitue le point de départ du projet et n'est pas mise à jour automatiquement après chaque décision de comité.",
+    "type": "decision",
+    "status": "approved",
+    "topic": "scope",
+    "owner": null,
+    "owner_role": null,
+    "evidence": [
+      {
+        "document_id": "doc-029",
+        "path": "04_Documents_projet/Charte_Projet_NOVA_v1.txt",
+        "locator": "Document",
+        "excerpt": "CHARTE DE PROJET NOVA - VERSION 1\nDate : 7 juillet 2026\n\nChargée de projet : Élodie Caron\nFournisseur : Boréal Numérique\nBudget initial : 180 000 $ CAD\nDate cible de mise en production : 15 octobre 2026\n\nObjectif\nRemplacer le suivi dispersé par courriel et fichiers locaux par un portail centralisé de demandes opérationnelles.\n\nPortée phase 1\n- Authentification SSO\n- Création et suivi de demandes\n- Ajout de pièces jointes\n- Workflow de traitement\n- Tableau de suivi\n- Rapports standards\n\nCette charte constitue le point de départ du projet et n'est pas mise à jour automatiquement après chaque décision de comité.",
+        "published_on": "2026-07-07"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "04_Documents_projet/Charte_Projet_NOVA_v1.txt"
+    ],
+    "id": "evt-1009fd4bd16f"
+  },
+  {
+    "date": "2026-07-07",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "M01 CR Demarrage 07juillet",
+    "summary": "PROJET NOVA - COMPTE RENDU DE DÉMARRAGE Date : 7 juillet 2026 Participants : Élodie Caron, Nicolas Perron, Marc Gervais, Sophie Lambert, Camille Beaulieu, représentant Boréal Objectif Lancer officiellement le projet NOVA et confirmer la portée de la phase 1. Décisions - Élodie Caron agit comme chargée de projet. - Budget initial maximal : 180 000 $ CAD. - Cible de mise en production : 15 octobre 2026. - La phase 1 comprend SSO, création/suivi de demandes, pièces jointes, workflow, tableau de suivi et rapports standards. Actions - Boréal : fournir le premier schéma d'architecture. - Marc : confirmer les modalités du connecteur interne. - Sophie : préparer les exigences de sécurité. Note L'expérience mobile avancée n'a pas été discutée comme livrable distinct pendant cette rencontre.",
+    "type": "decision",
+    "status": "approved",
+    "topic": "security",
+    "owner": null,
+    "owner_role": null,
+    "evidence": [
+      {
+        "document_id": "doc-013",
+        "path": "02_Reunions/M01_CR_Demarrage_07juillet.txt",
+        "locator": "Document",
+        "excerpt": "PROJET NOVA - COMPTE RENDU DE DÉMARRAGE\nDate : 7 juillet 2026\nParticipants : Élodie Caron, Nicolas Perron, Marc Gervais, Sophie Lambert, Camille Beaulieu, représentant Boréal\n\nObjectif\nLancer officiellement le projet NOVA et confirmer la portée de la phase 1.\n\nDécisions\n- Élodie Caron agit comme chargée de projet.\n- Budget initial maximal : 180 000 $ CAD.\n- Cible de mise en production : 15 octobre 2026.\n- La phase 1 comprend SSO, création/suivi de demandes, pièces jointes, workflow, tableau de suivi et rapports standards.\n\nActions\n- Boréal : fournir le premier schéma d'architecture.\n- Marc : confirmer les modalités du connecteur interne.\n- Sophie : préparer les exigences de sécurité.\n\nNote\nL'expérience mobile avancée n'a pas été discutée comme livrable distinct pendant cette rencontre.",
+        "published_on": "2026-07-07"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M01_CR_Demarrage_07juillet.txt"
+    ],
+    "id": "evt-fe5caaa388c2"
+  },
+  {
+    "date": "2026-07-07",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "NOVA - confirmation du démarrage",
+    "summary": "Bonjour, Merci pour la rencontre de ce matin. Je confirme le démarrage de NOVA. Les éléments de référence sont ceux de la charte : budget initial de 180 000 $, mise en production ciblée au 15 octobre et je prends le rôle de chargée de projet. Merci de me signaler rapidement tout enjeu susceptible d'affecter le chemin critique. Élodie",
+    "type": "update",
+    "status": "reported",
+    "topic": "finance",
+    "owner": "Élodie Caron",
+    "owner_role": "Auteur",
+    "evidence": [
+      {
+        "document_id": "doc-001",
+        "path": "01_Courriels/E01_Lancement_NOVA.eml",
+        "locator": "Corps du courriel",
+        "excerpt": "Bonjour,\nMerci pour la rencontre de ce matin. Je confirme le démarrage de NOVA.\nLes éléments de référence sont ceux de la charte : budget initial de 180 000 $, mise en production ciblée au 15 octobre et je prends le rôle de chargée de projet.\nMerci de me signaler rapidement tout enjeu susceptible d'affecter le chemin critique.\nÉlodie",
+        "published_on": "2026-07-07"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "01_Courriels/E01_Lancement_NOVA.eml"
+    ],
+    "id": "evt-fe66e88b9f61"
+  },
+  {
+    "date": "2026-07-07",
+    "end_date": "2026-07-18",
+    "date_kind": "planned",
+    "title": "Cadrage",
+    "summary": "P-01 | Cadrage | Terminé | Élodie Caron | 2026-07-07 | 2026-07-18 |",
+    "type": "milestone",
+    "status": "completed",
+    "topic": "delivery",
+    "owner": "Élodie Caron",
+    "owner_role": "Responsable du plan",
+    "evidence": [
+      {
+        "document_id": "doc-032",
+        "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
+        "locator": "Plan projet · ligne 3",
+        "excerpt": "P-01 | Cadrage | Terminé | Élodie Caron | 2026-07-07 | 2026-07-18 |",
+        "published_on": "2026-09-12"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx"
+    ],
+    "plan_id": "P-01",
+    "id": "evt-c3e2d1d9e95b"
+  },
+  {
+    "date": "2026-07-14",
+    "end_date": "2026-08-28",
+    "date_kind": "planned",
+    "title": "Architecture",
+    "summary": "P-02 | Architecture | Terminé | Marc Gervais | 2026-07-14 | 2026-08-28 | Migration Canada requise",
+    "type": "milestone",
+    "status": "completed",
+    "topic": "architecture",
+    "owner": "Marc Gervais",
+    "owner_role": "Responsable du plan",
+    "evidence": [
+      {
+        "document_id": "doc-032",
+        "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
+        "locator": "Plan projet · ligne 4",
+        "excerpt": "P-02 | Architecture | Terminé | Marc Gervais | 2026-07-14 | 2026-08-28 | Migration Canada requise",
+        "published_on": "2026-09-12"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx"
+    ],
+    "plan_id": "P-02",
+    "id": "evt-2df12c9568ee"
+  },
+  {
+    "date": "2026-07-18",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Architecture NOVA v1",
+    "summary": "[page 1] Architecture NOVA - v1 - 18 juillet 2026 Version initiale préparée avant la décision de localisation des données. Utilisateur Portail NOVA API Données East US Schéma fictif - Projet 360",
+    "type": "decision",
+    "status": "approved",
+    "topic": "architecture",
+    "owner": null,
+    "owner_role": null,
+    "evidence": [
+      {
+        "document_id": "doc-042",
+        "path": "06_Architecture_et_decisions/Architecture_NOVA_v1.pdf",
+        "locator": "Page 1",
+        "excerpt": "[page 1] Architecture NOVA - v1 - 18 juillet 2026\nVersion initiale préparée avant la décision de localisation des données.\nUtilisateur\nPortail NOVA\nAPI\nDonnées\n East US\nSchéma fictif - Projet 360",
+        "published_on": "2026-07-18"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "06_Architecture_et_decisions/Architecture_NOVA_v1.pdf"
+    ],
+    "id": "evt-3367cee82cf0"
+  },
+  {
+    "date": "2026-07-20",
+    "end_date": "2026-09-30",
+    "date_kind": "planned",
+    "title": "Développement phase 1",
+    "summary": "P-03 | Développement phase 1 | En cours | Boréal Numérique | 2026-07-20 | 2026-09-30 |",
+    "type": "milestone",
+    "status": "in_progress",
+    "topic": "delivery",
+    "owner": "Boréal Numérique",
+    "owner_role": "Responsable du plan",
+    "evidence": [
+      {
+        "document_id": "doc-032",
+        "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
+        "locator": "Plan projet · ligne 5",
+        "excerpt": "P-03 | Développement phase 1 | En cours | Boréal Numérique | 2026-07-20 | 2026-09-30 |",
+        "published_on": "2026-09-12"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx"
+    ],
+    "plan_id": "P-03",
+    "id": "evt-28a751aac268"
+  },
+  {
+    "date": "2026-07-22",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "RE: NOVA - architecture v1",
+    "summary": "Bonjour, Je vois East US sur le diagramme joint. Avant qu'on aille plus loin, est-ce que quelqu'un peut confirmer si cette localisation est compatible avec nos exigences pour NOVA? Pour ma part, je veux que les données de production demeurent au Canada. À trancher demain en atelier. Sophie",
+    "type": "update",
+    "status": "reported",
+    "topic": "architecture",
+    "owner": "Sophie Lambert",
+    "owner_role": "Auteur",
+    "evidence": [
+      {
+        "document_id": "doc-002",
+        "path": "01_Courriels/E02_Question_hebergement.eml",
+        "locator": "Corps du courriel",
+        "excerpt": "Bonjour,\nJe vois East US sur le diagramme joint. Avant qu'on aille plus loin, est-ce que quelqu'un peut confirmer si cette localisation est compatible avec nos exigences pour NOVA?\nPour ma part, je veux que les données de production demeurent au Canada. À trancher demain en atelier.\nSophie",
+        "published_on": "2026-07-22"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "01_Courriels/E02_Question_hebergement.eml"
+    ],
+    "id": "evt-c70c5795ae90"
+  },
+  {
+    "date": "2026-07-23",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Autre point, l'authentification. On reste SSO seulement, pas de comptes locaux?",
+    "summary": "09:14 Marc : Autre point, l'authentification. On reste SSO seulement, pas de comptes locaux?",
+    "type": "update",
+    "status": "reported",
+    "topic": "architecture",
+    "owner": "Marc Gervais",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-014",
+        "path": "02_Reunions/M02_Transcript_Architecture_23juillet.txt",
+        "locator": "09:14 · ligne 18",
+        "excerpt": "09:14 Marc : Autre point, l'authentification. On reste SSO seulement, pas de comptes locaux?",
+        "published_on": "2026-07-23"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M02_Transcript_Architecture_23juillet.txt"
+    ],
+    "id": "evt-021d3ac37c22"
+  },
+  {
+    "date": "2026-07-23",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "L'objectif c'est surtout de fermer la question de la région d'hébergement. Julien nous a envoyé la v1 hie",
+    "summary": "09:02 Élodie : L'objectif c'est surtout de fermer la question de la région d'hébergement. Julien nous a envoyé la v1 hier.",
+    "type": "validation",
+    "status": "completed",
+    "topic": "architecture",
+    "owner": "Élodie Caron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-014",
+        "path": "02_Reunions/M02_Transcript_Architecture_23juillet.txt",
+        "locator": "09:02 · ligne 8",
+        "excerpt": "09:02 Élodie : L'objectif c'est surtout de fermer la question de la région d'hébergement. Julien nous a envoyé la v1 hier.",
+        "published_on": "2026-07-23"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M02_Transcript_Architecture_23juillet.txt"
+    ],
+    "id": "evt-318c5ae2709c"
+  },
+  {
+    "date": "2026-07-23",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Oui, notre composant a un audit log. On vous montrera ça en validation.",
+    "summary": "09:38 Julien : Oui, notre composant a un audit log. On vous montrera ça en validation.",
+    "type": "validation",
+    "status": "in_review",
+    "topic": "delivery",
+    "owner": "Julien Moreau",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-014",
+        "path": "02_Reunions/M02_Transcript_Architecture_23juillet.txt",
+        "locator": "09:38 · ligne 29",
+        "excerpt": "09:38 Julien : Oui, notre composant a un audit log. On vous montrera ça en validation.",
+        "published_on": "2026-07-23"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M02_Transcript_Architecture_23juillet.txt"
+    ],
+    "id": "evt-4a8316fbe72f"
+  },
+  {
+    "date": "2026-07-23",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "SSO seulement en production.",
+    "summary": "09:15 Sophie : SSO seulement en production.",
+    "type": "update",
+    "status": "reported",
+    "topic": "architecture",
+    "owner": "Sophie Lambert",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-014",
+        "path": "02_Reunions/M02_Transcript_Architecture_23juillet.txt",
+        "locator": "09:15 · ligne 19",
+        "excerpt": "09:15 Sophie : SSO seulement en production.",
+        "published_on": "2026-07-23"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M02_Transcript_Architecture_23juillet.txt"
+    ],
+    "id": "evt-5666296e40f8"
+  },
+  {
+    "date": "2026-07-23",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "J'aimerais aussi qu'on journalise toutes les actions administrateur, surtout consultation et export.",
+    "summary": "09:36 Sophie : J'aimerais aussi qu'on journalise toutes les actions administrateur, surtout consultation et export.",
+    "type": "update",
+    "status": "reported",
+    "topic": "delivery",
+    "owner": "Sophie Lambert",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-014",
+        "path": "02_Reunions/M02_Transcript_Architecture_23juillet.txt",
+        "locator": "09:36 · ligne 28",
+        "excerpt": "09:36 Sophie : J'aimerais aussi qu'on journalise toutes les actions administrateur, surtout consultation et export.",
+        "published_on": "2026-07-23"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M02_Transcript_Architecture_23juillet.txt"
+    ],
+    "id": "evt-7f383473863b"
+  },
+  {
+    "date": "2026-07-23",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Donc on tranche Canada Central?",
+    "summary": "09:10 Élodie : Donc on tranche Canada Central?",
+    "type": "decision",
+    "status": "approved",
+    "topic": "architecture",
+    "owner": "Élodie Caron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-014",
+        "path": "02_Reunions/M02_Transcript_Architecture_23juillet.txt",
+        "locator": "09:10 · ligne 13",
+        "excerpt": "09:10 Élodie : Donc on tranche Canada Central?",
+        "published_on": "2026-07-23"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M02_Transcript_Architecture_23juillet.txt"
+    ],
+    "id": "evt-8ac5641f136f"
+  },
+  {
+    "date": "2026-07-23",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Techniquement, le changement vers Canada Central est simple. Il faut juste le savoir maintenant avant qu'",
+    "summary": "09:05 Marc : Techniquement, le changement vers Canada Central est simple. Il faut juste le savoir maintenant avant qu'on commence à accumuler des ressources.",
+    "type": "update",
+    "status": "reported",
+    "topic": "architecture",
+    "owner": "Marc Gervais",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-014",
+        "path": "02_Reunions/M02_Transcript_Architecture_23juillet.txt",
+        "locator": "09:05 · ligne 10",
+        "excerpt": "09:05 Marc : Techniquement, le changement vers Canada Central est simple. Il faut juste le savoir maintenant avant qu'on commence à accumuler des ressources.",
+        "published_on": "2026-07-23"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M02_Transcript_Architecture_23juillet.txt"
+    ],
+    "id": "evt-adbbad34dcd8"
+  },
+  {
+    "date": "2026-07-23",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Donc résumé : Canada Central, SSO uniquement, audit admin à valider. Le reste continue.",
+    "summary": "09:43 Élodie : Donc résumé : Canada Central, SSO uniquement, audit admin à valider. Le reste continue.",
+    "type": "validation",
+    "status": "completed",
+    "topic": "security",
+    "owner": "Élodie Caron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-014",
+        "path": "02_Reunions/M02_Transcript_Architecture_23juillet.txt",
+        "locator": "09:43 · ligne 30",
+        "excerpt": "09:43 Élodie : Donc résumé : Canada Central, SSO uniquement, audit admin à valider. Le reste continue.",
+        "published_on": "2026-07-23"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M02_Transcript_Architecture_23juillet.txt"
+    ],
+    "id": "evt-b07a80ab1a70"
+  },
+  {
+    "date": "2026-07-23",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "ADR 007 Localisation donnees",
+    "summary": "# ADR-007 - Localisation des données de production **Date de décision :** 23 juillet 2026 **Statut :** Acceptée ## Contexte L'architecture initiale de NOVA utilisait une région américaine. L'équipe sécurité demande que les données de production du projet demeurent au Canada. ## Décision L'environnement de production de NOVA sera déployé dans **Canada Central**. L'architecture v1 doit être considérée comme remplacée sur ce point. ## Conséquences - Boréal doit migrer les ressources prévues. - L'équipe architecture doit publier une version mise à jour du schéma. - Une validation technique doit confirmer la migration avant les tests de production.",
+    "type": "decision",
+    "status": "approved",
+    "topic": "security",
+    "owner": null,
+    "owner_role": null,
+    "evidence": [
+      {
+        "document_id": "doc-041",
+        "path": "06_Architecture_et_decisions/ADR-007_Localisation_donnees.md",
+        "locator": "Document",
+        "excerpt": "# ADR-007 - Localisation des données de production\n\n**Date de décision :** 23 juillet 2026  \n**Statut :** Acceptée\n\n## Contexte\nL'architecture initiale de NOVA utilisait une région américaine. L'équipe sécurité demande que les données de production du projet demeurent au Canada.\n\n## Décision\nL'environnement de production de NOVA sera déployé dans **Canada Central**. L'architecture v1 doit être considérée comme remplacée sur ce point.\n\n## Conséquences\n- Boréal doit migrer les ressources prévues.\n- L'équipe architecture doit publier une version mise à jour du schéma.\n- Une validation technique doit confirmer la migration avant les tests de production.",
+        "published_on": "2026-07-23"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "06_Architecture_et_decisions/ADR-007_Localisation_donnees.md"
+    ],
+    "id": "evt-be3eb5900d09"
+  },
+  {
+    "date": "2026-07-23",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Aucun problème. On peut basculer le design. Il faudra quelques jours pour recréer les ressources et valid",
+    "summary": "09:08 Julien : Aucun problème. On peut basculer le design. Il faudra quelques jours pour recréer les ressources et valider les services disponibles.",
+    "type": "validation",
+    "status": "completed",
+    "topic": "architecture",
+    "owner": "Julien Moreau",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-014",
+        "path": "02_Reunions/M02_Transcript_Architecture_23juillet.txt",
+        "locator": "09:08 · ligne 12",
+        "excerpt": "09:08 Julien : Aucun problème. On peut basculer le design. Il faudra quelques jours pour recréer les ressources et valider les services disponibles.",
+        "published_on": "2026-07-23"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M02_Transcript_Architecture_23juillet.txt"
+    ],
+    "id": "evt-cbfd71cc3708"
+  },
+  {
+    "date": "2026-07-23",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Est-ce que ça menace le 15 octobre?",
+    "summary": "09:31 Élodie : Est-ce que ça menace le 15 octobre?",
+    "type": "update",
+    "status": "reported",
+    "topic": "schedule",
+    "owner": "Élodie Caron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-014",
+        "path": "02_Reunions/M02_Transcript_Architecture_23juillet.txt",
+        "locator": "09:31 · ligne 26",
+        "excerpt": "09:31 Élodie : Est-ce que ça menace le 15 octobre?",
+        "published_on": "2026-07-23"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M02_Transcript_Architecture_23juillet.txt"
+    ],
+    "id": "evt-e08e912a6579"
+  },
+  {
+    "date": "2026-07-23",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Correct.",
+    "summary": "09:46 Marc : Correct.",
+    "type": "update",
+    "status": "reported",
+    "topic": "delivery",
+    "owner": "Marc Gervais",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-014",
+        "path": "02_Reunions/M02_Transcript_Architecture_23juillet.txt",
+        "locator": "09:46 · ligne 31",
+        "excerpt": "09:46 Marc : Correct.",
+        "published_on": "2026-07-23"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M02_Transcript_Architecture_23juillet.txt"
+    ],
+    "id": "evt-fc9aed78711f"
+  },
+  {
+    "date": "2026-07-31",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "INV 001",
+    "summary": "[page 1] Document synthétique - Aucun fournisseur réel Page 1 FACTURE INV-001 Fournisseur Boréal Numérique Inc. 1450, rue des Ateliers, Montréal (QC) H3X 0A1 Numéro fournisseur fictif : BN-4481 Détails Facture INV-001 Projet NOVA Date 2026-07-31 Statut Payée Facturation Description Montant Développement phase 1 - acompte 60 000 $ TOTAL 60 000 $",
+    "type": "update",
+    "status": "reported",
+    "topic": "finance",
+    "owner": null,
+    "owner_role": null,
+    "evidence": [
+      {
+        "document_id": "doc-038",
+        "path": "05_Contrats_et_finances/INV-001.pdf",
+        "locator": "Page 1",
+        "excerpt": "[page 1] Document synthétique - Aucun fournisseur réel\nPage 1\n FACTURE INV-001\nFournisseur\nBoréal Numérique Inc.\n1450, rue des Ateliers, Montréal (QC) H3X 0A1\nNuméro fournisseur fictif : BN-4481\nDétails\n Facture\nINV-001\nProjet\nNOVA\nDate\n2026-07-31\nStatut\nPayée\nFacturation\n Description\nMontant\nDéveloppement phase 1 - acompte\n60 000 $\nTOTAL\n60 000 $",
+        "published_on": "2026-07-31"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "05_Contrats_et_finances/INV-001.pdf"
+    ],
+    "id": "evt-0e76158d1a0f"
+  },
+  {
+    "date": "2026-08-11",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "ACC-301 · Signalement",
+    "summary": "champs pas top lecteur écran. Il manque quelque chose sur le champ nom je pense. En visuel ça a l'air correct mais NVDA annonce juste « edit blank ».",
+    "type": "risk",
+    "status": "open",
+    "topic": "accessibility",
+    "owner": "QA",
+    "owner_role": "Demandeur",
+    "evidence": [
+      {
+        "document_id": "doc-019",
+        "path": "03_Tickets/ACC-301.txt",
+        "locator": "En-tête du ticket",
+        "excerpt": "TICKET ACC-301\nTitre : champs pas top lecteur écran\nCréé : 11 août 2026\nDemandeur : QA\nPriorité : Moyenne\nStatut : Fermé\n\nDescription initiale :\nIl manque quelque chose sur le champ nom je pense. En visuel ça a l'air correct mais NVDA annonce juste « edit blank ».\n\nPièce jointe : ACC-301_labels.png",
+        "published_on": "2026-08-11"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/ACC-301.txt"
+    ],
+    "id": "evt-ab72a74b5005"
+  },
+  {
+    "date": "2026-08-12",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "ACC-301 · Mélissa : Le champ utilise uniquement le placeholder « Votre nom », aucun <label> associé.",
+    "summary": "12 août - Mélissa : Le champ utilise uniquement le placeholder « Votre nom », aucun <label> associé.",
+    "type": "update",
+    "status": "reported",
+    "topic": "accessibility",
+    "owner": "Mélissa Gagnon",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-019",
+        "path": "03_Tickets/ACC-301.txt",
+        "locator": "Ligne 14",
+        "excerpt": "12 août - Mélissa : Le champ utilise uniquement le placeholder « Votre nom », aucun <label> associé.",
+        "published_on": "2026-08-11"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/ACC-301.txt"
+    ],
+    "id": "evt-0ebce75bfbd7"
+  },
+  {
+    "date": "2026-08-12",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "ACC-302 · Signalement",
+    "summary": "Le bleu/gris est bizarre. Le bleu/gris est bizarre. Je ne sais pas si c'est voulu. Voir screenshot.",
+    "type": "risk",
+    "status": "open",
+    "topic": "accessibility",
+    "owner": "QA",
+    "owner_role": "Demandeur",
+    "evidence": [
+      {
+        "document_id": "doc-020",
+        "path": "03_Tickets/ACC-302.txt",
+        "locator": "En-tête du ticket",
+        "excerpt": "TICKET ACC-302\nTitre : Le bleu/gris est bizarre\nCréé : 12 août 2026\nDemandeur : QA\nPriorité : ?\nStatut : Fermé\n\nDescription initiale :\nLe bleu/gris est bizarre. Je ne sais pas si c'est voulu. Voir screenshot.\n\nPièce jointe : ACC-302_contraste.png",
+        "published_on": "2026-08-12"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/ACC-302.txt"
+    ],
+    "id": "evt-fddf9cf5ee17"
+  },
+  {
+    "date": "2026-08-13",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "ACC-302 · Mélissa : J'ai mesuré 2,1:1 entre le texte de statut et le fond. Pour du texte normal on vise a",
+    "summary": "13 août - Mélissa : J'ai mesuré 2,1:1 entre le texte de statut et le fond. Pour du texte normal on vise au moins 4,5:1.",
+    "type": "update",
+    "status": "reported",
+    "topic": "accessibility",
+    "owner": "Mélissa Gagnon",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-020",
+        "path": "03_Tickets/ACC-302.txt",
+        "locator": "Ligne 14",
+        "excerpt": "13 août - Mélissa : J'ai mesuré 2,1:1 entre le texte de statut et le fond. Pour du texte normal on vise au moins 4,5:1.",
+        "published_on": "2026-08-12"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/ACC-302.txt"
+    ],
+    "id": "evt-5a93f2755eef"
+  },
+  {
+    "date": "2026-08-14",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "CR 01 Rapports avances APPROUVE",
+    "summary": "[page 1] Document fictif - Changement approuvé Page 1 DEMANDE DE CHANGEMENT CR-01 Objet Ajout de rapports avancés et export de synthèse. Impact financier Montant 24 000 $ Décision APPROUVÉE Date de décision 14 août 2026 Autorité Comité de projet Impact calendrier Aucun changement de la date cible annoncé au moment de l’approbation.",
+    "type": "decision",
+    "status": "approved",
+    "topic": "finance",
+    "owner": null,
+    "owner_role": null,
+    "evidence": [
+      {
+        "document_id": "doc-036",
+        "path": "05_Contrats_et_finances/CR-01_Rapports_avances_APPROUVE.pdf",
+        "locator": "Page 1",
+        "excerpt": "[page 1] Document fictif - Changement approuvé\nPage 1\n DEMANDE DE CHANGEMENT CR-01\nObjet\nAjout de rapports avancés et export de synthèse.\nImpact financier\n Montant\n24 000 $\nDécision\nAPPROUVÉE\nDate de décision\n14 août 2026\nAutorité\nComité de projet\nImpact calendrier\nAucun changement de la date cible annoncé au moment de l’approbation.",
+        "published_on": "2026-08-14"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "05_Contrats_et_finances/CR-01_Rapports_avances_APPROUVE.pdf"
+    ],
+    "id": "evt-1c20ce95d1d7"
+  },
+  {
+    "date": "2026-08-14",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "ACC-301 · Boréal : Ajout du label programmatique et aria-describedby pour l'aide contextuelle.",
+    "summary": "14 août - Boréal : Ajout du label programmatique et aria-describedby pour l'aide contextuelle.",
+    "type": "update",
+    "status": "reported",
+    "topic": "accessibility",
+    "owner": "Boréal",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-019",
+        "path": "03_Tickets/ACC-301.txt",
+        "locator": "Ligne 15",
+        "excerpt": "14 août - Boréal : Ajout du label programmatique et aria-describedby pour l'aide contextuelle.",
+        "published_on": "2026-08-11"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/ACC-301.txt"
+    ],
+    "id": "evt-25b1aaad747c"
+  },
+  {
+    "date": "2026-08-15",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "ACC-301 · Mélissa : Validé avec NVDA et VoiceOver. Fermé.",
+    "summary": "15 août - Mélissa : Validé avec NVDA et VoiceOver. Fermé.",
+    "type": "validation",
+    "status": "completed",
+    "topic": "accessibility",
+    "owner": "Mélissa Gagnon",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-019",
+        "path": "03_Tickets/ACC-301.txt",
+        "locator": "Ligne 16",
+        "excerpt": "15 août - Mélissa : Validé avec NVDA et VoiceOver. Fermé.",
+        "published_on": "2026-08-11"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/ACC-301.txt"
+    ],
+    "id": "evt-1ed6b6f20846"
+  },
+  {
+    "date": "2026-08-18",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "ACC-302 · Boréal : Palette de statut corrigée.",
+    "summary": "18 août - Boréal : Palette de statut corrigée.",
+    "type": "delivery",
+    "status": "delivered",
+    "topic": "accessibility",
+    "owner": "Boréal",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-020",
+        "path": "03_Tickets/ACC-302.txt",
+        "locator": "Ligne 15",
+        "excerpt": "18 août - Boréal : Palette de statut corrigée.",
+        "published_on": "2026-08-12"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/ACC-302.txt"
+    ],
+    "id": "evt-050e6b97921a"
+  },
+  {
+    "date": "2026-08-20",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "RE: anomalies accessibilité NOVA",
+    "summary": "Salut Mélissa, On a poussé les corrections de labels et de contraste. Tout devrait maintenant être conforme de notre côté. Tu peux refaire ton passage quand tu veux. Julien",
+    "type": "update",
+    "status": "reported",
+    "topic": "accessibility",
+    "owner": "Julien Moreau",
+    "owner_role": "Auteur",
+    "evidence": [
+      {
+        "document_id": "doc-004",
+        "path": "01_Courriels/E04_Corrections_accessibilite.eml",
+        "locator": "Corps du courriel",
+        "excerpt": "Salut Mélissa,\nOn a poussé les corrections de labels et de contraste. Tout devrait maintenant être conforme de notre côté.\nTu peux refaire ton passage quand tu veux.\nJulien",
+        "published_on": "2026-08-20"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "01_Courriels/E04_Corrections_accessibilite.eml"
+    ],
+    "id": "evt-5c90b8a1364f"
+  },
+  {
+    "date": "2026-08-20",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "ACC-302 · Mélissa : Re-test OK à 5,3:1. Fermé.",
+    "summary": "20 août - Mélissa : Re-test OK à 5,3:1. Fermé.",
+    "type": "validation",
+    "status": "completed",
+    "topic": "accessibility",
+    "owner": "Mélissa Gagnon",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-020",
+        "path": "03_Tickets/ACC-302.txt",
+        "locator": "Ligne 16",
+        "excerpt": "20 août - Mélissa : Re-test OK à 5,3:1. Fermé.",
+        "published_on": "2026-08-12"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/ACC-302.txt"
+    ],
+    "id": "evt-cba942697e76"
+  },
+  {
+    "date": "2026-08-25",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Architecture NOVA v2",
+    "summary": "[page 1] Architecture NOVA - v2 - 25 août 2026 Version révisée après ADR-007. Utilisateur Portail NOVA API Données Canada Central Schéma fictif - Projet 360",
+    "type": "update",
+    "status": "reported",
+    "topic": "architecture",
+    "owner": null,
+    "owner_role": null,
+    "evidence": [
+      {
+        "document_id": "doc-043",
+        "path": "06_Architecture_et_decisions/Architecture_NOVA_v2.pdf",
+        "locator": "Page 1",
+        "excerpt": "[page 1] Architecture NOVA - v2 - 25 août 2026\nVersion révisée après ADR-007.\nUtilisateur\nPortail NOVA\nAPI\nDonnées\nCanada Central\nSchéma fictif - Projet 360",
+        "published_on": "2026-08-25"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "06_Architecture_et_decisions/Architecture_NOVA_v2.pdf"
+    ],
+    "id": "evt-b176154cc146"
+  },
+  {
+    "date": "2026-08-26",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "NOVA - migration Canada Central complétée",
+    "summary": "Bonjour, La migration des ressources prévues pour NOVA vers Canada Central est complétée. Vous trouverez le schéma v2 en pièce jointe. Nous avons fait un test de déploiement et de connectivité hier soir. Aucun blocage identifié. Julien Boréal Numérique",
+    "type": "delivery",
+    "status": "delivered",
+    "topic": "architecture",
+    "owner": "Julien Moreau",
+    "owner_role": "Auteur",
+    "evidence": [
+      {
+        "document_id": "doc-003",
+        "path": "01_Courriels/E03_Confirmation_Canada_Central.eml",
+        "locator": "Corps du courriel",
+        "excerpt": "Bonjour,\nLa migration des ressources prévues pour NOVA vers Canada Central est complétée. Vous trouverez le schéma v2 en pièce jointe.\nNous avons fait un test de déploiement et de connectivité hier soir. Aucun blocage identifié.\nJulien\nBoréal Numérique",
+        "published_on": "2026-08-26"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "01_Courriels/E03_Confirmation_Canada_Central.eml"
+    ],
+    "id": "evt-62f4fa506ffe"
+  },
+  {
+    "date": "2026-08-27",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "M03 CR Comite 27aout",
+    "summary": "COMITÉ PROJET NOVA - 27 AOÛT 2026 Participants : Élodie, Marc, Sophie, Mélissa, Camille, Boréal Résumé de gestion - La migration de l'architecture vers Canada Central est déclarée terminée par Boréal et vérifiée par l'équipe architecture. - Le développement fonctionnel avance selon la portée de phase 1. - Les tests d'accessibilité ont identifié plusieurs anomalies. Certaines sont déjà corrigées, d'autres restent en traitement. - Le connecteur interne demeure un point d'attention mais aucun retard officiel de la date du 15 octobre n'est approuvé à ce moment. Points discutés Mélissa confirme que les anomalies de labels et de contraste ont été corrigées et validées les 15 et 20 août. Elle veut toutefois faire un deuxième passage clavier sur les modales. Sophie rappelle que la journalisation administrateur devra être vérifiée en situation réelle. Camille confirme que le premier lot de migration a produit quelques doublons à investiguer. Action : Boréal doit fournir une build de stabilisation début septembre.",
+    "type": "decision",
+    "status": "approved",
+    "topic": "security",
+    "owner": null,
+    "owner_role": null,
+    "evidence": [
+      {
+        "document_id": "doc-015",
+        "path": "02_Reunions/M03_CR_Comite_27aout.txt",
+        "locator": "Document",
+        "excerpt": "COMITÉ PROJET NOVA - 27 AOÛT 2026\nParticipants : Élodie, Marc, Sophie, Mélissa, Camille, Boréal\n\nRésumé de gestion\n- La migration de l'architecture vers Canada Central est déclarée terminée par Boréal et vérifiée par l'équipe architecture.\n- Le développement fonctionnel avance selon la portée de phase 1.\n- Les tests d'accessibilité ont identifié plusieurs anomalies. Certaines sont déjà corrigées, d'autres restent en traitement.\n- Le connecteur interne demeure un point d'attention mais aucun retard officiel de la date du 15 octobre n'est approuvé à ce moment.\n\nPoints discutés\nMélissa confirme que les anomalies de labels et de contraste ont été corrigées et validées les 15 et 20 août. Elle veut toutefois faire un deuxième passage clavier sur les modales. Sophie rappelle que la journalisation administrateur devra être vérifiée en situation réelle. Camille confirme que le premier lot de migration a produit quelques doublons à investiguer.\n\nAction : Boréal doit fournir une build de stabilisation début septembre.",
+        "published_on": "2026-08-27"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M03_CR_Comite_27aout.txt"
+    ],
+    "id": "evt-b277738d4a67"
+  },
+  {
+    "date": "2026-08-31",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "INV 002",
+    "summary": "[page 1] Document synthétique - Aucun fournisseur réel Page 1 FACTURE INV-002 Fournisseur Boréal Numérique Inc. 1450, rue des Ateliers, Montréal (QC) H3X 0A1 Numéro fournisseur fictif : BN-4481 Détails Facture INV-002 Projet NOVA Date 2026-08-31 Statut Payée Facturation Description Montant Développement phase 1 - jalon 2 48 000 $ Rapports avancés - CR-01 24 000 $ TOTAL 72 000 $",
+    "type": "update",
+    "status": "reported",
+    "topic": "finance",
+    "owner": null,
+    "owner_role": null,
+    "evidence": [
+      {
+        "document_id": "doc-039",
+        "path": "05_Contrats_et_finances/INV-002.pdf",
+        "locator": "Page 1",
+        "excerpt": "[page 1] Document synthétique - Aucun fournisseur réel\nPage 1\n FACTURE INV-002\nFournisseur\nBoréal Numérique Inc.\n1450, rue des Ateliers, Montréal (QC) H3X 0A1\nNuméro fournisseur fictif : BN-4481\nDétails\n Facture\nINV-002\nProjet\nNOVA\nDate\n2026-08-31\nStatut\nPayée\nFacturation\n Description\nMontant\nDéveloppement phase 1 - jalon 2\n48 000 $\nRapports avancés - CR-01\n24 000 $\nTOTAL\n72 000 $",
+        "published_on": "2026-08-31"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "05_Contrats_et_finances/INV-002.pdf"
+    ],
+    "id": "evt-9f7f044f7bd7"
+  },
+  {
+    "date": "2026-09-02",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "DATA-401 · Signalement",
+    "summary": "Doublons migration - lot MIG-09-02. Le même dossier peut être créé deux fois lorsque deux messages Kafka concernant le même événement sont consommés presque simultanément.",
+    "type": "risk",
+    "status": "open",
+    "topic": "data",
+    "owner": "Camille Beaulieu",
+    "owner_role": "Demandeur",
+    "evidence": [
+      {
+        "document_id": "doc-022",
+        "path": "03_Tickets/DATA-401.txt",
+        "locator": "En-tête du ticket",
+        "excerpt": "TICKET DATA-401\nTitre : Doublons migration - lot MIG-09-02\nCréé : 2 septembre 2026\nDemandeur : Camille Beaulieu\nPriorité : Haute\nStatut : Fermé\n\nContexte :\nLe même dossier peut être créé deux fois lorsque deux messages Kafka concernant le même événement sont consommés presque simultanément.\n\nPreuve : DATA-401_doublons.png\n\nAnalyse :\nLes dossiers 8401 et 8402 ont le même demandeur, la même adresse courriel et des timestamps espacés d'une seconde. Le mécanisme d'idempotence utilisait l'ID technique du message plutôt que l'ID métier.\n\nCorrection : clé d'idempotence basée sur external_request_id.\n\nValidation :\n9 septembre - lot de 15 000 événements rejoué, aucun doublon détecté. Ticket fermé.",
+        "published_on": "2026-09-02"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/DATA-401.txt"
+    ],
+    "id": "evt-b618fdfaeb58"
+  },
+  {
+    "date": "2026-09-03",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "PERF-501 · Signalement",
+    "summary": "c'est lent. C'est lent depuis ce matin. Des fois j'attends et ça finit par afficher.",
+    "type": "risk",
+    "status": "open",
+    "topic": "performance",
+    "owner": "utilisateur pilote",
+    "owner_role": "Demandeur",
+    "evidence": [
+      {
+        "document_id": "doc-027",
+        "path": "03_Tickets/PERF-501.txt",
+        "locator": "En-tête du ticket",
+        "excerpt": "TICKET PERF-501\nTitre : c'est lent\nCréé : 3 septembre 2026\nDemandeur : utilisateur pilote\nStatut : Fermé\n\nDescription :\nC'est lent depuis ce matin. Des fois j'attends et ça finit par afficher.\n\nPièce jointe : PERF-501_lenteur.png",
+        "published_on": "2026-09-03"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/PERF-501.txt"
+    ],
+    "id": "evt-1869558a57dd"
+  },
+  {
+    "date": "2026-09-03",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "PERF-501 · 15:10 - Support : 3 utilisateurs rapportent surtout la recherche de dossiers.",
+    "summary": "03 sept 15:10 - Support : 3 utilisateurs rapportent surtout la recherche de dossiers.",
+    "type": "update",
+    "status": "reported",
+    "topic": "performance",
+    "owner": "Support",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-027",
+        "path": "03_Tickets/PERF-501.txt",
+        "locator": "Ligne 13",
+        "excerpt": "03 sept 15:10 - Support : 3 utilisateurs rapportent surtout la recherche de dossiers.",
+        "published_on": "2026-09-03"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/PERF-501.txt"
+    ],
+    "id": "evt-5cb424bc519c"
+  },
+  {
+    "date": "2026-09-04",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "CR 04 Optimisation mobile BROUILLON",
+    "summary": "[page 1] BROUILLON - Document fictif Page 1 DEMANDE DE CHANGEMENT CR-04 - BROUILLON Objet Optimisation avancée de l’expérience mobile pour écrans de moins de 768 px. Estimation Montant estimé 18 000 $ Statut BROUILLON - APPROBATION REQUISE Demande initiale 4 septembre 2026 Demandeur Boréal Numérique Note Aucun numéro d’approbation ni signature de comité n’est présent dans ce document.",
+    "type": "proposal",
+    "status": "proposed",
+    "topic": "scope",
+    "owner": null,
+    "owner_role": null,
+    "evidence": [
+      {
+        "document_id": "doc-037",
+        "path": "05_Contrats_et_finances/CR-04_Optimisation_mobile_BROUILLON.pdf",
+        "locator": "Page 1",
+        "excerpt": "[page 1] BROUILLON - Document fictif\nPage 1\n DEMANDE DE CHANGEMENT CR-04 - BROUILLON\nObjet\nOptimisation avancée de l’expérience mobile pour écrans de moins de 768 px.\nEstimation\n Montant estimé\n18 000 $\nStatut\nBROUILLON - APPROBATION REQUISE\nDemande initiale\n4 septembre 2026\nDemandeur\nBoréal Numérique\nNote\nAucun numéro d’approbation ni signature de comité n’est présent dans ce document.",
+        "published_on": "2026-09-04"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "05_Contrats_et_finances/CR-04_Optimisation_mobile_BROUILLON.pdf"
+    ],
+    "id": "evt-488a9872ae65"
+  },
+  {
+    "date": "2026-09-04",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "PERF-501 · 10:44 - Dév : /dossiers/search fait un scan complet quand aucun filtre de statut n'est fourni.",
+    "summary": "04 sept 10:44 - Dév : /dossiers/search fait un scan complet quand aucun filtre de statut n'est fourni. 6 à 8 s sur le dataset de validation.",
+    "type": "update",
+    "status": "reported",
+    "topic": "performance",
+    "owner": "Dév",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-027",
+        "path": "03_Tickets/PERF-501.txt",
+        "locator": "Ligne 14",
+        "excerpt": "04 sept 10:44 - Dév : /dossiers/search fait un scan complet quand aucun filtre de statut n'est fourni. 6 à 8 s sur le dataset de validation.",
+        "published_on": "2026-09-03"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/PERF-501.txt"
+    ],
+    "id": "evt-7fcd4ae3306d"
+  },
+  {
+    "date": "2026-09-05",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "INT-101 · Signalement",
+    "summary": "Ça marche pas avec le connecteur. Ça marche pas. On cherche un dossier existant et on a rien. Voir capture.",
+    "type": "risk",
+    "status": "open",
+    "topic": "integration",
+    "owner": "Marc Gervais",
+    "owner_role": "Demandeur",
+    "evidence": [
+      {
+        "document_id": "doc-024",
+        "path": "03_Tickets/INT-101.txt",
+        "locator": "En-tête du ticket",
+        "excerpt": "TICKET INT-101\nTitre : Ça marche pas avec le connecteur\nCréé : 5 septembre 2026\nDemandeur : Marc Gervais\nPriorité : Haute\nStatut : Fermé\n\nDescription initiale :\nÇa marche pas. On cherche un dossier existant et on a rien. Voir capture.\n\nPièce jointe : INT-101_aucun_resultat.png",
+        "published_on": "2026-09-05"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/INT-101.txt"
+    ],
+    "id": "evt-9c26b38eb9c2"
+  },
+  {
+    "date": "2026-09-05",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "INT-101 · 09:41 - Marc : C'était OK hier en DEV. Là en INT toutes les recherches par numéro retournent vi",
+    "summary": "05 sept 09:41 - Marc : C'était OK hier en DEV. Là en INT toutes les recherches par numéro retournent vide.",
+    "type": "update",
+    "status": "reported",
+    "topic": "integration",
+    "owner": "Marc Gervais",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-024",
+        "path": "03_Tickets/INT-101.txt",
+        "locator": "Ligne 14",
+        "excerpt": "05 sept 09:41 - Marc : C'était OK hier en DEV. Là en INT toutes les recherches par numéro retournent vide.",
+        "published_on": "2026-09-05"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/INT-101.txt"
+    ],
+    "id": "evt-be8f9b4712c2"
+  },
+  {
+    "date": "2026-09-05",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "INT-101 · 11:18 - Boréal : On voit des 401 sur l'appel vers le service interne. Le jeton de service sembl",
+    "summary": "05 sept 11:18 - Boréal : On voit des 401 sur l'appel vers le service interne. Le jeton de service semble expiré après le changement de secret.",
+    "type": "update",
+    "status": "reported",
+    "topic": "integration",
+    "owner": "Boréal",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-024",
+        "path": "03_Tickets/INT-101.txt",
+        "locator": "Ligne 15",
+        "excerpt": "05 sept 11:18 - Boréal : On voit des 401 sur l'appel vers le service interne. Le jeton de service semble expiré après le changement de secret.",
+        "published_on": "2026-09-05"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/INT-101.txt"
+    ],
+    "id": "evt-f2a3ab3b0026"
+  },
+  {
+    "date": "2026-09-06",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "PERF-501 · 18:02 - Dév : index ajouté + requête modifiée.",
+    "summary": "06 sept 18:02 - Dév : index ajouté + requête modifiée.",
+    "type": "delivery",
+    "status": "delivered",
+    "topic": "performance",
+    "owner": "Dév",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-027",
+        "path": "03_Tickets/PERF-501.txt",
+        "locator": "Ligne 15",
+        "excerpt": "06 sept 18:02 - Dév : index ajouté + requête modifiée.",
+        "published_on": "2026-09-03"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/PERF-501.txt"
+    ],
+    "id": "evt-754d62a506d5"
+  },
+  {
+    "date": "2026-09-07",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "PERF-501 · 09:12 - Support : moyenne observée 620 ms sur 50 essais. Aucun nouveau signalement. Fermé.",
+    "summary": "07 sept 09:12 - Support : moyenne observée 620 ms sur 50 essais. Aucun nouveau signalement. Fermé.",
+    "type": "validation",
+    "status": "completed",
+    "topic": "performance",
+    "owner": "Support",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-027",
+        "path": "03_Tickets/PERF-501.txt",
+        "locator": "Ligne 16",
+        "excerpt": "07 sept 09:12 - Support : moyenne observée 620 ms sur 50 essais. Aucun nouveau signalement. Fermé.",
+        "published_on": "2026-09-03"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/PERF-501.txt"
+    ],
+    "id": "evt-05969456fd7b"
+  },
+  {
+    "date": "2026-09-08",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "NOVA - risque sur la date du 15 octobre",
+    "summary": "Bonjour, Le problème du connecteur interne nous a fait perdre davantage de temps que prévu. Nous pouvons continuer à viser le 15 octobre, mais ce serait avec très peu de marge pour la stabilisation. Notre recommandation est de déplacer la mise en production au **22 octobre**. À ce stade, il s'agit d'une proposition de notre part. À vous de confirmer la décision de gouvernance. Julien",
+    "type": "proposal",
+    "status": "proposed",
+    "topic": "integration",
+    "owner": "Julien Moreau",
+    "owner_role": "Auteur",
+    "evidence": [
+      {
+        "document_id": "doc-005",
+        "path": "01_Courriels/E05_Retard_integration.eml",
+        "locator": "Corps du courriel",
+        "excerpt": "Bonjour,\nLe problème du connecteur interne nous a fait perdre davantage de temps que prévu. Nous pouvons continuer à viser le 15 octobre, mais ce serait avec très peu de marge pour la stabilisation.\nNotre recommandation est de déplacer la mise en production au **22 octobre**.\nÀ ce stade, il s'agit d'une proposition de notre part. À vous de confirmer la décision de gouvernance.\nJulien",
+        "published_on": "2026-09-08"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "01_Courriels/E05_Retard_integration.eml"
+    ],
+    "id": "evt-36214809b28d"
+  },
+  {
+    "date": "2026-09-08",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "INT-101 · 16:02 - Marc : Le remplacement du secret est fait mais il reste des erreurs intermittentes. Ça",
+    "summary": "08 sept 16:02 - Marc : Le remplacement du secret est fait mais il reste des erreurs intermittentes. Ça met en risque le 15 octobre si on n'a pas de stabilité cette semaine.",
+    "type": "risk",
+    "status": "open",
+    "topic": "integration",
+    "owner": "Marc Gervais",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-024",
+        "path": "03_Tickets/INT-101.txt",
+        "locator": "Ligne 16",
+        "excerpt": "08 sept 16:02 - Marc : Le remplacement du secret est fait mais il reste des erreurs intermittentes. Ça met en risque le 15 octobre si on n'a pas de stabilité cette semaine.",
+        "published_on": "2026-09-05"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/INT-101.txt"
+    ],
+    "id": "evt-7c13b1468456"
+  },
+  {
+    "date": "2026-09-09",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "DATA-401 · lot de 15 000 événements rejoué, aucun doublon détecté. Ticket fermé.",
+    "summary": "9 septembre - lot de 15 000 événements rejoué, aucun doublon détecté. Ticket fermé.",
+    "type": "validation",
+    "status": "completed",
+    "topic": "data",
+    "owner": "Camille Beaulieu",
+    "owner_role": "Demandeur",
+    "evidence": [
+      {
+        "document_id": "doc-022",
+        "path": "03_Tickets/DATA-401.txt",
+        "locator": "Ligne 19",
+        "excerpt": "9 septembre - lot de 15 000 événements rejoué, aucun doublon détecté. Ticket fermé.",
+        "published_on": "2026-09-02"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/DATA-401.txt"
+    ],
+    "id": "evt-52be71d13efd"
+  },
+  {
+    "date": "2026-09-10",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Pour l'exploitation, une semaine de plus est utile, mais je veux un runbook final au moins quelques jours",
+    "summary": "15:12 Olivier : Pour l'exploitation, une semaine de plus est utile, mais je veux un runbook final au moins quelques jours avant.",
+    "type": "update",
+    "status": "reported",
+    "topic": "operations",
+    "owner": "Olivier Côté",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-016",
+        "path": "02_Reunions/M04_Transcript_Comite_direction_10sept.txt",
+        "locator": "15:12 · ligne 12",
+        "excerpt": "15:12 Olivier : Pour l'exploitation, une semaine de plus est utile, mais je veux un runbook final au moins quelques jours avant.",
+        "published_on": "2026-09-10"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M04_Transcript_Comite_direction_10sept.txt"
+    ],
+    "id": "evt-063def0ce765"
+  },
+  {
+    "date": "2026-09-10",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Stabilisation du connecteur, reprise des tests intégrés et une marge pour corriger les anomalies bloquant",
+    "summary": "15:04 Julien : Stabilisation du connecteur, reprise des tests intégrés et une marge pour corriger les anomalies bloquantes.",
+    "type": "risk",
+    "status": "open",
+    "topic": "integration",
+    "owner": "Julien Moreau",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-016",
+        "path": "02_Reunions/M04_Transcript_Comite_direction_10sept.txt",
+        "locator": "15:04 · ligne 8",
+        "excerpt": "15:04 Julien : Stabilisation du connecteur, reprise des tests intégrés et une marge pour corriger les anomalies bloquantes.",
+        "published_on": "2026-09-10"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M04_Transcript_Comite_direction_10sept.txt"
+    ],
+    "id": "evt-1bf24cbf1a53"
+  },
+  {
+    "date": "2026-09-10",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Est-ce que c'est requis pour la phase 1?",
+    "summary": "15:36 Nicolas : Est-ce que c'est requis pour la phase 1?",
+    "type": "update",
+    "status": "reported",
+    "topic": "delivery",
+    "owner": "Nicolas Perron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-016",
+        "path": "02_Reunions/M04_Transcript_Comite_direction_10sept.txt",
+        "locator": "15:36 · ligne 32",
+        "excerpt": "15:36 Nicolas : Est-ce que c'est requis pour la phase 1?",
+        "published_on": "2026-09-10"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M04_Transcript_Comite_direction_10sept.txt"
+    ],
+    "id": "evt-315b477d4fc2"
+  },
+  {
+    "date": "2026-09-10",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Donc **approuvé**. Le 22 devient la date officielle. On doit mettre les plans et communications à jour.",
+    "summary": "15:25 Élodie : Donc **approuvé**. Le 22 devient la date officielle. On doit mettre les plans et communications à jour.",
+    "type": "decision",
+    "status": "approved",
+    "topic": "delivery",
+    "owner": "Élodie Caron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-016",
+        "path": "02_Reunions/M04_Transcript_Comite_direction_10sept.txt",
+        "locator": "15:25 · ligne 23",
+        "excerpt": "15:25 Élodie : Donc **approuvé**. Le 22 devient la date officielle. On doit mettre les plans et communications à jour.",
+        "published_on": "2026-09-10"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M04_Transcript_Comite_direction_10sept.txt"
+    ],
+    "id": "evt-3c5ea23b4477"
+  },
+  {
+    "date": "2026-09-10",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Très bon point. On ferme. Nouvelle date officielle : 22 octobre. Mobile : aucune décision de dépense.",
+    "summary": "15:40 Élodie : Très bon point. On ferme. Nouvelle date officielle : 22 octobre. Mobile : aucune décision de dépense.",
+    "type": "decision",
+    "status": "approved",
+    "topic": "scope",
+    "owner": "Élodie Caron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-016",
+        "path": "02_Reunions/M04_Transcript_Comite_direction_10sept.txt",
+        "locator": "15:40 · ligne 35",
+        "excerpt": "15:40 Élodie : Très bon point. On ferme. Nouvelle date officielle : 22 octobre. Mobile : aucune décision de dépense.",
+        "published_on": "2026-09-10"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M04_Transcript_Comite_direction_10sept.txt"
+    ],
+    "id": "evt-4b418eec2131"
+  },
+  {
+    "date": "2026-09-10",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "De mon côté, je ne veux pas compresser les tests sécurité pour sauver le 15. Le 22 me semble plus réalist",
+    "summary": "15:08 Sophie : De mon côté, je ne veux pas compresser les tests sécurité pour sauver le 15. Le 22 me semble plus réaliste, sous réserve des validations.",
+    "type": "decision",
+    "status": "conditional",
+    "topic": "security",
+    "owner": "Sophie Lambert",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-016",
+        "path": "02_Reunions/M04_Transcript_Comite_direction_10sept.txt",
+        "locator": "15:08 · ligne 10",
+        "excerpt": "15:08 Sophie : De mon côté, je ne veux pas compresser les tests sécurité pour sauver le 15. Le 22 me semble plus réaliste, sous réserve des validations.",
+        "published_on": "2026-09-10"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M04_Transcript_Comite_direction_10sept.txt"
+    ],
+    "id": "evt-4c1383dae3b2"
+  },
+  {
+    "date": "2026-09-10",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Pas selon la portée actuelle. On va traiter ça séparément, aucune approbation aujourd'hui.",
+    "summary": "15:37 Élodie : Pas selon la portée actuelle. On va traiter ça séparément, aucune approbation aujourd'hui.",
+    "type": "decision",
+    "status": "not_approved",
+    "topic": "scope",
+    "owner": "Élodie Caron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-016",
+        "path": "02_Reunions/M04_Transcript_Comite_direction_10sept.txt",
+        "locator": "15:37 · ligne 33",
+        "excerpt": "15:37 Élodie : Pas selon la portée actuelle. On va traiter ça séparément, aucune approbation aujourd'hui.",
+        "published_on": "2026-09-10"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M04_Transcript_Comite_direction_10sept.txt"
+    ],
+    "id": "evt-5856692dc373"
+  },
+  {
+    "date": "2026-09-10",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Merci de ne pas mélanger ça avec les corrections d'accessibilité obligatoires.",
+    "summary": "15:38 Sophie : Merci de ne pas mélanger ça avec les corrections d'accessibilité obligatoires.",
+    "type": "update",
+    "status": "reported",
+    "topic": "accessibility",
+    "owner": "Sophie Lambert",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-016",
+        "path": "02_Reunions/M04_Transcript_Comite_direction_10sept.txt",
+        "locator": "15:38 · ligne 34",
+        "excerpt": "15:38 Sophie : Merci de ne pas mélanger ça avec les corrections d'accessibilité obligatoires.",
+        "published_on": "2026-09-10"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M04_Transcript_Comite_direction_10sept.txt"
+    ],
+    "id": "evt-5c1385ec3e6b"
+  },
+  {
+    "date": "2026-09-10",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Pas de pénalité identifiée. C'est une date interne de mise en production, le contrat court jusqu'à fin oc",
+    "summary": "15:18 Élodie : Pas de pénalité identifiée. C'est une date interne de mise en production, le contrat court jusqu'à fin octobre.",
+    "type": "update",
+    "status": "reported",
+    "topic": "schedule",
+    "owner": "Élodie Caron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-016",
+        "path": "02_Reunions/M04_Transcript_Comite_direction_10sept.txt",
+        "locator": "15:18 · ligne 15",
+        "excerpt": "15:18 Élodie : Pas de pénalité identifiée. C'est une date interne de mise en production, le contrat court jusqu'à fin octobre.",
+        "published_on": "2026-09-10"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M04_Transcript_Comite_direction_10sept.txt"
+    ],
+    "id": "evt-75635498fdb0"
+  },
+  {
+    "date": "2026-09-10",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Je confirme que le connecteur est le chemin critique en ce moment. Le problème n'est pas juste un écran.",
+    "summary": "15:06 Marc : Je confirme que le connecteur est le chemin critique en ce moment. Le problème n'est pas juste un écran. Il touche les recherches et la synchronisation.",
+    "type": "update",
+    "status": "reported",
+    "topic": "integration",
+    "owner": "Marc Gervais",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-016",
+        "path": "02_Reunions/M04_Transcript_Comite_direction_10sept.txt",
+        "locator": "15:06 · ligne 9",
+        "excerpt": "15:06 Marc : Je confirme que le connecteur est le chemin critique en ce moment. Le problème n'est pas juste un écran. Il touche les recherches et la synchronisation.",
+        "published_on": "2026-09-10"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M04_Transcript_Comite_direction_10sept.txt"
+    ],
+    "id": "evt-828ef4454c1d"
+  },
+  {
+    "date": "2026-09-10",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Comme écrit mardi, le connecteur nous a coûté plus de temps que prévu. Notre recommandation est de déplac",
+    "summary": "15:02 Julien : Comme écrit mardi, le connecteur nous a coûté plus de temps que prévu. Notre recommandation est de déplacer le lancement du 15 au 22 octobre.",
+    "type": "proposal",
+    "status": "proposed",
+    "topic": "integration",
+    "owner": "Julien Moreau",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-016",
+        "path": "02_Reunions/M04_Transcript_Comite_direction_10sept.txt",
+        "locator": "15:02 · ligne 6",
+        "excerpt": "15:02 Julien : Comme écrit mardi, le connecteur nous a coûté plus de temps que prévu. Notre recommandation est de déplacer le lancement du 15 au 22 octobre.",
+        "published_on": "2026-09-10"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M04_Transcript_Comite_direction_10sept.txt"
+    ],
+    "id": "evt-bf64c5c14630"
+  },
+  {
+    "date": "2026-09-10",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Je vais formuler la décision. La date cible de mise en production NOVA est déplacée du 15 octobre au **22",
+    "summary": "15:22 Élodie : Je vais formuler la décision. La date cible de mise en production NOVA est déplacée du 15 octobre au **22 octobre 2026**. Est-ce que quelqu'un s'oppose?",
+    "type": "decision",
+    "status": "approved",
+    "topic": "schedule",
+    "owner": "Élodie Caron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-016",
+        "path": "02_Reunions/M04_Transcript_Comite_direction_10sept.txt",
+        "locator": "15:22 · ligne 17",
+        "excerpt": "15:22 Élodie : Je vais formuler la décision. La date cible de mise en production NOVA est déplacée du 15 octobre au **22 octobre 2026**. Est-ce que quelqu'un s'oppose?",
+        "published_on": "2026-09-10"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M04_Transcript_Comite_direction_10sept.txt"
+    ],
+    "id": "evt-caac947e6f6a"
+  },
+  {
+    "date": "2026-09-10",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "La migration de données n'empêche pas le 15 pour l'instant. Le problème de doublons a été corrigé et le r",
+    "summary": "15:15 Camille : La migration de données n'empêche pas le 15 pour l'instant. Le problème de doublons a été corrigé et le rejeu du 9 septembre a été validé sans doublon. DATA-401 est fermé.",
+    "type": "validation",
+    "status": "completed",
+    "topic": "data",
+    "owner": "Camille Beaulieu",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-016",
+        "path": "02_Reunions/M04_Transcript_Comite_direction_10sept.txt",
+        "locator": "15:15 · ligne 13",
+        "excerpt": "15:15 Camille : La migration de données n'empêche pas le 15 pour l'instant. Le problème de doublons a été corrigé et le rejeu du 9 septembre a été validé sans doublon. DATA-401 est fermé.",
+        "published_on": "2026-09-10"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M04_Transcript_Comite_direction_10sept.txt"
+    ],
+    "id": "evt-fd5c51e522f4"
+  },
+  {
+    "date": "2026-09-12",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "SEC-210 · Signalement",
+    "summary": "Audit admin incomplet sur export. Les actions administratives sensibles doivent être traçables. Lors d'un export CSV, l'événement détaillé attendu n'apparaît pas dans le journal.",
+    "type": "risk",
+    "status": "open",
+    "topic": "security",
+    "owner": "Sophie Lambert",
+    "owner_role": "Demandeur",
+    "evidence": [
+      {
+        "document_id": "doc-028",
+        "path": "03_Tickets/SEC-210.txt",
+        "locator": "En-tête du ticket",
+        "excerpt": "TICKET SEC-210\nTitre : Audit admin incomplet sur export\nCréé : 12 septembre 2026\nDemandeur : Sophie Lambert\nPriorité : Bloquante avant production\nStatut : EN VALIDATION\n\nDescription :\nLes actions administratives sensibles doivent être traçables. Lors d'un export CSV, l'événement détaillé attendu n'apparaît pas dans le journal.\n\nÉtapes :\n1. Se connecter avec un compte administrateur.\n2. Ouvrir un dossier.\n3. Exporter les données en CSV.\n4. Consulter le journal d'audit.\n\nAttendu : événement EXPORT_CSV avec utilisateur, horodatage et identifiant du dossier.\nObservé : une ligne EXPORT_CSV existe avec utilisateur et horodatage, mais l'objet (identifiant du dossier) et le résultat sont absents. La connexion, la consultation et la déconnexion sont présentes. Le défaut est une journalisation d'export incomplète, pas l'absence totale d'une ligne d'export.\n\nPièce jointe : SEC-210_audit.png",
+        "published_on": "2026-09-12"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/SEC-210.txt"
+    ],
+    "id": "evt-8ca51a48cc00"
+  },
+  {
+    "date": "2026-09-15",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Non, attention : le comité a approuvé le 22 octobre le 10 septembre. Le plan projet n'a visiblement pas e",
+    "summary": "09:18 - Nicolas : Non, attention : le comité a approuvé le 22 octobre le 10 septembre. Le plan projet n'a visiblement pas encore été corrigé.",
+    "type": "decision",
+    "status": "approved",
+    "topic": "schedule",
+    "owner": "Nicolas Perron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-045",
+        "path": "07_Conversations_Teams/Teams_15sept_ProjetNOVA.txt",
+        "locator": "09:18 · ligne 5",
+        "excerpt": "09:18 - Nicolas : Non, attention : le comité a approuvé le 22 octobre le 10 septembre. Le plan projet n'a visiblement pas encore été corrigé.",
+        "published_on": "2026-09-15"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "07_Conversations_Teams/Teams_15sept_ProjetNOVA.txt"
+    ],
+    "id": "evt-b8c80d72a319"
+  },
+  {
+    "date": "2026-09-15",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "On est toujours bons pour le 15 octobre? Je prépare la communication aux équipes.",
+    "summary": "09:12 - Alex : On est toujours bons pour le 15 octobre? Je prépare la communication aux équipes.",
+    "type": "update",
+    "status": "reported",
+    "topic": "schedule",
+    "owner": "Alex Deschamps",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-045",
+        "path": "07_Conversations_Teams/Teams_15sept_ProjetNOVA.txt",
+        "locator": "09:12 · ligne 4",
+        "excerpt": "09:12 - Alex : On est toujours bons pour le 15 octobre? Je prépare la communication aux équipes.",
+        "published_on": "2026-09-15"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "07_Conversations_Teams/Teams_15sept_ProjetNOVA.txt"
+    ],
+    "id": "evt-c53dbee0817a"
+  },
+  {
+    "date": "2026-09-16",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Petit rappel : à partir d'aujourd'hui, Nicolas reprend officiellement NOVA. Merci de l'inclure dans les s",
+    "summary": "08:45 - Élodie : Petit rappel : à partir d'aujourd'hui, Nicolas reprend officiellement NOVA. Merci de l'inclure dans les suivis et décisions. Je reste joignable quelques jours pour la transition.",
+    "type": "decision",
+    "status": "approved",
+    "topic": "governance",
+    "owner": "Élodie Caron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-046",
+        "path": "07_Conversations_Teams/Teams_16sept_Transition.txt",
+        "locator": "08:45 · ligne 4",
+        "excerpt": "08:45 - Élodie : Petit rappel : à partir d'aujourd'hui, Nicolas reprend officiellement NOVA. Merci de l'inclure dans les suivis et décisions. Je reste joignable quelques jours pour la transition.",
+        "published_on": "2026-09-16"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "07_Conversations_Teams/Teams_16sept_Transition.txt"
+    ],
+    "id": "evt-aef7e41eabf5"
+  },
+  {
+    "date": "2026-09-16",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Merci Élodie. Je reprends aussi le comité du vendredi.",
+    "summary": "08:47 - Nicolas : Merci Élodie. Je reprends aussi le comité du vendredi.",
+    "type": "update",
+    "status": "reported",
+    "topic": "delivery",
+    "owner": "Nicolas Perron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-046",
+        "path": "07_Conversations_Teams/Teams_16sept_Transition.txt",
+        "locator": "08:47 · ligne 5",
+        "excerpt": "08:47 - Nicolas : Merci Élodie. Je reprends aussi le comité du vendredi.",
+        "published_on": "2026-09-16"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "07_Conversations_Teams/Teams_16sept_Transition.txt"
+    ],
+    "id": "evt-b887326fdd34"
+  },
+  {
+    "date": "2026-09-16",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "NOVA - transition de la charge de projet",
+    "summary": "Bonjour, Comme convenu, Nicolas Perron prend officiellement la charge du projet NOVA à compter d'aujourd'hui, 16 septembre. Je demeure disponible quelques jours pour assurer le transfert, mais merci de diriger les décisions et suivis futurs vers Nicolas. Merci à tous, Élodie",
+    "type": "decision",
+    "status": "approved",
+    "topic": "governance",
+    "owner": "Élodie Caron",
+    "owner_role": "Auteur",
+    "evidence": [
+      {
+        "document_id": "doc-006",
+        "path": "01_Courriels/E06_Transition_charge_projet.eml",
+        "locator": "Corps du courriel",
+        "excerpt": "Bonjour,\nComme convenu, Nicolas Perron prend officiellement la charge du projet NOVA à compter d'aujourd'hui, 16 septembre.\nJe demeure disponible quelques jours pour assurer le transfert, mais merci de diriger les décisions et suivis futurs vers Nicolas.\nMerci à tous,\nÉlodie",
+        "published_on": "2026-09-16"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "01_Courriels/E06_Transition_charge_projet.eml"
+    ],
+    "id": "evt-dc3042b2732e"
+  },
+  {
+    "date": "2026-09-16",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Note transition Elodie 16sept",
+    "summary": "NOTE DE TRANSITION - NOVA 16 septembre 2026 À compter d'aujourd'hui, Nicolas Perron reprend le rôle de chargé de projet NOVA. À surveiller : - faire mettre à jour la date dans tous les plans (le comité a approuvé le 22 octobre); - ne pas considérer le mobile avancé comme approuvé; - suivre le connecteur jusqu'à fermeture formelle; - obtenir le go sécurité et exploitation avant production. Élodie",
+    "type": "decision",
+    "status": "approved",
+    "topic": "security",
+    "owner": null,
+    "owner_role": null,
+    "evidence": [
+      {
+        "document_id": "doc-030",
+        "path": "04_Documents_projet/Note_transition_Elodie_16sept.txt",
+        "locator": "Document",
+        "excerpt": "NOTE DE TRANSITION - NOVA\n16 septembre 2026\n\nÀ compter d'aujourd'hui, Nicolas Perron reprend le rôle de chargé de projet NOVA.\n\nÀ surveiller :\n- faire mettre à jour la date dans tous les plans (le comité a approuvé le 22 octobre);\n- ne pas considérer le mobile avancé comme approuvé;\n- suivre le connecteur jusqu'à fermeture formelle;\n- obtenir le go sécurité et exploitation avant production.\n\nÉlodie",
+        "published_on": "2026-09-16"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "04_Documents_projet/Note_transition_Elodie_16sept.txt"
+    ],
+    "id": "evt-eb876d16cd79"
+  },
+  {
+    "date": "2026-09-17",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "ACC-303 · 13:14 - Mélissa : Reproduit sur Chrome et Edge. Le focus reste entre le champ Nom et Commentair",
+    "summary": "17 sept 13:14 - Mélissa : Reproduit sur Chrome et Edge. Le focus reste entre le champ Nom et Commentaire; le bouton Enregistrer n'est jamais atteint avec Tab.",
+    "type": "update",
+    "status": "reported",
+    "topic": "accessibility",
+    "owner": "Mélissa Gagnon",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-021",
+        "path": "03_Tickets/ACC-303.txt",
+        "locator": "Ligne 14",
+        "excerpt": "17 sept 13:14 - Mélissa : Reproduit sur Chrome et Edge. Le focus reste entre le champ Nom et Commentaire; le bouton Enregistrer n'est jamais atteint avec Tab.",
+        "published_on": "2026-09-17"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/ACC-303.txt"
+    ],
+    "id": "evt-517760fe3256"
+  },
+  {
+    "date": "2026-09-17",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "ACC-303 · Signalement",
+    "summary": "tab dans popup. Je peux ouvrir la popup au clavier mais après c'est bizarre. Tab ne va pas partout et j'ai dû prendre la souris pour sauver.",
+    "type": "risk",
+    "status": "open",
+    "topic": "accessibility",
+    "owner": "Mélissa Gagnon",
+    "owner_role": "Demandeur",
+    "evidence": [
+      {
+        "document_id": "doc-021",
+        "path": "03_Tickets/ACC-303.txt",
+        "locator": "En-tête du ticket",
+        "excerpt": "TICKET ACC-303\nTitre : tab dans popup\nCréé : 17 septembre 2026\nDemandeur : Mélissa Gagnon\nPriorité : Haute\nStatut : OUVERT\n\nDescription initiale :\nJe peux ouvrir la popup au clavier mais après c'est bizarre. Tab ne va pas partout et j'ai dû prendre la souris pour sauver.\n\nPièce jointe : ACC-303_focus.png",
+        "published_on": "2026-09-17"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/ACC-303.txt"
+    ],
+    "id": "evt-62578ad5e65a"
+  },
+  {
+    "date": "2026-09-17",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "INT-101 · 14:23 - Boréal : Correctif déployé. 120 recherches rejouées, 120 réponses valides.",
+    "summary": "17 sept 14:23 - Boréal : Correctif déployé. 120 recherches rejouées, 120 réponses valides.",
+    "type": "validation",
+    "status": "completed",
+    "topic": "integration",
+    "owner": "Boréal",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-024",
+        "path": "03_Tickets/INT-101.txt",
+        "locator": "Ligne 17",
+        "excerpt": "17 sept 14:23 - Boréal : Correctif déployé. 120 recherches rejouées, 120 réponses valides.",
+        "published_on": "2026-09-05"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/INT-101.txt"
+    ],
+    "id": "evt-9940f6a6df09"
+  },
+  {
+    "date": "2026-09-17",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "INT-101 fermé - connecteur validé",
+    "summary": "Bonjour, Je confirme que nous avons rejoué les scénarios du connecteur après le correctif. 120/120 recherches ont retourné les résultats attendus. INT-101 est fermé. Le problème d'intégration qui avait déclenché le risque d'échéancier est considéré résolu. Marc",
+    "type": "validation",
+    "status": "completed",
+    "topic": "integration",
+    "owner": "Marc Gervais",
+    "owner_role": "Auteur",
+    "evidence": [
+      {
+        "document_id": "doc-012",
+        "path": "01_Courriels/E12_Resolution_integration.eml",
+        "locator": "Corps du courriel",
+        "excerpt": "Bonjour,\nJe confirme que nous avons rejoué les scénarios du connecteur après le correctif. 120/120 recherches ont retourné les résultats attendus.\nINT-101 est fermé. Le problème d'intégration qui avait déclenché le risque d'échéancier est considéré résolu.\nMarc",
+        "published_on": "2026-09-17"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "01_Courriels/E12_Resolution_integration.eml"
+    ],
+    "id": "evt-bc197d020126"
+  },
+  {
+    "date": "2026-09-17",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "INT-101 · 16:10 - Marc : Validé côté intégration. Je ferme.",
+    "summary": "17 sept 16:10 - Marc : Validé côté intégration. Je ferme.",
+    "type": "validation",
+    "status": "completed",
+    "topic": "integration",
+    "owner": "Marc Gervais",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-024",
+        "path": "03_Tickets/INT-101.txt",
+        "locator": "Ligne 18",
+        "excerpt": "17 sept 16:10 - Marc : Validé côté intégration. Je ferme.",
+        "published_on": "2026-09-05"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/INT-101.txt"
+    ],
+    "id": "evt-d592ca1c224c"
+  },
+  {
+    "date": "2026-09-18",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "ACC-303 · 09:50 - Boréal : On a reproduit. Le composant modal intercepte le focus avec une liste d'élémen",
+    "summary": "18 sept 09:50 - Boréal : On a reproduit. Le composant modal intercepte le focus avec une liste d'éléments focusables incomplète.",
+    "type": "risk",
+    "status": "open",
+    "topic": "accessibility",
+    "owner": "Boréal",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-021",
+        "path": "03_Tickets/ACC-303.txt",
+        "locator": "Ligne 15",
+        "excerpt": "18 sept 09:50 - Boréal : On a reproduit. Le composant modal intercepte le focus avec une liste d'éléments focusables incomplète.",
+        "published_on": "2026-09-17"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/ACC-303.txt"
+    ],
+    "id": "evt-879e3600d077"
+  },
+  {
+    "date": "2026-09-18",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "M05 CR Suivi 18sept",
+    "summary": "SUIVI LIVRAISON - 18 SEPTEMBRE 2026 Participants : Nicolas Perron, Marc Gervais, Sophie Lambert, Mélissa Gagnon, Olivier Côté, Boréal Faits saillants - INT-101 : le connecteur interne a été validé et fermé le 17 septembre. - DATA-401 : la correction d'idempotence a été validée; aucun doublon dans le dernier rejeu. - PERF-501 : performance revenue sous la cible de 1 seconde sur les essais de recherche. - SEC-210 : Boréal prépare un correctif concernant la journalisation des exports administrateur. La validation sécurité restera requise après livraison. - Accessibilité : ACC-301 et ACC-302 sont fermés. Un scénario de navigation clavier sur modal doit encore être vérifié. - Exploitation : le runbook n'est pas final. Le 22 octobre reste la date approuvée. Les participants rappellent toutefois que la date n'annule pas les critères de go-live.",
+    "type": "decision",
+    "status": "approved",
+    "topic": "security",
+    "owner": null,
+    "owner_role": null,
+    "evidence": [
+      {
+        "document_id": "doc-017",
+        "path": "02_Reunions/M05_CR_Suivi_18sept.txt",
+        "locator": "Document",
+        "excerpt": "SUIVI LIVRAISON - 18 SEPTEMBRE 2026\n\nParticipants : Nicolas Perron, Marc Gervais, Sophie Lambert, Mélissa Gagnon, Olivier Côté, Boréal\n\nFaits saillants\n- INT-101 : le connecteur interne a été validé et fermé le 17 septembre.\n- DATA-401 : la correction d'idempotence a été validée; aucun doublon dans le dernier rejeu.\n- PERF-501 : performance revenue sous la cible de 1 seconde sur les essais de recherche.\n- SEC-210 : Boréal prépare un correctif concernant la journalisation des exports administrateur. La validation sécurité restera requise après livraison.\n- Accessibilité : ACC-301 et ACC-302 sont fermés. Un scénario de navigation clavier sur modal doit encore être vérifié.\n- Exploitation : le runbook n'est pas final.\n\nLe 22 octobre reste la date approuvée. Les participants rappellent toutefois que la date n'annule pas les critères de go-live.",
+        "published_on": "2026-09-18"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M05_CR_Suivi_18sept.txt"
+    ],
+    "id": "evt-d02c6cd53c46"
+  },
+  {
+    "date": "2026-09-19",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Merci. On garde le ticket en validation jusqu'à notre re-test. « déployé » != « accepté » :)",
+    "summary": "10:31 - Sophie : Merci. On garde le ticket en validation jusqu'à notre re-test. « déployé » != « accepté » :)",
+    "type": "validation",
+    "status": "in_review",
+    "topic": "delivery",
+    "owner": "Sophie Lambert",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-047",
+        "path": "07_Conversations_Teams/Teams_19sept_Securite.txt",
+        "locator": "10:31 · ligne 5",
+        "excerpt": "10:31 - Sophie : Merci. On garde le ticket en validation jusqu'à notre re-test. « déployé » != « accepté » :)",
+        "published_on": "2026-09-19"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "07_Conversations_Teams/Teams_19sept_Securite.txt"
+    ],
+    "id": "evt-08e5403bbf8e"
+  },
+  {
+    "date": "2026-09-19",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "SEC-210 · 14:05 - Sophie : Merci. Nous devons refaire notre scénario et confirmer nous-mêmes. Ne pas ferm",
+    "summary": "19 sept 14:05 - Sophie : Merci. Nous devons refaire notre scénario et confirmer nous-mêmes. Ne pas fermer avant validation sécurité.",
+    "type": "validation",
+    "status": "in_review",
+    "topic": "security",
+    "owner": "Sophie Lambert",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-028",
+        "path": "03_Tickets/SEC-210.txt",
+        "locator": "Ligne 24",
+        "excerpt": "19 sept 14:05 - Sophie : Merci. Nous devons refaire notre scénario et confirmer nous-mêmes. Ne pas fermer avant validation sécurité.",
+        "published_on": "2026-09-12"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/SEC-210.txt"
+    ],
+    "id": "evt-4023f16f8170"
+  },
+  {
+    "date": "2026-09-19",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "SEC-210 · 10:22 - Boréal : Fix déployé sur l'environnement de validation. Pour nous c'est réglé.",
+    "summary": "19 sept 10:22 - Boréal : Fix déployé sur l'environnement de validation. Pour nous c'est réglé.",
+    "type": "delivery",
+    "status": "delivered",
+    "topic": "security",
+    "owner": "Boréal",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-028",
+        "path": "03_Tickets/SEC-210.txt",
+        "locator": "Ligne 23",
+        "excerpt": "19 sept 10:22 - Boréal : Fix déployé sur l'environnement de validation. Pour nous c'est réglé.",
+        "published_on": "2026-09-12"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/SEC-210.txt"
+    ],
+    "id": "evt-9273b42cbb08"
+  },
+  {
+    "date": "2026-09-19",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "SEC-210 - correctif déployé",
+    "summary": "Bonjour, Le correctif pour SEC-210 est déployé en validation depuis ce matin. Nos tests automatisés passent et, pour nous, le problème est corrigé. Sophie, tu peux faire ton re-test quand ton équipe est disponible. Julien",
+    "type": "validation",
+    "status": "in_review",
+    "topic": "security",
+    "owner": "Julien Moreau",
+    "owner_role": "Auteur",
+    "evidence": [
+      {
+        "document_id": "doc-008",
+        "path": "01_Courriels/E08_Correctif_journalisation.eml",
+        "locator": "Corps du courriel",
+        "excerpt": "Bonjour,\nLe correctif pour SEC-210 est déployé en validation depuis ce matin. Nos tests automatisés passent et, pour nous, le problème est corrigé.\nSophie, tu peux faire ton re-test quand ton équipe est disponible.\nJulien",
+        "published_on": "2026-09-19"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "01_Courriels/E08_Correctif_journalisation.eml"
+    ],
+    "id": "evt-d43f52965cd6"
+  },
+  {
+    "date": "2026-09-21",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Brouillon communication NOVA - projet au vert",
+    "summary": "Salut Nicolas, Je prépare le petit message de statut. Je pensais écrire : « NOVA est au vert. La sécurité et l'accessibilité sont complétées et le projet vise le 22 octobre. » Dis-moi si ça te va. Je me base surtout sur le rapport de statut que j'ai reçu. Alex",
+    "type": "update",
+    "status": "reported",
+    "topic": "security",
+    "owner": "Alex Deschamps",
+    "owner_role": "Auteur",
+    "evidence": [
+      {
+        "document_id": "doc-011",
+        "path": "01_Courriels/E11_Communication_statut.eml",
+        "locator": "Corps du courriel",
+        "excerpt": "Salut Nicolas,\nJe prépare le petit message de statut. Je pensais écrire :\n« NOVA est au vert. La sécurité et l'accessibilité sont complétées et le projet vise le 22 octobre. »\nDis-moi si ça te va. Je me base surtout sur le rapport de statut que j'ai reçu.\nAlex",
+        "published_on": "2026-09-21"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "01_Courriels/E11_Communication_statut.eml"
+    ],
+    "id": "evt-0cd6f3bd0ab8"
+  },
+  {
+    "date": "2026-09-21",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Rapport Statut 21sept",
+    "summary": "[page 1] Rapport de statut fictif Page 1 RAPPORT DE STATUT - NOVA - 21 SEPTEMBRE 2026 Synthèse Dimension Statut Commentaire Échéancier VERT Cible 22 octobre Budget VERT Sous le plafond contractuel Sécurité VERT Correctif SEC-210 livré Accessibilité VERT Correctifs appliqués Exploitation JAUNE Runbook à finaliser Commentaire de gestion Le projet est présenté comme globalement sous contrôle. Le rapport a été préparé avant la dernière vérification détaillée de certains tickets.",
+    "type": "delivery",
+    "status": "delivered",
+    "topic": "security",
+    "owner": null,
+    "owner_role": null,
+    "evidence": [
+      {
+        "document_id": "doc-033",
+        "path": "04_Documents_projet/Rapport_Statut_21sept.pdf",
+        "locator": "Page 1",
+        "excerpt": "[page 1] Rapport de statut fictif\nPage 1\n RAPPORT DE STATUT - NOVA - 21 SEPTEMBRE\n 2026\nSynthèse\n Dimension\nStatut\nCommentaire\nÉchéancier\nVERT\nCible 22 octobre\nBudget\nVERT\nSous le plafond contractuel\nSécurité\nVERT\nCorrectif SEC-210 livré\nAccessibilité\nVERT\nCorrectifs appliqués\nExploitation\nJAUNE\nRunbook à finaliser\nCommentaire de gestion\nLe projet est présenté comme globalement sous contrôle. Le rapport a été préparé avant la dernière\nvérification détaillée de certains tickets.",
+        "published_on": "2026-09-21"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "04_Documents_projet/Rapport_Statut_21sept.pdf"
+    ],
+    "id": "evt-7cb0db4df6db"
+  },
+  {
+    "date": "2026-09-21",
+    "end_date": "2026-10-05",
+    "date_kind": "planned",
+    "title": "Tests intégrés",
+    "summary": "P-04 | Tests intégrés | À venir | Mélissa Gagnon | 2026-09-21 | 2026-10-05 |",
+    "type": "milestone",
+    "status": "planned",
+    "topic": "delivery",
+    "owner": "Mélissa Gagnon",
+    "owner_role": "Responsable du plan",
+    "evidence": [
+      {
+        "document_id": "doc-032",
+        "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
+        "locator": "Plan projet · ligne 6",
+        "excerpt": "P-04 | Tests intégrés | À venir | Mélissa Gagnon | 2026-09-21 | 2026-10-05 |",
+        "published_on": "2026-09-12"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx"
+    ],
+    "plan_id": "P-04",
+    "id": "evt-0fd8c68829ec"
+  },
+  {
+    "date": "2026-09-22",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "INV 003",
+    "summary": "[page 1] Document synthétique - Aucun fournisseur réel Page 1 FACTURE INV-003 Fournisseur Boréal Numérique Inc. 1450, rue des Ateliers, Montréal (QC) H3X 0A1 Numéro fournisseur fictif : BN-4481 Détails Facture INV-003 Projet NOVA Date 2026-09-22 Statut En validation Facturation Description Montant Développement phase 1 - jalon 3 36 000 $ Optimisation interface mobile - CR-04 18 000 $ TOTAL 54 000 $ Note La référence CR-04 apparaît sur la ligne mobile.",
+    "type": "validation",
+    "status": "in_review",
+    "topic": "scope",
+    "owner": null,
+    "owner_role": null,
+    "evidence": [
+      {
+        "document_id": "doc-040",
+        "path": "05_Contrats_et_finances/INV-003.pdf",
+        "locator": "Page 1",
+        "excerpt": "[page 1] Document synthétique - Aucun fournisseur réel\nPage 1\n FACTURE INV-003\nFournisseur\nBoréal Numérique Inc.\n1450, rue des Ateliers, Montréal (QC) H3X 0A1\nNuméro fournisseur fictif : BN-4481\nDétails\n Facture\nINV-003\nProjet\nNOVA\nDate\n2026-09-22\nStatut\nEn validation\nFacturation\n Description\nMontant\nDéveloppement phase 1 - jalon 3\n36 000 $\nOptimisation interface mobile - CR-04\n18 000 $\nTOTAL\n54 000 $\nNote\nLa référence CR-04 apparaît sur la ligne mobile.",
+        "published_on": "2026-09-22"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "05_Contrats_et_finances/INV-003.pdf"
+    ],
+    "id": "evt-c4a9b61e6415"
+  },
+  {
+    "date": "2026-09-22",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "La compatibilité de base oui. Le package d'optimisation CR-04 à 18k non. Il n'est pas approuvé.",
+    "summary": "13:06 - Nicolas : La compatibilité de base oui. Le package d'optimisation CR-04 à 18k non. Il n'est pas approuvé.",
+    "type": "decision",
+    "status": "not_approved",
+    "topic": "scope",
+    "owner": "Nicolas Perron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-048",
+        "path": "07_Conversations_Teams/Teams_22sept_Mobile.txt",
+        "locator": "13:06 · ligne 5",
+        "excerpt": "13:06 - Nicolas : La compatibilité de base oui. Le package d'optimisation CR-04 à 18k non. Il n'est pas approuvé.",
+        "published_on": "2026-09-22"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "07_Conversations_Teams/Teams_22sept_Mobile.txt"
+    ],
+    "id": "evt-fe11282ebd73"
+  },
+  {
+    "date": "2026-09-23",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "INV-003 - référence CR-04?",
+    "summary": "Bonjour Nicolas, Je valide INV-003 et j'ai une question avant de la libérer. Il y a une ligne de 18 000 $ « Optimisation interface mobile - CR-04 ». Peux-tu me transmettre l'approbation correspondante? Je trouve un brouillon de CR-04, mais rien qui indique qu'il a été approuvé. Je joins la facture reçue. Merci, Amélie Finances",
+    "type": "proposal",
+    "status": "proposed",
+    "topic": "scope",
+    "owner": "Amélie Fortin",
+    "owner_role": "Auteur",
+    "evidence": [
+      {
+        "document_id": "doc-007",
+        "path": "01_Courriels/E07_Facture_003_question.eml",
+        "locator": "Corps du courriel",
+        "excerpt": "Bonjour Nicolas,\nJe valide INV-003 et j'ai une question avant de la libérer.\nIl y a une ligne de 18 000 $ « Optimisation interface mobile - CR-04 ». Peux-tu me transmettre l'approbation correspondante? Je trouve un brouillon de CR-04, mais rien qui indique qu'il a été approuvé.\nJe joins la facture reçue.\nMerci,\nAmélie\nFinances",
+        "published_on": "2026-09-23"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "01_Courriels/E07_Facture_003_question.eml"
+    ],
+    "id": "evt-9e3f2552f9c7"
+  },
+  {
+    "date": "2026-09-24",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Decision Portee Phase2",
+    "summary": "# Décision de portée - expérience mobile avancée **Date :** 24 septembre 2026 **Décision :** Les optimisations mobiles avancées associées à la demande CR-04 sont reportées à la phase 2. La phase 1 doit demeurer utilisable sur mobile, mais les travaux d'optimisation avancée proposés par Boréal ne font pas partie de la portée approuvée de la phase 1. Aucune dépense additionnelle liée à CR-04 ne doit être engagée sans nouvelle approbation.",
+    "type": "decision",
+    "status": "not_approved",
+    "topic": "scope",
+    "owner": null,
+    "owner_role": null,
+    "evidence": [
+      {
+        "document_id": "doc-044",
+        "path": "06_Architecture_et_decisions/Decision_Portee_Phase2.md",
+        "locator": "Document",
+        "excerpt": "# Décision de portée - expérience mobile avancée\n\n**Date :** 24 septembre 2026  \n**Décision :** Les optimisations mobiles avancées associées à la demande CR-04 sont reportées à la phase 2.\n\nLa phase 1 doit demeurer utilisable sur mobile, mais les travaux d'optimisation avancée proposés par Boréal ne font pas partie de la portée approuvée de la phase 1. Aucune dépense additionnelle liée à CR-04 ne doit être engagée sans nouvelle approbation.",
+        "published_on": "2026-09-24"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "06_Architecture_et_decisions/Decision_Portee_Phase2.md"
+    ],
+    "id": "evt-57c6c39dab1a"
+  },
+  {
+    "date": "2026-09-24",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "NOVA - CR-04 / mobile",
+    "summary": "Bonjour, Pour clarifier la portée : les optimisations mobiles avancées proposées dans CR-04 ne font pas partie de la phase 1 approuvée. Nous les reportons à la phase 2. Aucune dépense liée à CR-04 ne doit être engagée ou facturée sans nouvelle approbation. Nicolas",
+    "type": "decision",
+    "status": "not_approved",
+    "topic": "scope",
+    "owner": "Nicolas Perron",
+    "owner_role": "Auteur",
+    "evidence": [
+      {
+        "document_id": "doc-010",
+        "path": "01_Courriels/E10_Fonction_mobile.eml",
+        "locator": "Corps du courriel",
+        "excerpt": "Bonjour,\nPour clarifier la portée : les optimisations mobiles avancées proposées dans CR-04 ne font pas partie de la phase 1 approuvée. Nous les reportons à la phase 2.\nAucune dépense liée à CR-04 ne doit être engagée ou facturée sans nouvelle approbation.\nNicolas",
+        "published_on": "2026-09-24"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "01_Courriels/E10_Fonction_mobile.eml"
+    ],
+    "id": "evt-a09a731fa888"
+  },
+  {
+    "date": "2026-09-25",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "OPS-601 · Signalement",
+    "summary": "runbook pas prêt. Le doc est pas prêt pour prod.",
+    "type": "risk",
+    "status": "open",
+    "topic": "operations",
+    "owner": "Olivier Côté",
+    "owner_role": "Demandeur",
+    "evidence": [
+      {
+        "document_id": "doc-026",
+        "path": "03_Tickets/OPS-601.txt",
+        "locator": "En-tête du ticket",
+        "excerpt": "TICKET OPS-601\nTitre : runbook pas prêt\nCréé : 25 septembre 2026\nDemandeur : Olivier Côté\nPriorité : Haute\nStatut : OUVERT\n\nDescription initiale :\nLe doc est pas prêt pour prod.\n\nPièce jointe : OPS-601_runbook.png",
+        "published_on": "2026-09-25"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/OPS-601.txt"
+    ],
+    "id": "evt-1e6e823e2e39"
+  },
+  {
+    "date": "2026-09-25",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "OPS-601 · Olivier : Il manque au minimum la procédure de rollback. La capture jointe identifie aussi une",
+    "summary": "25 sept - Olivier : Il manque au minimum la procédure de rollback. La capture jointe identifie aussi une autre étape à compléter. J'ai besoin de quelque chose qu'une autre personne peut exécuter sans appeler l'équipe projet.",
+    "type": "risk",
+    "status": "open",
+    "topic": "operations",
+    "owner": "Olivier Côté",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-026",
+        "path": "03_Tickets/OPS-601.txt",
+        "locator": "Ligne 14",
+        "excerpt": "25 sept - Olivier : Il manque au minimum la procédure de rollback. La capture jointe identifie aussi une autre étape à compléter. J'ai besoin de quelque chose qu'une autre personne peut exécuter sans appeler l'équipe projet.",
+        "published_on": "2026-09-25"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/OPS-601.txt"
+    ],
+    "id": "evt-4c7b2981098c"
+  },
+  {
+    "date": "2026-09-26",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Regarder, oui. Facturer du CR-04, non. Il n'est pas approuvé.",
+    "summary": "10:25 Nicolas : Regarder, oui. Facturer du CR-04, non. Il n'est pas approuvé.",
+    "type": "decision",
+    "status": "not_approved",
+    "topic": "scope",
+    "owner": "Nicolas Perron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-018",
+        "path": "02_Reunions/M06_Transcript_Comite_26sept.txt",
+        "locator": "10:25 · ligne 23",
+        "excerpt": "10:25 Nicolas : Regarder, oui. Facturer du CR-04, non. Il n'est pas approuvé.",
+        "published_on": "2026-09-26"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M06_Transcript_Comite_26sept.txt"
+    ],
+    "id": "evt-68256764cfc8"
+  },
+  {
+    "date": "2026-09-26",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Donc trois conditions concrètes : validation sécurité de SEC-210, fermeture de ACC-303 et approbation du",
+    "summary": "10:09 Nicolas : Donc trois conditions concrètes : validation sécurité de SEC-210, fermeture de ACC-303 et approbation du runbook incluant rollback. Exact?",
+    "type": "validation",
+    "status": "completed",
+    "topic": "security",
+    "owner": "Nicolas Perron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-018",
+        "path": "02_Reunions/M06_Transcript_Comite_26sept.txt",
+        "locator": "10:09 · ligne 11",
+        "excerpt": "10:09 Nicolas : Donc trois conditions concrètes : validation sécurité de SEC-210, fermeture de ACC-303 et approbation du runbook incluant rollback. Exact?",
+        "published_on": "2026-09-26"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M06_Transcript_Comite_26sept.txt"
+    ],
+    "id": "evt-7a3220a7a574"
+  },
+  {
+    "date": "2026-09-26",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Très bien. Je publie le compte rendu : cible 22 octobre, trois conditions de go-live.",
+    "summary": "10:30 Nicolas : Très bien. Je publie le compte rendu : cible 22 octobre, trois conditions de go-live.",
+    "type": "decision",
+    "status": "conditional",
+    "topic": "schedule",
+    "owner": "Nicolas Perron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-018",
+        "path": "02_Reunions/M06_Transcript_Comite_26sept.txt",
+        "locator": "10:30 · ligne 25",
+        "excerpt": "10:30 Nicolas : Très bien. Je publie le compte rendu : cible 22 octobre, trois conditions de go-live.",
+        "published_on": "2026-09-26"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M06_Transcript_Comite_26sept.txt"
+    ],
+    "id": "evt-a54c2ca4084d"
+  },
+  {
+    "date": "2026-09-26",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "On vise le correctif ACC-303 dans la prochaine build. Pour le runbook je relance notre équipe ops.",
+    "summary": "10:12 Julien : On vise le correctif ACC-303 dans la prochaine build. Pour le runbook je relance notre équipe ops.",
+    "type": "delivery",
+    "status": "delivered",
+    "topic": "accessibility",
+    "owner": "Julien Moreau",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-018",
+        "path": "02_Reunions/M06_Transcript_Comite_26sept.txt",
+        "locator": "10:12 · ligne 15",
+        "excerpt": "10:12 Julien : On vise le correctif ACC-303 dans la prochaine build. Pour le runbook je relance notre équipe ops.",
+        "published_on": "2026-09-26"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M06_Transcript_Comite_26sept.txt"
+    ],
+    "id": "evt-b3c53979fca2"
+  },
+  {
+    "date": "2026-09-26",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Le runbook est encore incomplet. Il manque le rollback. Je ne donnerai pas mon go exploitation tant que j",
+    "summary": "10:07 Olivier : Le runbook est encore incomplet. Il manque le rollback. Je ne donnerai pas mon go exploitation tant que je n'ai pas une procédure exécutable.",
+    "type": "risk",
+    "status": "open",
+    "topic": "operations",
+    "owner": "Olivier Côté",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-018",
+        "path": "02_Reunions/M06_Transcript_Comite_26sept.txt",
+        "locator": "10:07 · ligne 10",
+        "excerpt": "10:07 Olivier : Le runbook est encore incomplet. Il manque le rollback. Je ne donnerai pas mon go exploitation tant que je n'ai pas une procédure exécutable.",
+        "published_on": "2026-09-26"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M06_Transcript_Comite_26sept.txt"
+    ],
+    "id": "evt-b62592d86bdd"
+  },
+  {
+    "date": "2026-09-26",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Il reste ACC-303. La modale ne permet toujours pas d'atteindre Enregistrer au clavier. Pour moi c'est un",
+    "summary": "10:05 Mélissa : Il reste ACC-303. La modale ne permet toujours pas d'atteindre Enregistrer au clavier. Pour moi c'est un bloquant d'accessibilité avant production.",
+    "type": "risk",
+    "status": "open",
+    "topic": "accessibility",
+    "owner": "Mélissa Gagnon",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-018",
+        "path": "02_Reunions/M06_Transcript_Comite_26sept.txt",
+        "locator": "10:05 · ligne 9",
+        "excerpt": "10:05 Mélissa : Il reste ACC-303. La modale ne permet toujours pas d'atteindre Enregistrer au clavier. Pour moi c'est un bloquant d'accessibilité avant production.",
+        "published_on": "2026-09-26"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M06_Transcript_Comite_26sept.txt"
+    ],
+    "id": "evt-bc826f566cb3"
+  },
+  {
+    "date": "2026-09-26",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "SEC-210 · 15:40 - Sophie : Re-test planifié. Statut maintenu EN VALIDATION.",
+    "summary": "26 sept 15:40 - Sophie : Re-test planifié. Statut maintenu EN VALIDATION.",
+    "type": "validation",
+    "status": "in_review",
+    "topic": "security",
+    "owner": "Sophie Lambert",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-028",
+        "path": "03_Tickets/SEC-210.txt",
+        "locator": "Ligne 25",
+        "excerpt": "26 sept 15:40 - Sophie : Re-test planifié. Statut maintenu EN VALIDATION.",
+        "published_on": "2026-09-12"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/SEC-210.txt"
+    ],
+    "id": "evt-c584d4b6b19f"
+  },
+  {
+    "date": "2026-09-26",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "OPS-601 · Nicolas : D'accord. Ceci fait partie des conditions de go-live du comité.",
+    "summary": "26 sept - Nicolas : D'accord. Ceci fait partie des conditions de go-live du comité.",
+    "type": "decision",
+    "status": "conditional",
+    "topic": "operations",
+    "owner": "Nicolas Perron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-026",
+        "path": "03_Tickets/OPS-601.txt",
+        "locator": "Ligne 15",
+        "excerpt": "26 sept - Nicolas : D'accord. Ceci fait partie des conditions de go-live du comité.",
+        "published_on": "2026-09-25"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/OPS-601.txt"
+    ],
+    "id": "evt-df0278ec31de"
+  },
+  {
+    "date": "2026-09-26",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "Le 22 reste notre cible, mais je veux que ce soit écrit noir sur blanc : c'est conditionnel à ces trois é",
+    "summary": "10:15 Nicolas : Le 22 reste notre cible, mais je veux que ce soit écrit noir sur blanc : c'est conditionnel à ces trois éléments.",
+    "type": "decision",
+    "status": "conditional",
+    "topic": "delivery",
+    "owner": "Nicolas Perron",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-018",
+        "path": "02_Reunions/M06_Transcript_Comite_26sept.txt",
+        "locator": "10:15 · ligne 16",
+        "excerpt": "10:15 Nicolas : Le 22 reste notre cible, mais je veux que ce soit écrit noir sur blanc : c'est conditionnel à ces trois éléments.",
+        "published_on": "2026-09-26"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "02_Reunions/M06_Transcript_Comite_26sept.txt"
+    ],
+    "id": "evt-e1696e335e90"
+  },
+  {
+    "date": "2026-09-26",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "ACC-303 · 11:03 - Mélissa : Toujours ouvert. Correctif annoncé pour la prochaine build.",
+    "summary": "26 sept 11:03 - Mélissa : Toujours ouvert. Correctif annoncé pour la prochaine build.",
+    "type": "risk",
+    "status": "open",
+    "topic": "accessibility",
+    "owner": "Mélissa Gagnon",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-021",
+        "path": "03_Tickets/ACC-303.txt",
+        "locator": "Ligne 16",
+        "excerpt": "26 sept 11:03 - Mélissa : Toujours ouvert. Correctif annoncé pour la prochaine build.",
+        "published_on": "2026-09-17"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/ACC-303.txt"
+    ],
+    "id": "evt-fd9f2e03c535"
+  },
+  {
+    "date": "2026-09-27",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "NOVA - cible du 22 octobre et conditions restantes",
+    "summary": "Bonjour, Petit rappel pour éviter les versions différentes : la cible approuvée demeure le 22 octobre. Cette date est toutefois conditionnelle aux validations restantes : sécurité, accessibilité et préparation exploitation. Le comité du 26 septembre a précisé les éléments à fermer. Merci de ne pas communiquer le 22 comme un go garanti tant que ces validations ne sont pas terminées. Nicolas",
+    "type": "decision",
+    "status": "conditional",
+    "topic": "security",
+    "owner": "Nicolas Perron",
+    "owner_role": "Auteur",
+    "evidence": [
+      {
+        "document_id": "doc-009",
+        "path": "01_Courriels/E09_Rappel_mise_en_production.eml",
+        "locator": "Corps du courriel",
+        "excerpt": "Bonjour,\nPetit rappel pour éviter les versions différentes : la cible approuvée demeure le 22 octobre.\nCette date est toutefois conditionnelle aux validations restantes : sécurité, accessibilité et préparation exploitation. Le comité du 26 septembre a précisé les éléments à fermer.\nMerci de ne pas communiquer le 22 comme un go garanti tant que ces validations ne sont pas terminées.\nNicolas",
+        "published_on": "2026-09-27"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "01_Courriels/E09_Rappel_mise_en_production.eml"
+    ],
+    "id": "evt-89a91f346c65"
+  },
+  {
+    "date": "2026-09-28",
+    "end_date": "2026-10-10",
+    "date_kind": "planned",
+    "title": "Préparation exploitation",
+    "summary": "P-05 | Préparation exploitation | À venir | Olivier Côté | 2026-09-28 | 2026-10-10 |",
+    "type": "milestone",
+    "status": "planned",
+    "topic": "operations",
+    "owner": "Olivier Côté",
+    "owner_role": "Responsable du plan",
+    "evidence": [
+      {
+        "document_id": "doc-032",
+        "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
+        "locator": "Plan projet · ligne 7",
+        "excerpt": "P-05 | Préparation exploitation | À venir | Olivier Côté | 2026-09-28 | 2026-10-10 |",
+        "published_on": "2026-09-12"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx"
+    ],
+    "plan_id": "P-05",
+    "id": "evt-a8bc4ee0f8cd"
+  },
+  {
+    "date": "2026-09-29",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "R-04 · Accessibilité",
+    "summary": "R-04 | Accessibilité | Moyenne | Moyen | Mélissa Gagnon | Ouvert | Fermer ACC-303 |",
+    "type": "risk",
+    "status": "open",
+    "topic": "accessibility",
+    "owner": "Mélissa Gagnon",
+    "owner_role": "Propriétaire du risque",
+    "evidence": [
+      {
+        "document_id": "doc-034",
+        "path": "04_Documents_projet/Registre_Risques_29sept.xlsx",
+        "locator": "Registre Risques · ligne extraite 6",
+        "excerpt": "R-04 | Accessibilité | Moyenne | Moyen | Mélissa Gagnon | Ouvert | Fermer ACC-303 |",
+        "published_on": "2026-09-29"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "04_Documents_projet/Registre_Risques_29sept.xlsx"
+    ],
+    "id": "evt-2a8764eea668"
+  },
+  {
+    "date": "2026-09-29",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "R-03 · Préparation exploitation incomplète",
+    "summary": "R-03 | Préparation exploitation incomplète | Moyenne | Élevé | Olivier Côté | Ouvert | Finaliser le runbook et le rollback |",
+    "type": "risk",
+    "status": "open",
+    "topic": "operations",
+    "owner": "Olivier Côté",
+    "owner_role": "Propriétaire du risque",
+    "evidence": [
+      {
+        "document_id": "doc-034",
+        "path": "04_Documents_projet/Registre_Risques_29sept.xlsx",
+        "locator": "Registre Risques · ligne extraite 5",
+        "excerpt": "R-03 | Préparation exploitation incomplète | Moyenne | Élevé | Olivier Côté | Ouvert | Finaliser le runbook et le rollback |",
+        "published_on": "2026-09-29"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "04_Documents_projet/Registre_Risques_29sept.xlsx"
+    ],
+    "id": "evt-39936dd53283"
+  },
+  {
+    "date": "2026-09-29",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "R-01 · Retard du connecteur interne",
+    "summary": "R-01 | Retard du connecteur interne | Moyenne | Élevé | Marc Gervais | Ouvert | Suivi fournisseur hebdomadaire | Suivi au 9 septembre 2026",
+    "type": "risk",
+    "status": "open",
+    "topic": "integration",
+    "owner": "Marc Gervais",
+    "owner_role": "Propriétaire du risque",
+    "evidence": [
+      {
+        "document_id": "doc-034",
+        "path": "04_Documents_projet/Registre_Risques_29sept.xlsx",
+        "locator": "Registre Risques · ligne extraite 3",
+        "excerpt": "R-01 | Retard du connecteur interne | Moyenne | Élevé | Marc Gervais | Ouvert | Suivi fournisseur hebdomadaire | Suivi au 9 septembre 2026",
+        "published_on": "2026-09-29"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "04_Documents_projet/Registre_Risques_29sept.xlsx"
+    ],
+    "id": "evt-5dac107bc5b5"
+  },
+  {
+    "date": "2026-09-29",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "R-02 · Validation sécurité incomplète",
+    "summary": "R-02 | Validation sécurité incomplète | Élevée | Élevé | Sophie Lambert | Ouvert | Re-test de SEC-210 avant go-live |",
+    "type": "risk",
+    "status": "open",
+    "topic": "security",
+    "owner": "Sophie Lambert",
+    "owner_role": "Propriétaire du risque",
+    "evidence": [
+      {
+        "document_id": "doc-034",
+        "path": "04_Documents_projet/Registre_Risques_29sept.xlsx",
+        "locator": "Registre Risques · ligne extraite 4",
+        "excerpt": "R-02 | Validation sécurité incomplète | Élevée | Élevé | Sophie Lambert | Ouvert | Re-test de SEC-210 avant go-live |",
+        "published_on": "2026-09-29"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "04_Documents_projet/Registre_Risques_29sept.xlsx"
+    ],
+    "id": "evt-6cfe869c499f"
+  },
+  {
+    "date": "2026-09-29",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "OPS-601 · Olivier : Toujours pas reçu la version finale.",
+    "summary": "29 sept - Olivier : Toujours pas reçu la version finale.",
+    "type": "update",
+    "status": "reported",
+    "topic": "operations",
+    "owner": "Olivier Côté",
+    "owner_role": "Intervenant",
+    "evidence": [
+      {
+        "document_id": "doc-026",
+        "path": "03_Tickets/OPS-601.txt",
+        "locator": "Ligne 16",
+        "excerpt": "29 sept - Olivier : Toujours pas reçu la version finale.",
+        "published_on": "2026-09-25"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "03_Tickets/OPS-601.txt"
+    ],
+    "id": "evt-928b64bdd4ec"
+  },
+  {
+    "date": "2026-09-29",
+    "end_date": null,
+    "date_kind": "observed",
+    "title": "R-05 · Migration données",
+    "summary": "R-05 | Migration données | Faible | Moyen | Camille Beaulieu | Fermé | Contrôle de doublons |",
+    "type": "risk",
+    "status": "completed",
+    "topic": "data",
+    "owner": "Camille Beaulieu",
+    "owner_role": "Propriétaire du risque",
+    "evidence": [
+      {
+        "document_id": "doc-034",
+        "path": "04_Documents_projet/Registre_Risques_29sept.xlsx",
+        "locator": "Registre Risques · ligne extraite 7",
+        "excerpt": "R-05 | Migration données | Faible | Moyen | Camille Beaulieu | Fermé | Contrôle de doublons |",
+        "published_on": "2026-09-29"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "04_Documents_projet/Registre_Risques_29sept.xlsx"
+    ],
+    "id": "evt-dd4f5e3cd466"
+  },
+  {
+    "date": "2026-10-15",
+    "end_date": "2026-10-15",
+    "date_kind": "planned",
+    "title": "Mise en production",
+    "summary": "P-06 | Mise en production | À venir | Nicolas Perron | 2026-10-15 | 2026-10-15 | Cible de planification",
+    "type": "milestone",
+    "status": "superseded",
+    "topic": "schedule",
+    "owner": "Nicolas Perron",
+    "owner_role": "Responsable du plan",
+    "evidence": [
+      {
+        "document_id": "doc-032",
+        "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
+        "locator": "Plan projet · ligne 8",
+        "excerpt": "P-06 | Mise en production | À venir | Nicolas Perron | 2026-10-15 | 2026-10-15 | Cible de planification",
+        "published_on": "2026-09-12"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx"
+    ],
+    "plan_id": "P-06",
+    "id": "evt-e11260379369"
+  },
+  {
+    "date": "2026-10-22",
+    "end_date": null,
+    "date_kind": "planned",
+    "title": "Mise en production NOVA",
+    "summary": "La cible approuvée de mise en production est le 2026-10-22. Elle reste conditionnelle aux validations explicitement citées dans la dernière source.",
+    "type": "milestone",
+    "status": "conditional",
+    "topic": "schedule",
+    "owner": "Nicolas Perron",
+    "owner_role": "Charge de projet",
+    "evidence": [
+      {
+        "document_id": "doc-009",
+        "path": "01_Courriels/E09_Rappel_mise_en_production.eml",
+        "locator": "Date cible et décision",
+        "excerpt": "Subject: NOVA - cible du 22 octobre et conditions restantes\nFrom: Nicolas Perron <nicolas.perron@demo.example>\nTo: equipe-nova@demo.example\nDate: Sun, 27 Sep 2026 17:02:00 -0400\nBonjour,\r\n\r\nPetit rappel pour éviter les versions différentes : la cible approuvée demeure le 22 octobre.\r\n\r\nCette date est toutefois conditionnelle aux validations restantes : sécurité, accessibilité et préparation exploitation. Le comité du 26 septembre a précisé les éléments à fermer.\r\n\r\nMerci de ne pas communiquer le 22 comme un go garanti tant que ces validations ne sont pas terminées.\r\n\r\nNicolas",
+        "published_on": "2026-09-27"
+      },
+      {
+        "document_id": "doc-006",
+        "path": "01_Courriels/E06_Transition_charge_projet.eml",
+        "locator": "Attribution explicite de la charge de projet",
+        "excerpt": "Subject: NOVA - transition de la charge de projet\nFrom: Élodie Caron <elodie.caron@demo.example>\nTo: equipe-nova@demo.example\nDate: Wed, 16 Sep 2026 08:35:00 -0400\nBonjour,\r\n\r\nComme convenu, Nicolas Perron prend officiellement la charge du projet NOVA à compter d'aujourd'hui, 16 septembre.\r\n\r\nJe demeure disponible quelques jours pour assurer le transfert, mais merci de diriger les décisions et suivis futurs vers Nicolas.\r\n\r\nMerci à tous,\r\nÉlodie",
+        "published_on": "2026-09-16"
+      },
+      {
+        "document_id": "doc-030",
+        "path": "04_Documents_projet/Note_transition_Elodie_16sept.txt",
+        "locator": "Attribution explicite de la charge de projet",
+        "excerpt": "NOTE DE TRANSITION - NOVA\n16 septembre 2026\n\nÀ compter d'aujourd'hui, Nicolas Perron reprend le rôle de chargé de projet NOVA.\n\nÀ surveiller :\n- faire mettre à jour la date dans tous les plans (le comité a approuvé le 22 octobre);\n- ne pas considérer le mobile avancé comme approuvé;\n- suivre le connecteur jusqu'à fermeture formelle;\n- obtenir le go sécurité et exploitation avant production.\n\nÉlodie",
+        "published_on": "2026-09-16"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "01_Courriels/E09_Rappel_mise_en_production.eml"
+    ],
+    "id": "evt-9bdf230c7a4f"
   }
 ]
-
