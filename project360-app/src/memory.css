@@ -436,6 +436,26 @@ a:focus-visible {
   display: flex;
   gap: 22px;
 }
+.timeline-month-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px 0;
+}
+.timeline-month-navigation select {
+  max-width: 70%;
+  padding: 9px 14px;
+  border: 1px solid #d9d2ee;
+  border-radius: 8px;
+  background: white;
+  color: #59647c;
+  font: inherit;
+}
+.timeline-month-navigation button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
 .activity-months button {
   display: grid;
   justify-items: center;

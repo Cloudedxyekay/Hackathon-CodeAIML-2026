@@ -412,9 +412,9 @@ function ActivityStrip({ events, month, setMonth }) {
           <button
             key={key}
             className={month === key ? "selected" : ""}
-            onClick={() => setMonth(month === key ? "" : key)}
+            onClick={() => setMonth(key)}
             aria-pressed={month === key}
-            title={`${count} événements`}
+            title={`${formatDate(`${key}-01`, { month: "long", year: "numeric" })} · ${count} événements`}
           >
             <span className="activity-bar">
               <i
@@ -987,6 +987,17 @@ export default function Timeline({
       setEnriching(false);
     }
   }
+  const timelineMonths = useMemo(() => {
+    const keys = [...new Set((memory?.events || [])
+      .filter((event) => event.date)
+      .map((event) => event.date.slice(0, 7)))].sort();
+    if ((memory?.events || []).some((event) => !event.date)) keys.push("undated");
+    return keys;
+  }, [memory]);
+  const activeMonth = timelineMonths.includes(month)
+    ? month
+    : timelineMonths.filter((key) => key !== "undated").at(-1) || timelineMonths[0] || "";
+  const monthIndex = timelineMonths.indexOf(activeMonth);
   const events = useMemo(
     () =>
       (memory?.events || []).filter(
@@ -998,10 +1009,12 @@ export default function Timeline({
           (!owner || event.owner === owner) &&
           (!type || event.type === type) &&
           (!topic || event.topic === topic) &&
-          (!month || event.date?.startsWith(month)) &&
+          (view !== "timeline" || (activeMonth === "undated"
+            ? !event.date
+            : event.date?.startsWith(activeMonth))) &&
           (!dateKind || event.date_kind === dateKind),
       ),
-    [memory, query, owner, type, topic, month, dateKind],
+    [memory, query, owner, type, topic, activeMonth, dateKind, view],
   );
   const grouped = useMemo(() => {
     const groups = {};
@@ -1014,14 +1027,13 @@ export default function Timeline({
     return Object.entries(groups);
   }, [events, ascending]);
   const filtered = Boolean(
-    query || owner || type || topic || month || dateKind,
+    query || owner || type || topic || dateKind,
   );
   const resetFilters = () => {
     setQuery("");
     setOwner("");
     setType("");
     setTopic("");
-    setMonth("");
     setDateKind("");
   };
   if (loading)
@@ -1305,8 +1317,8 @@ export default function Timeline({
                   <ListFilter size={14} />
                   <span>
                     {events.length} événements correspondent
-                    {month
-                      ? ` · ${formatDate(`${month}-01`, { month: "long", year: "numeric" })}`
+                    {view === "timeline" && activeMonth
+                      ? ` · ${activeMonth === "undated" ? "Sans date" : formatDate(`${activeMonth}-01`, { month: "long", year: "numeric" })}`
                       : ""}
                   </span>
                   <button onClick={resetFilters}>
@@ -1320,9 +1332,27 @@ export default function Timeline({
             <>
               <ActivityStrip
                 events={memory.events}
-                month={month}
+                month={activeMonth}
                 setMonth={setMonth}
               />
+              <div className="timeline-month-navigation" aria-label="Navigation par mois">
+                <button className="quiet-button" disabled={monthIndex <= 0}
+                  onClick={() => setMonth(timelineMonths[monthIndex - 1])} aria-label="Mois précédent">
+                  <ChevronLeft size={18} />
+                </button>
+                <select aria-label="Mois affiché" value={activeMonth}
+                  onChange={(event) => setMonth(event.target.value)}>
+                  {timelineMonths.map((key) => (
+                    <option key={key} value={key}>
+                      {key === "undated" ? "Sans date" : formatDate(`${key}-01`, { month: "long", year: "numeric" })}
+                    </option>
+                  ))}
+                </select>
+                <button className="quiet-button" disabled={monthIndex < 0 || monthIndex >= timelineMonths.length - 1}
+                  onClick={() => setMonth(timelineMonths[monthIndex + 1])} aria-label="Mois suivant">
+                  <ChevronRight size={18} />
+                </button>
+              </div>
               <div className="timeline-list-heading">
                 <span>
                   {events.length} événements · cliquez pour voir les preuves
