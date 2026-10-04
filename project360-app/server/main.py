@@ -33,6 +33,11 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+def home():
+    return {"message": "API is running"}
+
+
 class AskRequest(BaseModel):
     question: str
 
