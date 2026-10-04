@@ -1,6 +1,6 @@
 import {
   ArrowRight,
-  CalendarDays,
+  History,
   CheckCircle2,
   Flag,
   TriangleAlert,
@@ -80,9 +80,9 @@ export default function Dashboard({ dashboard, onNavigate }) {
             </div>
             <button
               className="quiet-button"
-              onClick={() => onNavigate?.("calendar")}
+              onClick={() => onNavigate?.("timeline")}
             >
-              <CalendarDays size={15} /> Voir le calendrier
+              <History size={15} /> Voir la chronologie
             </button>
           </div>
           <div className="overview-gates">

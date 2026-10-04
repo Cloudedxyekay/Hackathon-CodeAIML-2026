@@ -30,6 +30,7 @@ SECTION_NAMES = {
 def build_dossier(base, documents, memory):
     result = deepcopy(base)
     registers = build_synthesis(documents, memory)
+    excluded_paths = {'README.txt', 'MANIFEST.csv'}
     commitments = current_commitments(registers, memory)
     result['historical_summary'] = deepcopy(result.get('summary', {}))
     charter = next((doc for doc in documents if 'Charte_Projet' in doc['path'] and not doc['path'].startswith('08_Archives')), None)
@@ -75,11 +76,12 @@ def build_dossier(base, documents, memory):
             # A risk overview collects all risks. Other categories retain topic
             # assignments; document matches supplement decisions and promises.
             section['registers'][group] = [
-                item for item in items
+                {**item, 'evidence': [proof for proof in item['evidence'] if proof['path'] not in excluded_paths]}
+                for item in items
                 if (section['id'] == 'risques' and group == 'risques')
                 or item['topic'] in topics
                 or (group in ('decisions', 'engagements') and
-                    any(proof['path'] in paths for proof in item['evidence']))
+                    any(proof['path'] in paths and proof['path'] not in excluded_paths for proof in item['evidence']))
             ]
         section['alerts'] = [alert for alert in registers['alerts']
                              if section['id'] == 'risques' or

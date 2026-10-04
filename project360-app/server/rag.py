@@ -24,6 +24,11 @@ PROCESSED = ROOT / "data" / "processed"
 _reasoning_failure = ContextVar("reasoning_failure", default=None)
 _ollama_lock = Lock()
 
+# These defaults favour interactive local responses.  They can be raised for a
+# larger model or more exhaustive answers without changing the code.
+OLLAMA_DEFAULT_CONTEXT_TOKENS = 3072
+OLLAMA_DEFAULT_PREDICT_TOKENS = 256
+
 REASONING_SCHEMA = {
     "type": "object",
     "properties": {
@@ -63,6 +68,8 @@ def search_documents(query, limit=8):
     chunks = _load("chunks.json", [])
     ranked = []
     for chunk in chunks:
+        if chunk.get("path") in {"README.txt", "MANIFEST.csv"}:
+            continue
         haystack = " ".join(
             [
                 chunk.get("title", ""),
@@ -674,8 +681,8 @@ def _ollama_reasoning_answer(question, evidence, excerpt_items):
         ],
         "options": {
             "temperature": 0,
-            "num_ctx": 4096,
-            "num_predict": 512,
+            "num_ctx": int(os.getenv("NOVA_OLLAMA_CONTEXT_TOKENS", OLLAMA_DEFAULT_CONTEXT_TOKENS)),
+            "num_predict": int(os.getenv("NOVA_OLLAMA_PREDICT_TOKENS", OLLAMA_DEFAULT_PREDICT_TOKENS)),
         },
     }
     base_url = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434").rstrip("/")

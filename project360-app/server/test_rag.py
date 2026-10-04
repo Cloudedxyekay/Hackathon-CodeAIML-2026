@@ -76,8 +76,8 @@ class OllamaConnectionTests(unittest.TestCase):
         def transport(request, timeout):
             body = json.loads(request.data)
             self.assertEqual(body["format"], rag.REASONING_SCHEMA)
-            self.assertEqual(body["options"]["num_ctx"], 4096)
-            self.assertEqual(body["options"]["num_predict"], 512)
+            self.assertEqual(body["options"]["num_ctx"], 3072)
+            self.assertEqual(body["options"]["num_predict"], 256)
             self.assertEqual(body["keep_alive"], "30m")
             self.assertEqual(timeout, 45)
             return io.BytesIO(json.dumps({"message": {"content": json.dumps(content)}, "done_reason": "stop"}).encode())

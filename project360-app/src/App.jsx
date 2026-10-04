@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   Bot,
-  CalendarDays,
   FileSearch,
   FolderKanban,
   GitCompare,
@@ -24,7 +23,6 @@ const tabs = [
   { id: "ask", label: "Ask NOVA", icon: Bot },
   { id: "search", label: "Evidence", icon: Search },
   { id: "timeline", label: "Timeline", icon: History },
-  { id: "calendar", label: "Calendrier", icon: CalendarDays },
   { id: "updates", label: "Updates", icon: RefreshCw },
   { id: "bonus", label: "Bonus", icon: GitCompare },
 ];
@@ -65,7 +63,6 @@ export default function App() {
     ask: AskAgent,
     search: EvidenceSearch,
     timeline: Timeline,
-    calendar: Timeline,
     updates: UpdateSimulator,
     bonus: BonusComparison,
   }[active];
@@ -119,14 +116,14 @@ export default function App() {
                   : "API a connecter"}
           </div>
         </header>
-        {error && active !== "timeline" && active !== "calendar" && (
+        {error && active !== "timeline" && (
           <p className="memory-error" role="alert">
             {error}
           </p>
         )}
         <ActiveComponent
           dashboard={dashboard}
-          initialView={active === "calendar" ? "calendar" : "timeline"}
+          initialView="timeline"
           onRefresh={loadDashboard}
           onNavigate={navigate}
           focusEventId={focusEventId}
