@@ -234,8 +234,6 @@ export default function Dossier() {
       </div>
       <div className={`panel dossier-register dossier-main-list ${activeCategoryTab ? '' : 'dossier-category-grid'}`}>
         <p role="status">{visibleEntries.length} documents affichés sur {activeEntries.length} · {archiveView ? 'Dossiers terminés' : 'Dossiers à suivre'}</p>
-        {!activeCategoryTab && sections.filter(section => !filters.category || section.id === filters.category).map(section => {
-          const linkedDocuments = visibleEntries.filter(entry => entry.categories.some(category => category.id === section.id));
 {!activeCategoryTab && sections.filter(section => !filters.category || section.id === filters.category).map(section => {
   const linkedDocuments = visibleEntries.filter(entry => entry.categories.some(category => category.id === section.id));
   if (!linkedDocuments.length) return null;
@@ -255,11 +253,6 @@ export default function Dossier() {
     </div>
   </section>;
 })}
-              {documents.map(entry => <DocumentItem key={entry.key} entry={entry} onOpenSource={openSource} />)}
-              {!documents.length && <p>Aucun document ne correspond aux filtres actuels dans cette catégorie.</p>}
-            </div>
-          </section>;
-        })}
         {!visibleEntries.length && <p>Aucun élément ne correspond aux filtres sélectionnés.</p>}
       </div>
       {sourceOpen && <SourceReader document={sourceDocument} loading={sourceLoading} error={sourceError} onClose={closeSource} />}
