@@ -1,0 +1,47 @@
+Date: Sun, 04 Oct 2026 10:15:00 -0400
+From: Julien Moreau <julien.moreau@boreal.example>
+To: melissa.gagnon@demo.example, nicolas.perron@demo.example
+Subject: [TEST FICTIF] NOVA - Validation clavier avant le lancement
+Message-ID: <nova-test-accessibilite-20261004@demo.example>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Bonjour Melissa, bonjour Nicolas,
+
+Ce courriel est entierement fictif et sert uniquement a tester le logiciel. I=
+l ne constitue pas une decision reelle du projet NOVA.
+
+Les corrections de labels et de contraste sont disponibles dans la version de=
+ test du 3 octobre. Les controles internes passent, mais la validation utilis=
+ateur reste a faire.
+
+Decision : nous maintenons la date de mise en production du 22 octobre 2026, =
+sous reserve de la validation complete des parcours au clavier. La livraison =
+des corrections ne vaut pas acceptation finale.
+
+Melissa est responsable de refaire les tests des modales et du formulaire de =
+demande avant le 8 octobre 2026 a 16 h. Elle transmettra le rapport de test p=
+ar courriel a Nicolas.
+
+Je m'engage a fournir une nouvelle version de test avant le 6 octobre 2026 a =
+12 h et a joindre la liste des corrections dans Microsoft Teams.
+
+Nicolas confirmera le feu vert au plus tard le 9 octobre 2026, apres receptio=
+n du rapport.
+
+Risque a suivre : le focus clavier se perd encore a la fermeture de certaines=
+ modales. Si cette anomalie est confirmee, le parcours concerne restera bloqu=
+e et Nicolas devra revoir la decision de lancement.
+
+Il reste donc a livrer la version de test, verifier les modales au clavier et=
+ obtenir une confirmation ecrite de la validation.
+
+Merci,
+Julien Moreau
+Equipe Boreal
+
+--- Message precedent fictif ---
+Le 2 octobre 2026, Melissa ecrivait :
+Les labels sont lisibles et le contraste semble corrige. Je dois encore teste=
+r le retour du focus apres fermeture des modales.

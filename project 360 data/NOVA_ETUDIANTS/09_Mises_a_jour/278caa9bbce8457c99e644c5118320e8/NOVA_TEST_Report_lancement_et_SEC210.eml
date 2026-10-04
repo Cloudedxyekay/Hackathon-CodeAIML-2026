@@ -1,0 +1,41 @@
+Date: Mon, 05 Oct 2026 09:30:00 -0400
+From: Nicolas Perron <nicolas.perron@demo.example>
+To: sophie.lambert@demo.example, melissa.gagnon@demo.example
+Subject: [TEST FICTIF] NOVA - Report du lancement et suivi SEC-210
+Message-ID: <nova-test-report-20261005@demo.example>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Bonjour Sophie, bonjour Melissa,
+
+TEST FICTIF : ce message sert uniquement a tester le logiciel. Les decisions,=
+ dates et engagements ci-dessous sont inventes.
+
+Decision du 5 octobre 2026 : la date cible de mise en production est deplacee=
+ du 22 octobre au 29 octobre 2026. Cette nouvelle date est approuvee. Donc ap=
+prouve : le 29 octobre devient la date officielle de lancement de NOVA.
+
+Je confirme cette decision en tant que responsable du projet. Je mettrai a jo=
+ur le plan de lancement et les communications avant le 7 octobre 2026 a 16 h.
+
+Concernant le ticket SEC-210 : la validation de securite reste ouverte. Sophi=
+e Lambert doit effectuer le re-test de la journalisation administrateur avant=
+ le 12 octobre 2026 a 15 h et transmettre son rapport par courriel. Ce messag=
+e ne ferme pas le ticket et ne constitue pas une acceptation de securite.
+
+Melissa Gagnon doit refaire les tests au clavier sur les modales avant le 13 =
+octobre 2026 a 16 h et deposer le rapport dans Microsoft Teams. Aucune valida=
+tion d'accessibilite n'est declaree terminee dans ce message.
+
+Risque : si les traces administrateur sont incompletes pendant le re-test de =
+SEC-210, la mise en production reste bloquee. Le report de date ne leve pas c=
+ette condition.
+
+Il reste a mettre a jour le plan, realiser les deux verifications et obtenir =
+les validations ecrites avant la mise en production. Aucun budget supplementa=
+ire n'est approuve.
+
+Merci,
+Nicolas Perron
+Responsable du projet NOVA

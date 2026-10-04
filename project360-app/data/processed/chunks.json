@@ -479,17 +479,6 @@
     "text": "[sheet Risques] ID | Risque | Probabilité | Impact | Propriétaire | Statut | Mitigation | Commentaire R-01 | Retard du connecteur interne | Moyenne | Élevé | Marc Gervais | Ouvert | Suivi fournisseur hebdomadaire | Suivi au 9 septembre 2026 R-02 | Validation sécurité incomplète | Élevée | Élevé | Sophie Lambert | Ouvert | Re-test de SEC-210 avant go-live | R-03 | Préparation exploitation incomplète | Moyenne | Élevé | Olivier Côté | Ouvert | Finaliser le runbook et le rollback | R-04 | Accessibilité | Moyenne | Moyen | Mélissa Gagnon | Ouvert | Fermer ACC-303 | R-05 | Migration données | Faible | Moyen | Camille Beaulieu | Fermé | Contrôle de doublons |"
   },
   {
-    "id": "doc-035-chunk-001",
-    "document_id": "doc-035",
-    "path": "04_Documents_projet/~$Registre_Risques_29sept.xlsx",
-    "title": "~$Registre Risques 29sept",
-    "tags": [
-      "risk"
-    ],
-    "locator": "chunk 1",
-    "text": "Extraction failed: File is not a zip file"
-  },
-  {
     "id": "doc-036-chunk-001",
     "document_id": "doc-036",
     "path": "05_Contrats_et_finances/CONTRAT_Boreal_NOVA.pdf",

@@ -2788,6 +2788,32 @@
   },
   {
     "date": "2026-10-15",
+    "end_date": null,
+    "date_kind": "planned",
+    "title": "Échéance · 09:12 - Alex : On est toujours bons",
+    "summary": "09:12 - Alex : On est toujours bons pour le 15 octobre?",
+    "type": "milestone",
+    "status": "planned",
+    "topic": "schedule",
+    "owner": null,
+    "owner_role": null,
+    "evidence": [
+      {
+        "document_id": "doc-046",
+        "path": "07_Conversations_Teams/Teams_15sept_ProjetNOVA.txt",
+        "locator": "Échéance explicite · ligne 4",
+        "excerpt": "09:12 - Alex : On est toujours bons pour le 15 octobre?",
+        "published_on": "2026-09-15"
+      }
+    ],
+    "confidence": "explicit",
+    "sources": [
+      "07_Conversations_Teams/Teams_15sept_ProjetNOVA.txt"
+    ],
+    "id": "evt-5de3951c686c"
+  },
+  {
+    "date": "2026-10-15",
     "end_date": "2026-10-15",
     "date_kind": "planned",
     "title": "Mise en production",
@@ -2829,14 +2855,14 @@
         "document_id": "doc-009",
         "path": "01_Courriels/E09_Rappel_mise_en_production.eml",
         "locator": "Date cible et décision",
-        "excerpt": "Subject: NOVA - cible du 22 octobre et conditions restantes\nFrom: Nicolas Perron <nicolas.perron@demo.example>\nTo: equipe-nova@demo.example\nDate: Sun, 27 Sep 2026 17:02:00 -0400\nBonjour,\n\nPetit rappel pour éviter les versions différentes : la cible approuvée demeure le 22 octobre.\n\nCette date est toutefois conditionnelle aux validations restantes : sécurité, accessibilité et préparation exploitation. Le comité du 26 septembre a précisé les éléments à fermer.\n\nMerci de ne pas communiquer le 22 comme un go garanti tant que ces validations ne sont pas terminées.\n\nNicolas",
+        "excerpt": "Subject: NOVA - cible du 22 octobre et conditions restantes\nFrom: Nicolas Perron <nicolas.perron@demo.example>\nTo: equipe-nova@demo.example\nDate: Sun, 27 Sep 2026 17:02:00 -0400\nBonjour,\r\n\r\nPetit rappel pour éviter les versions différentes : la cible approuvée demeure le 22 octobre.\r\n\r\nCette date est toutefois conditionnelle aux validations restantes : sécurité, accessibilité et préparation exploitation. Le comité du 26 septembre a précisé les éléments à fermer.\r\n\r\nMerci de ne pas communiquer le 22 comme un go garanti tant que ces validations ne sont pas terminées.\r\n\r\nNicolas",
         "published_on": "2026-09-27"
       },
       {
         "document_id": "doc-006",
         "path": "01_Courriels/E06_Transition_charge_projet.eml",
         "locator": "Attribution explicite de la charge de projet",
-        "excerpt": "Subject: NOVA - transition de la charge de projet\nFrom: Élodie Caron <elodie.caron@demo.example>\nTo: equipe-nova@demo.example\nDate: Wed, 16 Sep 2026 08:35:00 -0400\nBonjour,\n\nComme convenu, Nicolas Perron prend officiellement la charge du projet NOVA à compter d'aujourd'hui, 16 septembre.\n\nJe demeure disponible quelques jours pour assurer le transfert, mais merci de diriger les décisions et suivis futurs vers Nicolas.\n\nMerci à tous,\nÉlodie",
+        "excerpt": "Subject: NOVA - transition de la charge de projet\nFrom: Élodie Caron <elodie.caron@demo.example>\nTo: equipe-nova@demo.example\nDate: Wed, 16 Sep 2026 08:35:00 -0400\nBonjour,\r\n\r\nComme convenu, Nicolas Perron prend officiellement la charge du projet NOVA à compter d'aujourd'hui, 16 septembre.\r\n\r\nJe demeure disponible quelques jours pour assurer le transfert, mais merci de diriger les décisions et suivis futurs vers Nicolas.\r\n\r\nMerci à tous,\r\nÉlodie",
         "published_on": "2026-09-16"
       },
       {

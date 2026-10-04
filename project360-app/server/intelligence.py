@@ -340,7 +340,11 @@ def schedule_history(documents):
             continue
         lower = fold(text)
         year = int(on[:4])
-        candidates = [d for d in dates_in(text, year) if d["date"] > on]
+        target_clauses = [clause for clause in re.split(r"[\n.!?]+", text)
+                          if re.search(r"production|lancement|date officielle|date cible|cible approuvee", fold(clause))
+                          and not re.search(r"avant(?:\s+le)?|au plus tard|plan de lancement|rapport|^\s*(?:subject|objet):", fold(clause))
+                          and dates_in(clause, year)]
+        candidates = [d for clause in target_clauses for d in dates_in(clause, year) if d["date"] > on]
         if not candidates or not any(w in lower for w in ("production", "lancement", "date officielle", "cible approuvee")):
             continue
         # Prefer the last target if a source explicitly moves the original date.
@@ -357,6 +361,37 @@ def schedule_history(documents):
                         "title": "Cible conditionnelle" if conditional and state == "approved" else "Cible approuvée" if state == "approved" else "Report proposé" if proposed else "Date mentionnée"})
     history.sort(key=lambda item: item["date"])
     return history
+
+
+def extract_deadlines(doc, roster):
+    """Keep explicit task deadlines separate from publication and launch dates."""
+    on = source_date(doc)
+    year = int(on[:4]) if on else None
+    deadlines = []
+    if doc['extension'] == '.xlsx':
+        return deadlines
+    sender = re.search(r'^From:\s*([^<\n]+)', doc['text'], re.M)
+    for number, line in enumerate(doc['text'].splitlines(), 1):
+        if line.lstrip().startswith('>'):
+            continue
+        for clause in re.split(r'(?<=[.!?])\s+', line):
+            normalized = fold(clause)
+            marker = re.search(r"avant(?:\s+le)?|au plus tard(?:\s+le)?|pour le|echeance\s*:|date limite\s*:|remise\s*:", normalized)
+            if not marker:
+                continue
+            dates = [d for d in dates_in(clause, year) if d['start'] >= marker.end()]
+            if not dates:
+                continue
+            due = dates[0]['date']
+            owner = next((name for name in roster.values() if fold(name) in normalized), None)
+            if not owner and re.match(r"\s*je\b", normalized) and sender:
+                owner = resolve_owner(sender[1].strip(), roster)
+            title = clean(clause[:marker.start()]) or 'Remise / échéance documentée'
+            deadlines.append(event(doc, due, 'Échéance · ' + title, clause,
+                                   f'Échéance explicite · ligne {number}', owner,
+                                   'Responsable explicitement désigné' if owner else None,
+                                   kind='milestone', status='planned', date_kind='planned'))
+    return deadlines
 
 
 def reconcile_tickets(tickets, documents):
@@ -466,6 +501,8 @@ def build_project_memory(documents):
             milestone["owner_role"] = "Charge de projet"
             milestone["evidence"] = milestone["evidence"] + responsible[-1]["evidence"]
         events.append(milestone)
+    for doc in relevant:
+        events.extend(extract_deadlines(doc, roster))
     unique = {}
     for item in events:
         signature = f"{item['date']}|{item['date_kind']}|{fold(item['title'])}|{fold(item['summary'])}"
@@ -511,7 +548,7 @@ def build_project_memory(documents):
         closed = sum(bool(t["completed_on"] and t["completed_on"] <= day) for t in tickets)
         series.append({"date": day, "created": created, "closed": closed, "open": created - closed})
     owners = Counter(e["owner"] for e in events if e["owner"])
-    return {"schema_version": 1, "generated_at": datetime.now(timezone.utc).isoformat(),
+    return {"schema_version": 1, "calendar_extraction_version": 2, "generated_at": datetime.now(timezone.utc).isoformat(),
             "as_of": as_of, "extraction": {"mode": "local-evidence", "label": "Extraction locale fondée sur les sources", "description": "Dates explicites, champs structurés et règles linguistiques. L’extraction de base ne dépend pas d’un LLM. Les référents et auteurs ne sont pas assimilés à des responsables assignés.", "excluded_documents": len(documents) - len(relevant), "undated_documents": undated},
             "events": events, "tickets": tickets, "phases": phases, "assignments": assignments,
             "schedule": {"current_target": target, "history": history, "changes": changes,
@@ -534,11 +571,14 @@ def save_project_memory(memory):
 
 
 def get_project_memory():
+    from .lifecycle import apply_states
     path = PROCESSED / "project_memory.json"
     if path.exists():
-        return json.loads(path.read_text(encoding="utf-8"))
+        cached = json.loads(path.read_text(encoding="utf-8"))
+        if cached.get('calendar_extraction_version') == 2:
+            return apply_states(cached)
     docs_path = PROCESSED / "documents.json"
     docs = json.loads(docs_path.read_text(encoding="utf-8")) if docs_path.exists() else []
     memory = build_project_memory(docs)
     save_project_memory(memory)
-    return memory
+    return apply_states(memory)

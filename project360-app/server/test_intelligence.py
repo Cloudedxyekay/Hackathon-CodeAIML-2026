@@ -10,6 +10,19 @@ def document(text, path="02_Reunions/meeting.txt", extension=".txt", identifier=
 
 
 class TemporalExtractionTests(unittest.TestCase):
+    def test_task_deadlines_do_not_override_launch_date(self):
+        doc = document('Date : 5 octobre 2026\nLa date cible de mise en production est deplacee au 29 octobre 2026. Donc approuve.\nSophie Lambert doit effectuer le re-test avant le 12 octobre 2026.\nMelissa Gagnon doit tester les modales avant le 13 octobre 2026.\nNicolas confirmera le feu vert au plus tard le 9 octobre 2026.\nJe mettrai a jour le plan de lancement avant le 7 octobre 2026.')
+        memory = build_project_memory([doc])
+        self.assertEqual(memory['schedule']['current_target'], '2026-10-29')
+        deadlines = [event for event in memory['events'] if event['title'].startswith('Échéance')]
+        self.assertEqual({event['date'] for event in deadlines}, {'2026-10-07', '2026-10-09', '2026-10-12', '2026-10-13'})
+        self.assertTrue(all(event['date_kind'] == 'planned' and event['evidence'] for event in deadlines))
+
+    def test_relative_deadlines_and_quoted_email_do_not_invent_dates(self):
+        doc = document('Date : 5 octobre 2026\nSophie doit tester avant vendredi.\n> Sophie doit tester avant le 12 octobre 2026.')
+        memory = build_project_memory([doc])
+        self.assertFalse(any(event['title'].startswith('Échéance') for event in memory['events']))
+
     def test_french_dates_and_inherited_year(self):
         self.assertEqual([d["date"] for d in dates_in("1er août 2026, 26 sept et 2026-10-22", 2026)],
                          ["2026-08-01", "2026-09-26", "2026-10-22"])

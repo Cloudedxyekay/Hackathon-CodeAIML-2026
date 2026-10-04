@@ -158,7 +158,7 @@ async function loadProjectMemory(signal) {
   return data.memory;
 }
 
-function SourceDrawer({ selection, close }) {
+function SourceDrawer({ selection, close, onEventAction }) {
   const [sourceDocument, setSourceDocument] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -236,6 +236,12 @@ function SourceDrawer({ selection, close }) {
           </button>
         </header>
         <h2 id="source-title">{selection.title}</h2>
+        {selection.id?.startsWith('evt-') && onEventAction && <div className="update-links">
+          {selection.visibility ? <button className="secondary" onClick={() => onEventAction(selection.id, 'restore')}>Restaurer</button> : <>
+            <button className="secondary" onClick={() => onEventAction(selection.id, 'archived')}>Archiver</button>
+            <button className="secondary" onClick={() => onEventAction(selection.id, 'deleted')}>Supprimer</button>
+          </>}
+        </div>}
         {selection.date && (
           <p className="muted">
             {formatDate(selection.date, {
@@ -910,6 +916,7 @@ export default function Timeline({
   dashboard,
   initialView = "timeline",
   onRefresh,
+  focusEventId,
 }) {
   const [memory, setMemory] = useState(dashboard?.memory || null),
     [view, setView] = useState(initialView);
@@ -927,6 +934,15 @@ export default function Timeline({
   const [selection, setSelection] = useState(null);
   const closeDrawer = useMemo(() => () => setSelection(null), []);
   const [timelineOffset, setTimelineOffset] = useState(0);
+  useEffect(() => {
+    if (!focusEventId || !memory) return;
+    const event = [...memory.events, ...(memory.hidden_events || [])].find(item => item.id === focusEventId);
+    if (!event) return;
+    setQuery(""); setOwner(""); setType(""); setTopic(""); setDateKind("");
+    setMonth(event.date?.slice(0, 7) || "");
+    setView("timeline");
+    setSelection(event);
+  }, [focusEventId, memory]);
   const timelineHeading = useRef(null);
   useEffect(() => {
     setView(initialView);
@@ -959,6 +975,20 @@ export default function Timeline({
     } finally {
       setRebuilding(false);
     }
+  }
+  async function changeEvent(identifier, action) {
+    const message = action === 'deleted' ? 'Supprimer cette tâche ou cet événement des vues actives ? Vous pourrez le restaurer. Le document original est conservé.' : action === 'archived' ? 'Archiver cette tâche ou cet événement ? Il disparaîtra de la timeline et du calendrier. Cela ne ferme pas un ticket ni une condition de lancement.' : null;
+    if (message && !window.confirm(message)) return;
+    try {
+      const response = await fetch(`/api/events/${encodeURIComponent(identifier)}/state`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.detail || 'Modification impossible.');
+      setSelection(null);
+      setMemory(await loadProjectMemory());
+      await onRefresh?.();
+    } catch (err) { setError(err.message); }
   }
   async function enrichWithAI() {
     setEnriching(true);
@@ -1011,13 +1041,15 @@ export default function Timeline({
   );
   const anchorIndex = useMemo(() => {
     if (!sortedEvents.length) return 0;
+    const focused = sortedEvents.findIndex(event => event.id === focusEventId);
+    if (focused >= 0) return focused;
     const index = sortedEvents.findIndex(
       (event) => event.date && event.date >= timelineToday,
     );
     return index === -1
       ? Math.max(0, sortedEvents.length - pageSize)
       : index;
-  }, [sortedEvents, timelineToday]);
+  }, [sortedEvents, timelineToday, focusEventId]);
   const hasTodayOrFuture = sortedEvents.some(
     (event) => event.date && event.date >= timelineToday,
   );
@@ -1217,8 +1249,8 @@ export default function Timeline({
             <div className="toolbar-actions">
               <button
                 className="quiet-button"
-                onClick={() => exportCalendar(events)}
-                title="Exporter les événements filtrés vers un calendrier"
+                onClick={() => exportCalendar(view === "calendar" ? memory.events : events)}
+                title="Exporter les événements vers un calendrier"
               >
                 <Download size={15} /> .ics
               </button>
@@ -1245,7 +1277,7 @@ export default function Timeline({
               {error}
             </p>
           )}
-          {view !== "progress" && (
+          {view === "timeline" && (
             <>
               <div className="memory-filters">
                 <label className="memory-search">
@@ -1414,7 +1446,7 @@ export default function Timeline({
           )}
           {view === "calendar" && (
             <Calendar
-              events={events}
+              events={memory.events}
               allEvents={memory.events}
               memory={memory}
               onSelect={setSelection}
@@ -1569,7 +1601,8 @@ export default function Timeline({
           Exporter les données <Download size={14} />
         </button>
       </footer>
-      {selection && <SourceDrawer selection={selection} close={closeDrawer} />}
+      {!!memory?.hidden_events?.length && <div className="panel"><details><summary>Tâches et événements archivés / supprimés ({memory.hidden_events.length})</summary><div className="update-links">{memory.hidden_events.map(event => <button className="secondary" key={event.id} onClick={() => setSelection(event)}>{event.title} · {event.visibility === 'archived' ? 'Archivé' : 'Supprimé'}</button>)}</div></details></div>}
+      {selection && <SourceDrawer selection={selection} close={closeDrawer} onEventAction={changeEvent} />}
     </div>
   );
 }

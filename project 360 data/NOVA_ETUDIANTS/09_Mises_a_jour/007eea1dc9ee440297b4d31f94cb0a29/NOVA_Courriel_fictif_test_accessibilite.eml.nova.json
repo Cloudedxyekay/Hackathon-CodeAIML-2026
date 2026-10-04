@@ -1,0 +1,10 @@
+{
+  "reviewed_text": "Subject: [TEST FICTIF] NOVA - Validation clavier avant le lancement\nFrom: Julien Moreau <julien.moreau@boreal.example>\nTo: melissa.gagnon@demo.example, nicolas.perron@demo.example\nDate: Sun, 04 Oct 2026 10:15:00 -0400\nBonjour Melissa, bonjour Nicolas,\r\n\r\nCe courriel est entierement fictif et sert uniquement a tester le logiciel. Il ne constitue pas une decision reelle du projet NOVA.\r\n\r\nLes corrections de labels et de contraste sont disponibles dans la version de test du 3 octobre. Les controles internes passent, mais la validation utilisateur reste a faire.\r\n\r\nDecision : nous maintenons la date de mise en production du 22 octobre 2026, sous reserve de la validation complete des parcours au clavier. La livraison des corrections ne vaut pas acceptation finale.\r\n\r\nMelissa est responsable de refaire les tests des modales et du formulaire de demande avant le 8 octobre 2026 a 16 h. Elle transmettra le rapport de test par courriel a Nicolas.\r\n\r\nJe m'engage a fournir une nouvelle version de test avant le 6 octobre 2026 a 12 h et a joindre la liste des corrections dans Microsoft Teams.\r\n\r\nNicolas confirmera le feu vert au plus tard le 9 octobre 2026, apres reception du rapport.\r\n\r\nRisque a suivre : le focus clavier se perd encore a la fermeture de certaines modales. Si cette anomalie est confirmee, le parcours concerne restera bloque et Nicolas devra revoir la decision de lancement.\r\n\r\nIl reste donc a livrer la version de test, verifier les modales au clavier et obtenir une confirmation ecrite de la validation.\r\n\r\nMerci,\r\nJulien Moreau\r\nEquipe Boreal\r\n\r\n--- Message precedent fictif ---\r\nLe 2 octobre 2026, Melissa ecrivait :\r\nLes labels sont lisibles et le contraste semble corrige. Je dois encore tester le retour du focus apres fermeture des modales.\r\n",
+  "original_name": "NOVA_Courriel_fictif_test_accessibilite.eml",
+  "content_sha256": "473e8e238ab85805d624ddc0e48b8c311bff035f2577676b0915e6560c407d86",
+  "imported_at": "2026-10-04T05:07:32.503248-04:00",
+  "source_date_override": null,
+  "text_reviewed": false,
+  "warnings": [],
+  "import_removed": true
+}

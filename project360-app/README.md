@@ -329,3 +329,8 @@ Tests : `.\.venv\Scripts\python.exe -m unittest server.test_comparison`.
 - Add PDF and XLSX extraction dependencies if needed.
 - Add real embeddings and LLM synthesis if you have an API key.
 - Add exact page/cell locators for PDF/XLSX evidence.
+# Archiver, supprimer et retirer un import
+
+Dans les détails d'un événement de la timeline, **Archiver** et **Supprimer** le retirent des vues actives et du calendrier. Les preuves et les documents originaux restent conservés. Ces actions ne ferment pas un ticket et ne lèvent pas une condition de lancement. La liste **Tâches et événements archivés / supprimés** permet de les restaurer. Les choix persistent après une nouvelle analyse du corpus.
+
+Dans **Updates > Historique des imports**, **Retirer cet import** exclut sa source de l'analyse et recalcule le projet avec toutes les sources restantes. Les imports plus récents restent présents. **Restaurer cet import** réintègre sa source. Les fichiers originaux sont conservés sur disque ; l'action ne remplace pas l'état actuel par une ancienne sauvegarde.

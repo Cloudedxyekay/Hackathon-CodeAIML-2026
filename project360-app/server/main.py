@@ -51,6 +51,10 @@ class ImportReview(BaseModel):
     document_date: str | None = None
 
 
+class EventAction(BaseModel):
+    action: str
+
+
 def read_json(name: str, fallback: Any):
     path = PROCESSED / name
     if not path.exists():
@@ -78,13 +82,14 @@ def ingest():
 
 @app.get("/api/dashboard")
 def dashboard():
+    memory = attach_enrichment(get_project_memory())
     return {
         "baseline": read_json("baseline.json", {}),
-        "timeline": read_json("timeline.json", []),
+        "timeline": memory['events'],
         "actions": read_json("actions.json", []),
         "documents": read_json("documents.json", []),
         "answers": read_json("answers.json", []),
-        "memory": attach_enrichment(get_project_memory()),
+        "memory": memory,
     }
 
 
@@ -186,6 +191,22 @@ def import_result(operation, *args):
 @app.get("/api/updates")
 def update_history():
     return {"imports": updates.history()}
+
+
+@app.post('/api/events/{identifier}/state')
+def event_state(identifier: str, request: EventAction):
+    from .lifecycle import change_event
+    return import_result(change_event, identifier, request.action)
+
+
+@app.post('/api/updates/{identifier}/remove')
+def remove_update(identifier: str):
+    return import_result(updates.remove_import, identifier)
+
+
+@app.post('/api/updates/{identifier}/restore')
+def restore_update(identifier: str):
+    return import_result(updates.remove_import, identifier, True)
 
 
 @app.post("/api/updates/preview")

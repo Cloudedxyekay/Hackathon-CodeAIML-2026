@@ -31,6 +31,11 @@ const tabs = [
 
 export default function App() {
   const [active, setActive] = useState("timeline");
+  const [focusEventId, setFocusEventId] = useState(null);
+  function navigate(tab, eventId = null) {
+    setFocusEventId(eventId);
+    setActive(tab);
+  }
   const [dashboard, setDashboard] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -80,7 +85,7 @@ export default function App() {
               <button
                 key={tab.id}
                 className={active === tab.id ? "active" : ""}
-                onClick={() => setActive(tab.id)}
+                onClick={() => navigate(tab.id)}
                 title={tab.label}
               >
                 <Icon size={18} />
@@ -123,7 +128,8 @@ export default function App() {
           dashboard={dashboard}
           initialView={active === "calendar" ? "calendar" : "timeline"}
           onRefresh={loadDashboard}
-          onNavigate={setActive}
+          onNavigate={navigate}
+          focusEventId={focusEventId}
         />
       </main>
     </div>

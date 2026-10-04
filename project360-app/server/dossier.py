@@ -50,7 +50,7 @@ def build_dossier(base, documents, memory):
         for alert in memory['alerts'] if alert['id'] != 'pending-gates'
     )
     for section in result.get('sections', []):
-        section['title'] = SECTION_NAMES.get(section['id'], section['title'])
+        section['title'] = SECTION_NAMES.get(section['id'], section.get('title', section['id']))
         topics = SECTION_TOPICS.get(section['id'], set())
         paths = {source['file'] for source in section.get('sources', [])}
         section['registers'] = {}

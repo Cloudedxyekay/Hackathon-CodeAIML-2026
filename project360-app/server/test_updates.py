@@ -64,6 +64,59 @@ class UpdateImportTests(unittest.TestCase):
         result = updates.integrate_upload(preview['id'])
         self.assertIn('SEC-210', result['analysis']['remaining_gates'])
 
+    def test_event_archive_delete_restore_survive_rebuild(self):
+        event = self.client.get('/api/project-memory').json()['events'][0]
+        endpoint = f"/api/events/{event['id']}/state"
+        for action in ('archived', 'deleted'):
+            self.assertEqual(self.client.post(endpoint, json={'action': action}).status_code, 200)
+            ingest.ingest_corpus()
+            memory = self.client.get('/api/project-memory').json()
+            self.assertNotIn(event['id'], [e['id'] for e in memory['events']])
+            self.assertEqual(next(e for e in memory['hidden_events'] if e['id'] == event['id'])['visibility'], action)
+            self.assertIn('SEC-210', [t['id'] for t in memory['gates']])
+        self.assertEqual(self.client.post(endpoint, json={'action': 'restore'}).status_code, 200)
+        self.assertIn(event['id'], [e['id'] for e in self.client.get('/api/timeline').json()])
+        self.assertEqual(self.client.post(endpoint, json={'action': 'bogus'}).status_code, 400)
+
+    def test_remove_import_recomputes_target_preserves_later_sources_and_restores(self):
+        first = updates.preview_upload('report.txt', b'Date : 4 octobre 2026\nLa date cible de mise en production est deplacee au 29 octobre 2026. Donc approuve.')
+        integrated = updates.integrate_upload(first['id'])
+        original = self.corpus / integrated['analysis']['document']['path']
+        original_bytes = original.read_bytes()
+        second = updates.preview_upload('later.txt', b'Date : 6 octobre 2026\nSEC-210 doit etre reteste avant le 12 octobre 2026.')
+        later = updates.integrate_upload(second['id'])
+        self.assertEqual(self.client.post(f"/api/updates/{first['id']}/remove").status_code, 200)
+        self.assertEqual(updates._current()[1]['schedule']['current_target'], '2026-10-22')
+        self.assertEqual(original.read_bytes(), original_bytes)
+        self.assertIn(later['analysis']['document']['id'], [d['id'] for d in updates._current()[0]])
+        ingest.ingest_corpus()
+        self.assertNotIn(integrated['analysis']['document']['id'], [d['id'] for d in updates._current()[0]])
+        self.assertEqual(self.client.post(f"/api/updates/{first['id']}/restore").status_code, 200)
+        self.assertEqual(updates._current()[1]['schedule']['current_target'], '2026-10-29')
+        self.assertEqual(original.read_bytes(), original_bytes)
+
+    def test_remove_import_publication_failure_restores_metadata(self):
+        preview = updates.preview_upload('report.txt', b'Date : 4 octobre 2026\nLa date cible de mise en production est deplacee au 29 octobre 2026. Donc approuve.')
+        result = updates.integrate_upload(preview['id'])
+        source = self.corpus / result['analysis']['document']['path']
+        metadata = source.with_name(source.name + '.nova.json')
+        previous = metadata.read_bytes()
+        with patch.object(ingest, 'publish_corpus', side_effect=OSError('fixture')):
+            with self.assertRaises(OSError):
+                updates.remove_import(preview['id'])
+        self.assertEqual(metadata.read_bytes(), previous)
+        self.assertEqual(updates.history()[0]['status'], 'integrated')
+        self.assertEqual(updates._current()[1]['schedule']['current_target'], '2026-10-29')
+
+    def test_affected_items_require_direct_reference_and_have_timeline_target(self):
+        unrelated = updates.preview_upload('general.txt', b'Date : 4 octobre 2026\nVerification de securite generale.')
+        self.assertEqual(unrelated['analysis']['affected_information'], [])
+        direct = updates.preview_upload('direct.txt', b'Date : 4 octobre 2026\nSEC-210 doit etre reteste.')
+        items = direct['analysis']['affected_information']
+        self.assertEqual([item['id'] for item in items], ['SEC-210'])
+        event_ids = {event['id'] for event in updates._current()[1]['events']}
+        self.assertIn(items[0]['event_id'], event_ids)
+
     def test_undated_transcription_survives_reingestion_with_stable_id(self):
         with patch.dict(ingest.READERS, {'.png': lambda path: ''}):
             preview = updates.preview_upload('capture.png', b'image fixture')
@@ -93,6 +146,16 @@ class UpdateImportTests(unittest.TestCase):
         self.assertEqual(result['analysis']['previous_target'], '2026-10-22')
         self.assertEqual(result['analysis']['current_target'], '2026-11-05')
         self.assertTrue(any(e['date'] == '2026-11-05' and e['date_kind'] == 'planned' for e in result['analysis']['events']))
+        live_ids = {event['id'] for event in updates._current()[1]['events']}
+        self.assertTrue(result['analysis']['affected_information'])
+        self.assertTrue(all(item['event_id'] in live_ids for item in result['analysis']['affected_information']))
+
+    def test_proposed_date_links_existing_launch_without_approving_it(self):
+        preview = updates.preview_upload('proposed-date.txt', b'Date : 4 octobre 2026\nProposition : mise en production le 9 octobre 2026.')
+        report = preview['analysis']
+        self.assertEqual(report['current_target'], '2026-10-22')
+        launch = next(event for event in updates._current()[1]['events'] if event['title'] == 'Mise en production NOVA')
+        self.assertIn(launch['id'], [item['event_id'] for item in report['affected_information']])
 
     def test_text_pdf_extraction_and_original(self):
         from pypdf import PdfWriter

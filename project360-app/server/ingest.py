@@ -92,6 +92,8 @@ def build_corpus(corpus, existing_documents=None):
         digest = hashlib.sha256(path.read_bytes()).hexdigest()
         metadata_path = path.with_name(path.name + ".nova.json")
         metadata = json.loads(metadata_path.read_text(encoding="utf-8")) if metadata_path.exists() else {}
+        if metadata.get('import_removed'):
+            continue
         prior = existing.get(rel, {})
         if metadata.get("content_sha256") == digest and "reviewed_text" in metadata:
             text, warnings = metadata["reviewed_text"], metadata.get("warnings", [])

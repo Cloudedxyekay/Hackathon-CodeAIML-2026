@@ -1,0 +1,10 @@
+{
+  "reviewed_text": "Subject: [TEST FICTIF] NOVA - Report du lancement et suivi SEC-210\nFrom: Nicolas Perron <nicolas.perron@demo.example>\nTo: sophie.lambert@demo.example, melissa.gagnon@demo.example\nDate: Mon, 05 Oct 2026 09:30:00 -0400\nBonjour Sophie, bonjour Melissa,\r\n\r\nTEST FICTIF : ce message sert uniquement a tester le logiciel. Les decisions, dates et engagements ci-dessous sont inventes.\r\n\r\nDecision du 5 octobre 2026 : la date cible de mise en production est deplacee du 22 octobre au 29 octobre 2026. Cette nouvelle date est approuvee. Donc approuve : le 29 octobre devient la date officielle de lancement de NOVA.\r\n\r\nJe confirme cette decision en tant que responsable du projet. Je mettrai a jour le plan de lancement et les communications avant le 7 octobre 2026 a 16 h.\r\n\r\nConcernant le ticket SEC-210 : la validation de securite reste ouverte. Sophie Lambert doit effectuer le re-test de la journalisation administrateur avant le 12 octobre 2026 a 15 h et transmettre son rapport par courriel. Ce message ne ferme pas le ticket et ne constitue pas une acceptation de securite.\r\n\r\nMelissa Gagnon doit refaire les tests au clavier sur les modales avant le 13 octobre 2026 a 16 h et deposer le rapport dans Microsoft Teams. Aucune validation d'accessibilite n'est declaree terminee dans ce message.\r\n\r\nRisque : si les traces administrateur sont incompletes pendant le re-test de SEC-210, la mise en production reste bloquee. Le report de date ne leve pas cette condition.\r\n\r\nIl reste a mettre a jour le plan, realiser les deux verifications et obtenir les validations ecrites avant la mise en production. Aucun budget supplementaire n'est approuve.\r\n\r\nMerci,\r\nNicolas Perron\r\nResponsable du projet NOVA\r\n",
+  "original_name": "NOVA_TEST_Report_lancement_et_SEC210.eml",
+  "content_sha256": "e37d2b8eeab91fe69b7467c89a2b1738bc70ee75cecdfa3dc4f687eb255c6ac1",
+  "imported_at": "2026-10-04T06:27:10.090993-04:00",
+  "source_date_override": null,
+  "text_reviewed": false,
+  "warnings": [],
+  "import_removed": true
+}

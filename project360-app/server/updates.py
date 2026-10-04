@@ -40,7 +40,7 @@ def _token(value):
 def _current():
     documents = _read(ingest.PROCESSED / "documents.json", [])
     memory = _read(ingest.PROCESSED / "project_memory.json", None)
-    return documents, memory if memory is not None else build_project_memory(documents)
+    return documents, memory if memory is not None and memory.get('calendar_extraction_version') == 2 else build_project_memory(documents)
 
 
 def _draft(record, reviewed_text=None, document_date=None):
@@ -96,19 +96,33 @@ def impact_report(document, before_documents, before, after):
                             {"document_id": identifier, "path": document["path"], "locator": "Document importé",
                              "published_on": source_date(document), "excerpt": document["text"][:1200]}]})
 
-    # Link related earlier evidence without declaring every related document obsolete.
+    # Only explicit identifiers or an actual approved schedule change establish impact.
     references = set(re.findall(r"\b[A-Z]{2,}-\d+\b", document["text"]))
-    topic = topic_of(document["text"])
     affected = []
-    for old in before_documents:
-        if old["path"].startswith("08_Archives") or old["path"] in {"README.txt", "MANIFEST.csv"}:
+    selected_events = set()
+    for ticket in before["tickets"]:
+        if ticket["id"] not in references:
             continue
-        shared = references.intersection(re.findall(r"\b[A-Z]{2,}-\d+\b", old["text"]))
-        related_topic = topic != "delivery" and topic_of(old["text"]) == topic
-        if shared or related_topic:
-            affected.append({"document_id": old["id"], "path": old["path"], "title": old.get("title", old["path"]),
-                             "reason": "Références communes : " + ", ".join(sorted(shared)) if shared else "Même thème documentaire : " + topic,
-                             "status": "À recouper; source historique conservée"})
+        candidates = [e for e in before["events"] if e["id"] in ticket.get("event_ids", [])]
+        if not candidates:
+            continue
+        latest = max(candidates, key=lambda e: e.get("date") or "")
+        selected_events.update(e["id"] for e in candidates)
+        affected.append({"id": ticket["id"], "title": ticket["id"] + " ? " + ticket["title"],
+                         "event_id": latest["id"], "date": latest.get("date"), "kind": "task"})
+    for old_event in before["events"]:
+        if old_event["id"] in selected_events:
+            continue
+        explicit = references.intersection(re.findall(r"\b[A-Z]{2,}-\d+\b", old_event["title"]))
+        schedule_affected = (target != previous_target or any(a["target"] != previous_target for a in assertions)) and old_event.get("date_kind") == "planned" and old_event.get("date") == previous_target and old_event.get("topic") == "schedule"
+        if explicit or schedule_affected:
+            destination = next((e for e in after["events"] if e["id"] == old_event["id"]), None)
+            if destination is None and schedule_affected:
+                destination = next((e for e in after["events"] if e["title"] == old_event["title"] and e.get("date_kind") == "planned"), None)
+            destination = destination or old_event
+            affected.append({"id": old_event["id"], "title": old_event["title"],
+                             "event_id": destination["id"], "date": destination.get("date"), "kind": "event",
+                             "previous_event_id": old_event["id"]})
     for action in build_synthesis([document], after)["groups"]["engagements"]:
         if any(proof["document_id"] == identifier for proof in action["evidence"]):
             actions.append("Engagement mentionné dans la nouvelle source : " + action["title"])
@@ -223,6 +237,39 @@ def history():
     with ingest.INGEST_LOCK:
         return sorted((_read(path, {}) for path in (STORE / "history").glob("*/result.json")),
                       key=lambda item: item["integrated_at"], reverse=True)
+
+
+def remove_import(identifier, restore=False):
+    identifier = _token(identifier)
+    with ingest.INGEST_LOCK:
+        result_path = STORE / 'history' / identifier / 'result.json'
+        result = _read(result_path, None)
+        if result is None:
+            raise ValueError('Import introuvable.')
+        relative = Path(result['analysis']['document']['path'])
+        corpus = ingest.DEFAULT_CORPUS.resolve()
+        source = (corpus / relative).resolve()
+        if not source.is_relative_to(corpus / '09_Mises_a_jour') or not source.is_file():
+            raise ValueError('Source importée introuvable.')
+        metadata_path = source.with_name(source.name + '.nova.json')
+        original_metadata = metadata_path.read_bytes()
+        metadata = _read(metadata_path, {})
+        metadata['import_removed'] = not restore
+        documents, _ = _current()
+        try:
+            _write(metadata_path, metadata)
+            rebuilt, chunks, memory = ingest.build_corpus(corpus, documents)
+            updated = {**result, 'status': 'integrated' if restore else 'removed'}
+            _write(result_path, updated)
+            try:
+                ingest.publish_corpus(rebuilt, chunks, memory)
+            except Exception:
+                _write(result_path, result)
+                raise
+        except Exception:
+            metadata_path.write_bytes(original_metadata)
+            raise
+        return updated
 
 
 def preview_file(identifier):

@@ -44,6 +44,18 @@ export default function UpdateSimulator({ onRefresh, onNavigate }) {
     finally { inFlight.current = false; setBusy(""); }
   }
   function showHistory(item) { setIntegrated(item); setAnalysis(item.analysis); setPreview(null); setError(""); setDirty(false); }
+  async function changeImport(item) {
+    if (inFlight.current) return;
+    const restore = item.status === 'removed';
+    if (!restore && !window.confirm('Retirer cet import et recalculer le projet à partir des sources restantes ? Les fichiers originaux sont conservés et cet import pourra être restauré.')) return;
+    inFlight.current = true; setBusy(restore ? 'Restauration de l’import…' : 'Retrait de l’import…'); setError('');
+    try {
+      await fetch(`/api/updates/${item.id}/${restore ? 'restore' : 'remove'}`, { method: 'POST' }).then(responseJSON);
+      setIntegrated(null); setAnalysis(null); setPreview(null);
+      await Promise.all([loadHistory(), onRefresh?.()]);
+    } catch (err) { setError(err.message); }
+    finally { inFlight.current = false; setBusy(''); }
+  }
   return <section className="stack update-workspace">
     <div className="panel update-intro"><div><p className="eyebrow">NOUVELLE INFORMATION</p><h2>Faire évoluer la mémoire du projet</h2><p>Ajoutez la pièce reçue pendant la démonstration. NOVA compare son contenu à l'état précédent, puis l'intègre aux vues du projet en conservant l'historique.</p></div><ol className="update-steps"><li>1 · Ajouter</li><li>2 · Vérifier les impacts</li><li>3 · Intégrer</li></ol></div>
     <div className="panel update-dropzone" onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); upload(event.dataTransfer.files[0]); }}>
@@ -69,12 +81,12 @@ export default function UpdateSimulator({ onRefresh, onNavigate }) {
       <div className="panel"><p className="eyebrow">01 · CE QUI CHANGE</p><h3>Qu'est-ce qui vient de changer ?</h3>
         {analysis.changes.map((change, index) => <article className="update-change" key={`${change.title}-${index}`}><strong>{change.title}</strong><span className={`update-kind ${change.kind}`}>{change.kind === "confirmed" ? "Évolution documentée" : change.kind === "proposal" ? "Proposition / à confirmer" : "Information reçue"}</span><dl><div><dt>Avant</dt><dd>{change.before}</dd></div><div><dt>Après</dt><dd>{change.after}</dd></div></dl><details><summary>Consulter les preuves</summary>{change.evidence.map((proof, index) => <div key={`${proof.document_id}-${index}`}><p>{proof.path} · {proof.locator}</p><blockquote>{proof.excerpt}</blockquote></div>)}</details></article>)}
       </div>
-      <div className="panel"><p className="eyebrow">02 · INFORMATIONS AFFECTÉES</p><h3>Quelles sources précédentes faut-il recouper ?</h3><p>Les liens ci-dessous signalent un sujet commun. Ils ne signifient pas que chaque ancienne source est annulée.</p>
-        {analysis.affected_information.length ? <ul className="update-affected">{analysis.affected_information.map(item => <li key={item.document_id}><a href={`/api/documents/${item.document_id}/original`} target="_blank" rel="noreferrer">{item.title} ↗</a><span>{item.reason}</span><small>{item.status}</small></li>)}</ul> : <p>Aucune source antérieure liée n'a été identifiée automatiquement.</p>}
+      <div className="panel"><p className="eyebrow">02 · INFORMATIONS AFFECTÉES</p><h3>Tâches et événements directement concernés</h3>
+        {analysis.affected_information.filter(item => item.event_id).length ? <ul className="update-affected">{analysis.affected_information.filter(item => item.event_id).map(item => <li key={item.id}><button className="secondary" onClick={() => onNavigate?.("timeline", integrated ? item.event_id : item.previous_event_id || item.event_id)}>{item.title}<ArrowRight size={16} /></button></li>)}</ul> : <p>Aucune tâche ou événement directement lié n'a été identifié.</p>}
       </div>
       <div className="panel"><p className="eyebrow">03 · SUITE À DONNER</p><h3>Quelles actions devraient être prises ?</h3><ol className="update-actions">{analysis.actions.map(action => <li key={action}>{action}</li>)}</ol><p className="update-notice">{analysis.notice}</p><details><summary>{analysis.events.length} événement(s) associé(s) au calendrier et à la chronologie</summary><ul>{analysis.events.map(item => <li key={item.id}>{item.date} · {item.title} {item.date_kind === "received" ? "(réception — date source inconnue)" : item.date_kind === "planned" ? "(planifié)" : ""}</li>)}</ul></details></div>
       {preview && !integrated && <div className="panel update-commit"><div><strong>Intégrer cette source au projet</strong><p>L'état précédent est conservé dans l'historique des imports.</p></div><button className="primary" disabled={!!busy || dirty || !text.trim()} onClick={() => review(true)}><CheckCircle2 size={18} />Intégrer au projet</button></div>}
     </div>}
-    <div className="panel"><div className="update-heading"><h3><History size={19} /> Historique des imports</h3><span>{imports.length} import(s)</span></div>{!imports.length ? <p>Aucun nouvel événement intégré pour le moment.</p> : <ul className="update-history">{imports.map(item => <li key={item.id}><button onClick={() => showHistory(item)} disabled={!!busy}><FileText size={17} /><span><strong>{item.filename}</strong><small>{new Date(item.integrated_at).toLocaleString("fr-CA")}</small></span><ArrowRight size={17} /></button></li>)}</ul>}</div>
+    <div className="panel"><div className="update-heading"><h3><History size={19} /> Historique des imports</h3><span>{imports.length} import(s)</span></div>{!imports.length ? <p>Aucun nouvel événement intégré pour le moment.</p> : <ul className="update-history">{imports.map(item => <li key={item.id}><button onClick={() => item.status !== "removed" && showHistory(item)} disabled={!!busy || item.status === "removed"}><FileText size={17} /><span><strong>{item.filename}</strong><small>{new Date(item.integrated_at).toLocaleString("fr-CA")}</small></span><ArrowRight size={17} /></button><button className="secondary" disabled={!!busy} onClick={() => changeImport(item)}>{item.status === "removed" ? "Restaurer cet import" : "Retirer cet import"}</button></li>)}</ul>}</div>
   </section>;
 }
