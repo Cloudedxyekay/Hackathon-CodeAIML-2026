@@ -63,13 +63,20 @@ textarea {
   font-size: 13px;
 }
 
-.brand-mark {
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  border-radius: 12px;
-  background: #7c6cf0;
+.brand-logo-panel {
+  width: 100%;
+  max-width: 224px;
+  padding: 12px 8px;
+  overflow: hidden;
+  background: transparent;
+}
+.brand-logo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 1;
+  object-fit: cover;
+  transform: scale(1.12);
+  filter: brightness(0) invert(1);
 }
 
 nav {

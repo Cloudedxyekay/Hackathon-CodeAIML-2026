@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import {
-  Activity,
   Bot,
   CalendarDays,
   FileSearch,
@@ -70,12 +69,8 @@ export default function App() {
     <div className="app-shell">
       <aside className="sidebar">
         <div className="brand">
-          <div className="brand-mark">
-            <Activity size={22} />
-          </div>
-          <div>
-            <strong>NOVA</strong>
-            <span>Project Memory</span>
+          <div className="brand-logo-panel">
+            <img className="brand-logo" src="/loto-quebec.png" alt="Loto-Québec" />
           </div>
         </div>
         <nav>
