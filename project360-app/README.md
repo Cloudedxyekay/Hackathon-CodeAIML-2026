@@ -108,21 +108,35 @@ Generated files: `data/processed/project_memory.json` and `timeline.json`.
 
 ### Optional LLM enrichment
 
-Copy `.env.example` to `.env`, set `OPENAI_API_KEY` on the backend, and restart
-Uvicorn. `NOVA_AI_MODEL` is configurable (default: `gpt-4.1-mini`). Click
-**Enrichir IA** to explicitly send evidence excerpts to the configured model.
-No provider request is made during page loading or local re-ingestion.
+The **Enrichir IA** button uses Ollama by default, so the demo can run without a
+paid API key. Install Ollama, pull a model, and restart Uvicorn:
 
-The connector uses the [OpenAI Responses API with structured outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
-to extract concise summaries, decision descriptions, dates and named actors.
+```powershell
+ollama pull qwen2.5:7b
+$env:OLLAMA_MODEL="qwen2.5:7b"
+uvicorn server.main:app --reload --port 8000
+```
+
+If Ollama runs somewhere other than `http://127.0.0.1:11434`, set
+`OLLAMA_BASE_URL`. Click **Enrichir IA** to explicitly send evidence excerpts to
+the configured model. No provider request is made during page loading or local
+re-ingestion.
+
+Local enrichment is intentionally bounded for demo speed: Ollama enriches the
+highest-signal 30 events by default, in small batches with shorter excerpts. To
+process more or tune throughput, set `NOVA_AI_EVENT_LIMIT`, `NOVA_AI_BATCH_SIZE`
+or `NOVA_AI_WORKERS`.
+
+The connector asks the model for structured JSON annotations: concise summaries,
+decision descriptions, dates and named actors.
 Annotations must reference an existing event and quote exact source text;
 unsupported dates, names and citations are discarded. AI summaries are labelled
 and kept separate from canonical approvals, ticket states and assigned roles.
 Results are cached against a corpus fingerprint. A changed corpus invalidates
 the annotations, and a provider error preserves local extraction.
-The API key is never sent to the browser. Provider storage is disabled using
-`store: false`. This optional mode requires a working API account; live provider
-calls have not been validated without a configured key.
+OpenAI remains available as an explicit fallback: set `NOVA_AI_PROVIDER=openai`,
+`OPENAI_API_KEY`, and `NOVA_AI_MODEL`. The API key is never sent to the browser.
+Provider storage is disabled for OpenAI using `store: false`.
 
 API: `POST /api/project-memory/enrich`. Cache: `data/processed/ai_enrichment.json`.
 
