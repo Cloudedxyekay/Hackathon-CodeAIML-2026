@@ -19,6 +19,19 @@ def build_dossier(base, documents, memory):
     result = deepcopy(base)
     registers = build_synthesis(documents, memory)
     result['evidence_as_of'] = registers['as_of']
+    result['verification_tasks'] = [
+        {'id': 'gate-' + gate['id'], 'label': gate['id'], 'priority': 'urgent',
+         'title': gate['title'],
+         'description': 'Validation ouverte ou en cours : cette condition doit être levée avant la mise en production.',
+         'evidence': gate['evidence']}
+        for gate in memory['gates']
+    ]
+    result['verification_tasks'].extend(
+        {'id': alert['id'], 'label': {'stale-plan': 'Date du plan', 'status-conflict': 'Statut du projet', 'stale-risk': 'Registre des risques'}.get(alert['id'], alert['title']),
+         'priority': 'important', 'title': alert['title'],
+         'description': alert['description'], 'evidence': alert['evidence']}
+        for alert in memory['alerts'] if alert['id'] != 'pending-gates'
+    )
     for section in result.get('sections', []):
         topics = SECTION_TOPICS.get(section['id'], set())
         paths = {source['file'] for source in section.get('sources', [])}

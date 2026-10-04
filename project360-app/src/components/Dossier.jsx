@@ -83,6 +83,7 @@ export default function Dossier() {
   const [sourceLoading, setSourceLoading] = useState(false);
   const sourceRequest = useRef(null);
   const [busy, setBusy] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
 
   async function openSource(id) {
     sourceRequest.current?.abort();
@@ -184,7 +185,9 @@ export default function Dossier() {
       <div className="section-tabs">
         <button onClick={reanalyze} disabled={busy}>{busy ? "Analyse en cours…" : "Ré-analyser le corpus"}</button>
         <button onClick={exportDossier} disabled={busy}>Exporter le dossier JSON</button>
+        {dossier.verification_tasks?.length > 0 && <div className="dossier-task-bubbles" aria-label="Tâches à vérifier"><span className="dossier-task-label">Tâches à vérifier</span>{dossier.verification_tasks.map(task => <button key={task.id} className={`dossier-task-chip priority-${task.priority}`} aria-pressed={selectedTask === task.id} title={`${task.priority === 'urgent' ? 'Urgent' : 'Important'} : ${task.title}`} onClick={() => setSelectedTask(selectedTask === task.id ? null : task.id)}><span className="dossier-task-dot" aria-hidden="true" /><span>{task.priority === 'urgent' ? 'Urgent' : 'Important'} · {task.label}</span></button>)}</div>}
       </div>
+      {dossier.verification_tasks?.filter(task => task.id === selectedTask).map(task => <section className={`panel dossier-task-detail priority-${task.priority}`} key={task.id}><div className="dossier-task-detail-header"><h3>{task.title}</h3><button className="dossier-button dossier-button-secondary" onClick={() => setSelectedTask(null)}><X size={16} aria-hidden="true" />Fermer</button></div><p>{task.description}</p><p className="dossier-proof-meta">{task.priority === 'urgent' ? 'Urgent : condition bloquante de mise en production.' : 'Important : divergence documentaire à vérifier.'}</p><Evidence proofs={task.evidence} /></section>)}
       {error && <p className="error-text" role="alert">{error}</p>}
 
       <div className="panel dossier-filters" aria-label="Filtres du dossier">
@@ -209,14 +212,15 @@ export default function Dossier() {
             const displayCategory = filters.category || entry.categories.find(category => category.id !== 'risques')?.id || entry.categories[0]?.id;
             return displayCategory === section.id;
           });
-          if (!documents.length && Object.values(filters).some(Boolean)) return null;
+          const linkedDocuments = visibleEntries.filter(entry => entry.categories.some(category => category.id === section.id));
           return <details className="dossier-result-category" key={section.id}>
-            <summary className="dossier-item-summary"><span className="dossier-item-heading"><strong>{section.title}</strong><span className="dossier-item-preview">{section.purpose}</span></span><span className="dossier-item-status">{documents.length} document{documents.length > 1 ? 's' : ''}</span></summary>
+            <summary className="dossier-item-summary"><span className="dossier-item-heading"><strong>{section.title}</strong><span className="dossier-item-preview">{section.purpose}</span></span><span className="dossier-item-status">{linkedDocuments.length} document{linkedDocuments.length > 1 ? 's' : ''} lié{linkedDocuments.length > 1 ? 's' : ''}</span></summary>
             <div className="dossier-category-content">
               <div className="dossier-column"><h4 className="section-label">Informations pertinentes</h4><ul className="clean-list">{section.facts.map(fact => <li key={fact}>{fact}</li>)}</ul></div>
               {section.open_items.length > 0 && <div className="dossier-column"><h4 className="section-label">Actions / points ouverts</h4>{section.open_items.map(item => <p key={item.label}>{item.label}<br /><span className="dossier-item-preview">{item.owner} · {item.due}</span></p>)}</div>}
               {documents.map(entry => <DocumentItem key={entry.key} entry={entry} onOpenSource={openSource} />)}
-              {!documents.length && <p>Les documents liés à cette catégorie sont classés une seule fois dans une autre catégorie. Sélectionnez « {section.title} » dans le filtre pour les afficher ici.</p>}
+              {linkedDocuments.length > documents.length && <div><p>Certains documents de cette catégorie sont déjà affichés ailleurs pour éviter les doublons.</p><button className="dossier-button dossier-button-secondary" onClick={() => changeFilter('category', section.id)}>Afficher les documents de cette catégorie</button></div>}
+              {!linkedDocuments.length && <p>Aucun document ne correspond aux filtres actuels dans cette catégorie.</p>}
             </div>
           </details>;
         })}
