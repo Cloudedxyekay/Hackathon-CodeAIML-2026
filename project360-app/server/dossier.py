@@ -19,6 +19,12 @@ def build_dossier(base, documents, memory):
     result = deepcopy(base)
     registers = build_synthesis(documents, memory)
     result['evidence_as_of'] = registers['as_of']
+    result['completed_documents'] = [
+        {'document_id': proof['document_id'], 'completed_on': ticket['completed_on'],
+         'reason': 'Fermeture explicite du ticket ' + ticket['id']}
+        for ticket in memory['tickets'] if ticket['status'] == 'completed'
+        for proof in ticket['evidence']
+    ]
     result['verification_tasks'] = [
         {'id': 'gate-' + gate['id'], 'label': gate['id'], 'priority': 'urgent',
          'title': gate['title'],

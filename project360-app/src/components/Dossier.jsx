@@ -84,6 +84,7 @@ export default function Dossier() {
   const sourceRequest = useRef(null);
   const [busy, setBusy] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
+  const [archiveView, setArchiveView] = useState(false);
 
   async function openSource(id) {
     sourceRequest.current?.abort();
@@ -134,7 +135,7 @@ export default function Dossier() {
 
   const sections = dossier?.sections ?? [];
   const entries = useMemo(() => {
-    return groupDossierDocuments(dossier?.sections || []).map(entry => {
+    return groupDossierDocuments(dossier?.sections || [], dossier?.completed_documents || []).map(entry => {
       const people = new Map();
       for (const point of entry.points) for (const [name, role] of sourceContext(point.item).people) {
         if (!people.has(name)) people.set(name, new Set());
@@ -146,7 +147,8 @@ export default function Dossier() {
   const people = [...new Set(entries.flatMap(entry => entry.context.people.map(([name]) => name)))].sort((a, b) => a.localeCompare(b, 'fr'));
   const supports = [...new Set(entries.flatMap(entry => entry.context.supports))].sort();
   const statuses = [...new Set(entries.flatMap(entry => entry.statuses))].sort();
-  const visibleEntries = entries.filter(entry => {
+  const activeEntries = entries.filter(entry => Boolean(entry.completion) === archiveView);
+  const visibleEntries = activeEntries.filter(entry => {
     const dates = [entry.date, ...entry.points.flatMap(point => [point.item.date, point.item.due])].filter(Boolean);
     return (!filters.category || entry.categories.some(c => c.id === filters.category))
       && (!filters.group || entry.groups.includes(filters.group))
@@ -190,6 +192,12 @@ export default function Dossier() {
       {dossier.verification_tasks?.filter(task => task.id === selectedTask).map(task => <section className={`panel dossier-task-detail priority-${task.priority}`} key={task.id}><div className="dossier-task-detail-header"><h3>{task.title}</h3><button className="dossier-button dossier-button-secondary" onClick={() => setSelectedTask(null)}><X size={16} aria-hidden="true" />Fermer</button></div><p>{task.description}</p><p className="dossier-proof-meta">{task.priority === 'urgent' ? 'Urgent : condition bloquante de mise en production.' : 'Important : divergence documentaire à vérifier.'}</p><Evidence proofs={task.evidence} /></section>)}
       {error && <p className="error-text" role="alert">{error}</p>}
 
+      <div className="section-tabs" aria-label="Classement des dossiers">
+        <button className={!archiveView ? 'active' : ''} aria-pressed={!archiveView} onClick={() => setArchiveView(false)}>Dossiers à suivre ({entries.filter(entry => !entry.completion).length})</button>
+        <button className={archiveView ? 'active' : ''} aria-pressed={archiveView} onClick={() => setArchiveView(true)}>Dossiers terminés ({entries.filter(entry => entry.completion).length})</button>
+      </div>
+      {archiveView && <p className="dossier-proof-meta">Documents dont la clôture est explicitement confirmée dans les sources. Les décisions approuvées et les dates planifiées restent dans les dossiers à suivre.</p>}
+
       <div className="panel dossier-filters" aria-label="Filtres du dossier">
         <DossierFilter label="Type d’information" value={filters.group} onChange={value => changeFilter('group', value)} options={Object.entries(registerLabels)} />
         <DossierFilter label="Personne / équipe" value={filters.person} onChange={value => changeFilter('person', value)} options={people.map(name => [name, name])} />
@@ -203,7 +211,7 @@ export default function Dossier() {
       </div>
 
       <div className="panel dossier-register dossier-main-list dossier-category-grid">
-        <p role="status">{visibleEntries.length} documents affichés sur {entries.length}</p>
+        <p role="status">{visibleEntries.length} documents affichés sur {activeEntries.length} · {archiveView ? 'Dossiers terminés' : 'Dossiers à suivre'}</p>
         {sections.filter(section => !filters.category || section.id === filters.category).map(section => {
           const documents = visibleEntries.filter(entry => {
             // A document has one display location, while all its categories
@@ -291,6 +299,7 @@ function DocumentItem({ entry, onOpenSource }) {
       <span className="dossier-item-status">{entry.points.length} points</span>
     </summary>
     <div className="dossier-item-content">
+      {entry.completion && <p className="dossier-completion-note">Terminé · {entry.completion.reason}{entry.completion.completed_on ? ` · ${entry.completion.completed_on}` : ''}</p>}
       <div className="dossier-item-context"><h5>Objet général du document</h5><p>{subjects.slice(0, 2).join(' ')}{subjects.length > 2 ? ' Les autres points sont détaillés ci-dessous.' : ''}</p></div>
       <dl className="dossier-item-fields">
         <div className="dossier-field-wide"><dt>Catégories du projet</dt><dd>{entry.categories.map(category => category.title).join(' · ')}</dd></div>

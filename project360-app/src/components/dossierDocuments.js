@@ -7,7 +7,12 @@ export function documentSupport(path) {
   return 'Document texte';
 }
 
-export function groupDossierDocuments(sections) {
+function newestFirst(first, second) {
+  return (second || '').localeCompare(first || '');
+}
+
+export function groupDossierDocuments(sections, completedDocuments = []) {
+  const completedIds = new Map(completedDocuments.map(document => [document.document_id, document]));
   const documents = new Map();
   for (const section of sections) {
     for (const [group, items] of Object.entries(section.registers || {})) {
@@ -15,7 +20,7 @@ export function groupDossierDocuments(sections) {
         for (const proof of item.evidence || []) {
           const support = documentSupport(proof.path);
           const key = JSON.stringify([proof.document_id || proof.path, proof.published_on || null, support]);
-          if (!documents.has(key)) documents.set(key, { key, path: proof.path, date: proof.published_on || null, support, categories: new Map(), groups: new Set(), statuses: new Set(), points: new Map(), evidence: new Map() });
+          if (!documents.has(key)) documents.set(key, { key, path: proof.path, date: proof.published_on || null, support, completion: completedIds.get(proof.document_id) || null, categories: new Map(), groups: new Set(), statuses: new Set(), points: new Map(), evidence: new Map() });
           const entry = documents.get(key);
           entry.categories.set(section.id, { id: section.id, title: section.title });
           entry.groups.add(group);
@@ -26,5 +31,12 @@ export function groupDossierDocuments(sections) {
       }
     }
   }
-  return [...documents.values()].map(entry => ({ ...entry, categories: [...entry.categories.values()], groups: [...entry.groups], statuses: [...entry.statuses], points: [...entry.points.values()], evidence: [...entry.evidence.values()] }));
+  return [...documents.values()].map(entry => ({
+    ...entry,
+    categories: [...entry.categories.values()],
+    groups: [...entry.groups],
+    statuses: [...entry.statuses],
+    points: [...entry.points.values()].sort((a, b) => newestFirst(a.item.date, b.item.date)),
+    evidence: [...entry.evidence.values()].sort((a, b) => newestFirst(a.published_on, b.published_on)),
+  })).sort((a, b) => newestFirst(a.date, b.date));
 }

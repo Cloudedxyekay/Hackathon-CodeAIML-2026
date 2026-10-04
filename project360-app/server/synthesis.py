@@ -41,10 +41,10 @@ def build_synthesis(documents, memory):
         add('echeances', target['title'], target['evidence'], target['owner'], target['owner_role'],
             'conditional' if memory['schedule']['conditional'] else 'approved', due=target['date'], note=target['summary'])
     for ticket in memory['tickets']:
-        if ticket['status'] != 'completed':
+        if ticket['status']:
             add('risques', f"{ticket['id']} · {ticket['title']}", ticket['evidence'],
                 status=ticket['status'], on=ticket['created_on'],
-                note='Ticket ouvert ou en validation. Le demandeur ne constitue pas un responsable assigné.')
+                note=('Ticket explicitement fermé.' if ticket['status'] == 'completed' else 'Ticket ouvert ou en validation.') + ' Le demandeur ne constitue pas un responsable assigné.')
 
     # Extract only explicit action sections, obligations or first-person promises.
     for doc in relevant:
