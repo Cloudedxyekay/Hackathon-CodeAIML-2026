@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { FileText, RotateCcw, ArrowUpRight, X } from "lucide-react";
+import { FileText, RotateCcw, ArrowUpRight, X, Folder, ArrowLeft } from "lucide-react";
 import { groupDossierDocuments } from './dossierDocuments.js';
 
 const registerLabels = { decisions: "Décisions importantes", responsables: "Responsables", engagements: "Engagements", echeances: "Échéances", risques: "Risques", documents: "Documents et informations" };
@@ -86,6 +86,18 @@ export default function Dossier() {
   const [busy, setBusy] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [archiveView, setArchiveView] = useState(false);
+  const [categoryTabs, setCategoryTabs] = useState([]);
+  const [activeCategoryTab, setActiveCategoryTab] = useState(null);
+  function openCategory(id) {
+    setCategoryTabs(previous => previous.includes(id) ? previous : [...previous, id]);
+    setActiveCategoryTab(id);
+    setFilters(previous => ({ ...previous, category: '' }));
+  }
+  function closeCategory(id) {
+    const remaining = categoryTabs.filter(tab => tab !== id);
+    setCategoryTabs(remaining);
+    if (activeCategoryTab === id) setActiveCategoryTab(remaining.at(-1) || null);
+  }
 
   async function openSource(id) {
     sourceRequest.current?.abort();
@@ -159,6 +171,11 @@ export default function Dossier() {
       && ((!filters.from && !filters.to) || dates.some(date => (!filters.from || date >= filters.from) && (!filters.to || date <= filters.to)));
   });
   const changeFilter = (name, value) => setFilters(previous => ({ ...previous, [name]: value }));
+  const availableCategoryIds = new Set(visibleEntries.flatMap(entry => entry.categories.map(category => category.id)));
+  const activeCategoryHasFiles = !activeCategoryTab || availableCategoryIds.has(activeCategoryTab);
+  useEffect(() => {
+    if (!activeCategoryHasFiles) setActiveCategoryTab(null);
+  }, [activeCategoryHasFiles]);
 
   if (error && !dossier) {
     return <p className="error-text">{error}</p>;
@@ -211,28 +228,37 @@ export default function Dossier() {
         <p className="dossier-filter-help">La période couvre les dates documentées et les échéances. Les éléments sans date sont exclus lorsqu’une période est sélectionnée.</p>
       </div>
 
-      <div className="panel dossier-register dossier-main-list dossier-category-grid">
+      <div className="dossier-explorer-tabs" aria-label="Onglets des catégories">
+        <button className={!activeCategoryTab ? 'active' : ''} aria-pressed={!activeCategoryTab} onClick={() => setActiveCategoryTab(null)}><Folder size={16} />Tous les dossiers</button>
+        {categoryTabs.filter(id => availableCategoryIds.has(id)).map(id => <div className={`dossier-explorer-tab ${activeCategoryTab === id ? 'active' : ''}`} key={id}><button aria-pressed={activeCategoryTab === id} onClick={() => { setActiveCategoryTab(id); setFilters(previous => ({ ...previous, category: '' })); }}><Folder size={15} />{sections.find(section => section.id === id)?.title}</button><button className="dossier-tab-close" aria-label={`Fermer ${sections.find(section => section.id === id)?.title}`} onClick={() => closeCategory(id)}><X size={14} /></button></div>)}
+      </div>
+      <div className={`panel dossier-register dossier-main-list ${activeCategoryTab ? '' : 'dossier-category-grid'}`}>
         <p role="status">{visibleEntries.length} documents affichés sur {activeEntries.length} · {archiveView ? 'Dossiers terminés' : 'Dossiers à suivre'}</p>
-        {sections.filter(section => !filters.category || section.id === filters.category).map(section => {
-          const documents = visibleEntries.filter(entry => {
-            // A document has one display location, while all its categories
-            // remain available to filters. Selecting a category moves matching
-            // documents into that category without copying their cards.
-            const displayCategory = filters.category || entry.categories.find(category => category.id !== 'risques')?.id || entry.categories[0]?.id;
-            return displayCategory === section.id;
-          });
+        {!activeCategoryTab && sections.filter(section => !filters.category || section.id === filters.category).map(section => {
           const linkedDocuments = visibleEntries.filter(entry => entry.categories.some(category => category.id === section.id));
-          return <details className="dossier-result-category" key={section.id}>
-            <summary className="dossier-item-summary"><span className="dossier-item-heading"><strong>{section.title}</strong><span className="dossier-item-preview">{section.purpose}</span></span><span className="dossier-item-status">{linkedDocuments.length} document{linkedDocuments.length > 1 ? 's' : ''} lié{linkedDocuments.length > 1 ? 's' : ''}</span></summary>
-            <div className="dossier-category-content">
-              {section.current_statuses?.length > 0 && <div className="dossier-column"><h4 className="section-label">Statuts documentés actuels</h4>{section.current_statuses.map(item => <p key={item.id}><strong>{item.id}</strong> · {registerStatuses[item.status] || item.status} · {item.date || "Date non précisée"}</p>)}</div>}
-              <details className="dossier-column"><summary className="section-label">Repères du dossier initial — historique conservé</summary><ul className="clean-list">{section.facts.map(fact => <li key={fact}>{fact}</li>)}</ul>
-              {section.open_items.length > 0 && <div><h4 className="section-label">Actions mentionnées dans le dossier initial</h4>{section.open_items.map(item => <p key={item.label}>{item.label}<br /><span className="dossier-item-preview">{item.owner} · {item.due}</span></p>)}</div>}</details>
+{!activeCategoryTab && sections.filter(section => !filters.category || section.id === filters.category).map(section => {
+  const linkedDocuments = visibleEntries.filter(entry => entry.categories.some(category => category.id === section.id));
+  if (!linkedDocuments.length) return null;
+  return <button className="dossier-folder-card" key={section.id} onClick={() => openCategory(section.id)}><Folder size={24} aria-hidden="true" /><span className="dossier-item-heading"><strong>{section.title}</strong><span className="dossier-item-preview">{section.purpose}</span></span><span className="dossier-item-status">{linkedDocuments.length} document{linkedDocuments.length > 1 ? 's' : ''}</span></button>;
+})}
+{activeCategoryTab && sections.filter(section => section.id === activeCategoryTab).map(section => {
+  const documents = visibleEntries.filter(entry => entry.categories.some(category => category.id === section.id));
+  return <section key={`${archiveView}-${section.id}`} className="dossier-open-folder">
+    <div className="dossier-folder-header"><button className="dossier-button dossier-button-secondary" onClick={() => setActiveCategoryTab(null)}><ArrowLeft size={16} />Tous les dossiers</button><h3><Folder size={20} />{section.title}</h3><p className="dossier-proof-meta">{documents.length} documents · du plus récent au plus ancien</p></div>
+    <div className="dossier-folder-content">
+      <div className="dossier-column"><h4 className="section-label">Informations pertinentes</h4><ul className="clean-list">{section.facts.map(fact => <li key={fact}>{fact}</li>)}</ul></div>
+      {section.current_statuses?.length > 0 && <div className="dossier-column"><h4 className="section-label">Statuts documentés actuels</h4>{section.current_statuses.map(item => <p key={item.id}><strong>{item.id}</strong> · {registerStatuses[item.status] || item.status} · {item.date || "Date non précisée"}</p>)}</div>}
+      {section.open_items.length > 0 && <div className="dossier-column"><h4 className="section-label">Actions / points ouverts</h4>{section.open_items.map(item => <p key={item.label}>{item.label}<br /><span className="dossier-item-preview">{item.owner} · {item.due}</span></p>)}</div>}
+      <details className="dossier-column"><summary className="section-label">Repères du dossier initial — historique conservé</summary><ul className="clean-list">{section.facts.map(fact => <li key={fact}>{fact}</li>)}</ul></details>
+      {documents.map(entry => <DocumentItem key={entry.key} entry={entry} onOpenSource={openSource} />)}
+      {!documents.length && <p>Aucun document ne correspond aux filtres actuels dans cette catégorie.</p>}
+    </div>
+  </section>;
+})}
               {documents.map(entry => <DocumentItem key={entry.key} entry={entry} onOpenSource={openSource} />)}
-              {linkedDocuments.length > documents.length && <div><p>Certains documents de cette catégorie sont déjà affichés ailleurs pour éviter les doublons.</p><button className="dossier-button dossier-button-secondary" onClick={() => changeFilter('category', section.id)}>Afficher les documents de cette catégorie</button></div>}
-              {!linkedDocuments.length && <p>Aucun document ne correspond aux filtres actuels dans cette catégorie.</p>}
+              {!documents.length && <p>Aucun document ne correspond aux filtres actuels dans cette catégorie.</p>}
             </div>
-          </details>;
+          </section>;
         })}
         {!visibleEntries.length && <p>Aucun élément ne correspond aux filtres sélectionnés.</p>}
       </div>
@@ -282,12 +308,20 @@ function BriefItem({ label, value }) {
   );
 }
 
-function Evidence({ proofs, onOpenSource }) {
-  return proofs.map((proof, index) => <div className="dossier-proof" key={`${proof.document_id}-${index}`}>
-    <p className="dossier-proof-heading"><FileText size={15} /><strong>{proof.path.split('/').at(-1)}</strong></p>
-    <p className="dossier-proof-meta">{proof.locator} · Publication : {proof.published_on || "non précisée"}</p>
-    <details className="dossier-excerpt"><summary>Voir l’extrait justificatif</summary><blockquote>{proof.excerpt}</blockquote></details>
-    <a className="dossier-button dossier-button-primary" href={`/api/documents/${encodeURIComponent(proof.document_id)}/original?download=true`} download><FileText size={16} aria-hidden="true" />Télécharger l’original ({proof.path.split('/').at(-1)})<ArrowUpRight size={16} aria-hidden="true" /></a>
+function Evidence({ proofs }) {
+  const files = new Map();
+  for (const proof of proofs) {
+    const key = proof.path || proof.document_id;
+    if (!files.has(key)) files.set(key, { source: proof, excerpts: new Map() });
+    files.get(key).excerpts.set(JSON.stringify([proof.locator, proof.excerpt]), proof);
+  }
+  return [...files].map(([key, { source, excerpts }]) => <div className="dossier-proof" key={key}>
+    <p className="dossier-proof-heading"><FileText size={15} /><strong>{source.path.split('/').at(-1)}</strong></p>
+    {[...excerpts.values()].map((proof, index) => <div key={index}>
+      <p className="dossier-proof-meta">{proof.locator} · Publication : {proof.published_on || "non précisée"}</p>
+      <details className="dossier-excerpt"><summary>Voir l’extrait justificatif · {proof.locator}</summary><blockquote>{proof.excerpt}</blockquote></details>
+    </div>)}
+    <a className="dossier-button dossier-button-primary" href={`/api/documents/${encodeURIComponent(source.document_id)}/original?download=true`} download><FileText size={16} aria-hidden="true" />Télécharger l’original ({source.path.split('/').at(-1)})<ArrowUpRight size={16} aria-hidden="true" /></a>
   </div>);
 }
 

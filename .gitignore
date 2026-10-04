@@ -215,6 +215,7 @@ project360-app/.vite/
 project360-app/data/processed/embeddings.json
 project360-app/data/processed/ai_enrichment.json
 project360-app/data/updates/
+project360-app/data/comparison/
 
 # Ruff stuff:
 .ruff_cache/

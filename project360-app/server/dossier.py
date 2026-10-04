@@ -14,6 +14,17 @@ SECTION_TOPICS = {
     'accessibilite': {'accessibility'},
 }
 
+SECTION_NAMES = {
+    'pilotage': 'Décisions et responsables',
+    'go-live': 'Date de lancement et préparatifs',
+    'portee': 'Fonctionnalités et changements',
+    'finance': 'Budget, factures et contrats',
+    'architecture': 'Système et données',
+    'securite': 'Sécurité et vérifications',
+    'accessibilite': 'Accessibilité et tests',
+    'risques': 'Risques et points à clarifier',
+}
+
 
 def build_dossier(base, documents, memory):
     result = deepcopy(base)
@@ -39,6 +50,7 @@ def build_dossier(base, documents, memory):
         for alert in memory['alerts'] if alert['id'] != 'pending-gates'
     )
     for section in result.get('sections', []):
+        section['title'] = SECTION_NAMES.get(section['id'], section['title'])
         topics = SECTION_TOPICS.get(section['id'], set())
         paths = {source['file'] for source in section.get('sources', [])}
         section['registers'] = {}

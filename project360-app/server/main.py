@@ -19,6 +19,10 @@ load_dotenv(ROOT / ".env")
 PROCESSED = ROOT / "data" / "processed"
 
 app = FastAPI(title="NOVA Project Memory API")
+from .comparison import router as comparison_router
+app.include_router(comparison_router)
+from .executive_pdf import router as executive_pdf_router
+app.include_router(executive_pdf_router)
 
 app.add_middleware(
     CORSMiddleware,
