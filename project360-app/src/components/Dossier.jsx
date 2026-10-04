@@ -83,6 +83,8 @@ export default function Dossier() {
   const [sourceLoading, setSourceLoading] = useState(false);
   const sourceRequest = useRef(null);
   const [busy, setBusy] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [archiveView, setArchiveView] = useState(false);
 
   async function openSource(id) {
     sourceRequest.current?.abort();
@@ -133,7 +135,7 @@ export default function Dossier() {
 
   const sections = dossier?.sections ?? [];
   const entries = useMemo(() => {
-    return groupDossierDocuments(dossier?.sections || []).map(entry => {
+    return groupDossierDocuments(dossier?.sections || [], dossier?.completed_documents || []).map(entry => {
       const people = new Map();
       for (const point of entry.points) for (const [name, role] of sourceContext(point.item).people) {
         if (!people.has(name)) people.set(name, new Set());
@@ -145,7 +147,8 @@ export default function Dossier() {
   const people = [...new Set(entries.flatMap(entry => entry.context.people.map(([name]) => name)))].sort((a, b) => a.localeCompare(b, 'fr'));
   const supports = [...new Set(entries.flatMap(entry => entry.context.supports))].sort();
   const statuses = [...new Set(entries.flatMap(entry => entry.statuses))].sort();
-  const visibleEntries = entries.filter(entry => {
+  const activeEntries = entries.filter(entry => Boolean(entry.completion) === archiveView);
+  const visibleEntries = activeEntries.filter(entry => {
     const dates = [entry.date, ...entry.points.flatMap(point => [point.item.date, point.item.due])].filter(Boolean);
     return (!filters.category || entry.categories.some(c => c.id === filters.category))
       && (!filters.group || entry.groups.includes(filters.group))
@@ -184,8 +187,16 @@ export default function Dossier() {
       <div className="section-tabs">
         <button onClick={reanalyze} disabled={busy}>{busy ? "Analyse en cours…" : "Ré-analyser le corpus"}</button>
         <button onClick={exportDossier} disabled={busy}>Exporter le dossier JSON</button>
+        {dossier.verification_tasks?.length > 0 && <div className="dossier-task-bubbles" aria-label="Tâches à vérifier"><span className="dossier-task-label">Tâches à vérifier</span>{dossier.verification_tasks.map(task => <button key={task.id} className={`dossier-task-chip priority-${task.priority}`} aria-pressed={selectedTask === task.id} title={`${task.priority === 'urgent' ? 'Urgent' : 'Important'} : ${task.title}`} onClick={() => setSelectedTask(selectedTask === task.id ? null : task.id)}><span className="dossier-task-dot" aria-hidden="true" /><span>{task.priority === 'urgent' ? 'Urgent' : 'Important'} · {task.label}</span></button>)}</div>}
       </div>
+      {dossier.verification_tasks?.filter(task => task.id === selectedTask).map(task => <section className={`panel dossier-task-detail priority-${task.priority}`} key={task.id}><div className="dossier-task-detail-header"><h3>{task.title}</h3><button className="dossier-button dossier-button-secondary" onClick={() => setSelectedTask(null)}><X size={16} aria-hidden="true" />Fermer</button></div><p>{task.description}</p><p className="dossier-proof-meta">{task.priority === 'urgent' ? 'Urgent : condition bloquante de mise en production.' : 'Important : divergence documentaire à vérifier.'}</p><Evidence proofs={task.evidence} /></section>)}
       {error && <p className="error-text" role="alert">{error}</p>}
+
+      <div className="section-tabs" aria-label="Classement des dossiers">
+        <button className={!archiveView ? 'active' : ''} aria-pressed={!archiveView} onClick={() => setArchiveView(false)}>Dossiers à suivre ({entries.filter(entry => !entry.completion).length})</button>
+        <button className={archiveView ? 'active' : ''} aria-pressed={archiveView} onClick={() => setArchiveView(true)}>Dossiers terminés ({entries.filter(entry => entry.completion).length})</button>
+      </div>
+      {archiveView && <p className="dossier-proof-meta">Documents dont la clôture est explicitement confirmée dans les sources. Les décisions approuvées et les dates planifiées restent dans les dossiers à suivre.</p>}
 
       <div className="panel dossier-filters" aria-label="Filtres du dossier">
         <DossierFilter label="Type d’information" value={filters.group} onChange={value => changeFilter('group', value)} options={Object.entries(registerLabels)} />
@@ -200,7 +211,7 @@ export default function Dossier() {
       </div>
 
       <div className="panel dossier-register dossier-main-list dossier-category-grid">
-        <p role="status">{visibleEntries.length} documents affichés sur {entries.length}</p>
+        <p role="status">{visibleEntries.length} documents affichés sur {activeEntries.length} · {archiveView ? 'Dossiers terminés' : 'Dossiers à suivre'}</p>
         {sections.filter(section => !filters.category || section.id === filters.category).map(section => {
           const documents = visibleEntries.filter(entry => {
             // A document has one display location, while all its categories
@@ -209,14 +220,15 @@ export default function Dossier() {
             const displayCategory = filters.category || entry.categories.find(category => category.id !== 'risques')?.id || entry.categories[0]?.id;
             return displayCategory === section.id;
           });
-          if (!documents.length && Object.values(filters).some(Boolean)) return null;
+          const linkedDocuments = visibleEntries.filter(entry => entry.categories.some(category => category.id === section.id));
           return <details className="dossier-result-category" key={section.id}>
-            <summary className="dossier-item-summary"><span className="dossier-item-heading"><strong>{section.title}</strong><span className="dossier-item-preview">{section.purpose}</span></span><span className="dossier-item-status">{documents.length} document{documents.length > 1 ? 's' : ''}</span></summary>
+            <summary className="dossier-item-summary"><span className="dossier-item-heading"><strong>{section.title}</strong><span className="dossier-item-preview">{section.purpose}</span></span><span className="dossier-item-status">{linkedDocuments.length} document{linkedDocuments.length > 1 ? 's' : ''} lié{linkedDocuments.length > 1 ? 's' : ''}</span></summary>
             <div className="dossier-category-content">
               <div className="dossier-column"><h4 className="section-label">Informations pertinentes</h4><ul className="clean-list">{section.facts.map(fact => <li key={fact}>{fact}</li>)}</ul></div>
               {section.open_items.length > 0 && <div className="dossier-column"><h4 className="section-label">Actions / points ouverts</h4>{section.open_items.map(item => <p key={item.label}>{item.label}<br /><span className="dossier-item-preview">{item.owner} · {item.due}</span></p>)}</div>}
               {documents.map(entry => <DocumentItem key={entry.key} entry={entry} onOpenSource={openSource} />)}
-              {!documents.length && <p>Les documents liés à cette catégorie sont classés une seule fois dans une autre catégorie. Sélectionnez « {section.title} » dans le filtre pour les afficher ici.</p>}
+              {linkedDocuments.length > documents.length && <div><p>Certains documents de cette catégorie sont déjà affichés ailleurs pour éviter les doublons.</p><button className="dossier-button dossier-button-secondary" onClick={() => changeFilter('category', section.id)}>Afficher les documents de cette catégorie</button></div>}
+              {!linkedDocuments.length && <p>Aucun document ne correspond aux filtres actuels dans cette catégorie.</p>}
             </div>
           </details>;
         })}
@@ -287,6 +299,7 @@ function DocumentItem({ entry, onOpenSource }) {
       <span className="dossier-item-status">{entry.points.length} points</span>
     </summary>
     <div className="dossier-item-content">
+      {entry.completion && <p className="dossier-completion-note">Terminé · {entry.completion.reason}{entry.completion.completed_on ? ` · ${entry.completion.completed_on}` : ''}</p>}
       <div className="dossier-item-context"><h5>Objet général du document</h5><p>{subjects.slice(0, 2).join(' ')}{subjects.length > 2 ? ' Les autres points sont détaillés ci-dessous.' : ''}</p></div>
       <dl className="dossier-item-fields">
         <div className="dossier-field-wide"><dt>Catégories du projet</dt><dd>{entry.categories.map(category => category.title).join(' · ')}</dd></div>
