@@ -3,11 +3,12 @@ from typing import Any
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
 from .rag import answer_question, reasoning_status, search_documents
-from .ingest import ingest_corpus
+from .ingest import ingest_corpus, DEFAULT_CORPUS
 from .prompts import build_update_analysis, generate_executive_brief
 from .intelligence import get_project_memory
 from .ai_extraction import attach_enrichment, enrich, EnrichmentError
@@ -111,6 +112,24 @@ def document(document_id: str):
 @app.get("/api/documents")
 def documents():
     return read_json("documents.json", [])
+
+
+@app.get("/api/documents/{document_id}/original")
+def original_document(document_id: str, download: bool = True):
+    item = document(document_id)
+    corpus = DEFAULT_CORPUS.resolve()
+    path = (corpus / item['path']).resolve()
+    if not path.is_relative_to(corpus) or not path.is_file():
+        raise HTTPException(status_code=404, detail="Fichier original introuvable")
+    inline = path.suffix.lower() in ('.pdf', '.txt', '.md', '.png', '.jpg', '.jpeg')
+    types = {'.pdf': 'application/pdf', '.txt': 'text/plain', '.md': 'text/plain',
+             '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
+             '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+             '.eml': 'message/rfc822'}
+    return FileResponse(path, filename=path.name,
+                        media_type=types.get(path.suffix.lower(), 'application/octet-stream'),
+                        content_disposition_type='inline' if inline and not download else 'attachment',
+                        headers={'X-Content-Type-Options': 'nosniff', 'Cache-Control': 'no-store'})
 
 
 @app.get("/api/dossier")
