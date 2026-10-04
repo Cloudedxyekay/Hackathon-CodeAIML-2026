@@ -383,6 +383,36 @@ textarea {
   font-weight: 700;
 }
 
+.nova-loading p {
+  margin: 0 0 16px;
+  color: #4b5563;
+}
+
+.nova-loading-track {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e8eefc;
+}
+
+.nova-loading-bar {
+  display: block;
+  height: 100%;
+  width: 40%;
+  border-radius: inherit;
+  background: #2563eb;
+  animation: nova-loading-slide 1.5s ease-in-out infinite;
+}
+
+@keyframes nova-loading-slide {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(350%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nova-loading-bar { animation: none; width: 100%; opacity: 0.6; }
+}
+
 .answer-header {
   display: flex;
   align-items: flex-start;

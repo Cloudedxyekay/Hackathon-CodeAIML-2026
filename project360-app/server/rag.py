@@ -17,6 +17,7 @@ from pathlib import Path
 from .risk_register import current_risks, is_current_risk_question, requested_count
 from .recent_changes import is_recent_changes_question, recent_updates
 from .intelligence import dates_in
+from .contradictions import is_contradiction_question, comparisons
 
 ROOT = Path(__file__).resolve().parents[1]
 PROCESSED = ROOT / "data" / "processed"
@@ -407,8 +408,33 @@ def _answer_recent_changes(question):
                            "les rappels et états maintenus sont présentés séparément."}
 
 
+def _answer_contradictions(question):
+    findings = comparisons(_load("documents.json", []))
+    evidence, selected = [], []
+    for finding in findings:
+        records = [{"path": p["path"], "title": Path(p["path"]).stem,
+                    "text": p["excerpt"], "locator": p.get("locator", "Comparaison documentaire"),
+                    "source_date": p.get("published_on"), "score": 1.0}
+                   for p in finding["evidence"]]
+        evidence.extend(records)
+        selected.append({**records[0], "answer_key": finding["id"], "answer_label": finding["label"],
+                         "text": finding["label"]})
+    model = _external_reasoning_answer(question, selected, [{"excerpt": p["text"]} for p in selected]) if selected else None
+    body = model["answer"] if model else "\n\n".join("- " + f["label"] for f in findings)
+    rendered = [{"file": p["path"], "locator": p["locator"], "date": p["source_date"],
+                 "excerpt": p["text"], "score": 1.0} for p in evidence]
+    return {"question": question, "answer": ("Oui. Voici les écarts documentés et l’information à retenir :\n\n" + body
+            if findings else "Je n’ai pas identifié de contradiction étayée par deux sources dans les comparaisons disponibles. Cela ne prouve pas que tout le corpus est cohérent."),
+            "reasoning_mode": model.get("provider", "external_model") if model else "local",
+            "confidence": "medium" if findings else "low", "references": _references(evidence),
+            "cited_source_files": _source_files(evidence), "excerpts": rendered, "evidence": rendered,
+            "uncertainty": "Comparaison de l’échéancier, des validations et du registre des risques. Les dates des sources et celles des suivis peuvent différer; une évolution historique n’est pas automatiquement une contradiction."}
+
+
 def _answer_question(question):
     question = (question or "").strip()
+    if is_contradiction_question(question):
+        return _answer_contradictions(question)
     if is_recent_changes_question(question):
         return _answer_recent_changes(question)
     if is_current_risk_question(question):
@@ -594,6 +620,10 @@ def _reasoning_user_prompt(question, sources):
             "evidence": sources,
             "output_rules": [
                 "Answer in the same language as the question when possible.",
+                *(["Write every answer value in French. Give only a short recommended next action for each comparison. "
+                   "The verified comparison, dates, sources and conclusion are already displayed before your sentence. "
+                   "Do not repeat them. Never treat delivery as acceptance or an outdated plan as an equally valid decision."]
+                  if is_contradiction_question(question) else []),
                 "Use plain, readable wording; do not return only a bare extracted value unless the user asks for only that value.",
                 "Use priority_score and authority_hint to resolve contradictions; current authoritative evidence beats older baseline or draft evidence.",
                 "Do not quote long excerpts in the answer.",

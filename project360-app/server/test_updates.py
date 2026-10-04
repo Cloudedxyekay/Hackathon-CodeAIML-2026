@@ -8,7 +8,10 @@ from unittest.mock import patch
 
 from fastapi.testclient import TestClient
 from openpyxl import Workbook
-from . import ingest, intelligence, main, rag, updates
+from . import ingest, intelligence, rag, updates
+# Importing the API must not load a developer's provider settings into other tests.
+with patch('dotenv.load_dotenv'):
+    from . import main
 from .dossier import SECTION_TOPICS
 
 

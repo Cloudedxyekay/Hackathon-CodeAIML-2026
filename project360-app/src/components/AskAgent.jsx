@@ -24,6 +24,7 @@ export default function AskAgent() {
     }
 
     requestInFlight.current = true;
+    setAnswer(null);
     setLoading(true);
     setError("");
 
@@ -55,6 +56,7 @@ export default function AskAgent() {
         <div className="input-row">
           <input
             value={question}
+            disabled={loading}
             onChange={(event) => setQuestion(event.target.value)}
             onKeyDown={(event) => {
               if (event.key === "Enter") {
@@ -67,9 +69,17 @@ export default function AskAgent() {
             {loading ? "Generating answer…" : "Ask NOVA"}
           </button>
         </div>
-        {error && <p className="error-text">{error}</p>}
+        {error && <p className="error-text" role="alert">{error}</p>}
       </div>
-      {answer && (
+      {loading && (
+        <div className="panel nova-loading">
+          <p role="status" aria-live="polite">NOVA is preparing your answer. This may take a moment…</p>
+          <div className="nova-loading-track" role="progressbar" aria-label="Preparing your answer">
+            <span className="nova-loading-bar" />
+          </div>
+        </div>
+      )}
+      {answer && !loading && (
         <div className="panel">
           <div className="answer-header">
             <div>
