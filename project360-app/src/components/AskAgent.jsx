@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FileText, Mail, Send, Table2 } from "lucide-react";
 
 const sourceIcons = {
@@ -14,13 +14,16 @@ export default function AskAgent() {
   const [answer, setAnswer] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const requestInFlight = useRef(false);
 
   async function ask() {
+    if (requestInFlight.current) return;
     if (!question.trim()) {
       setError("Enter a question for NOVA first.");
       return;
     }
 
+    requestInFlight.current = true;
     setLoading(true);
     setError("");
 
@@ -39,6 +42,7 @@ export default function AskAgent() {
     } catch (event) {
       setError(event.message);
     } finally {
+      requestInFlight.current = false;
       setLoading(false);
     }
   }
@@ -60,7 +64,7 @@ export default function AskAgent() {
           />
           <button className="primary" onClick={ask} disabled={loading}>
             <Send size={17} />
-            {loading ? "Searching" : "Ask NOVA"}
+            {loading ? "Generating answer…" : "Ask NOVA"}
           </button>
         </div>
         {error && <p className="error-text">{error}</p>}
@@ -73,8 +77,10 @@ export default function AskAgent() {
             </div>
             <div className="answer-badges">
               <span className="reasoning-mode">{answer.reasoning_mode ?? "local"}</span>
+              {answer.elapsed_seconds != null && <span>{answer.elapsed_seconds}s</span>}
             </div>
           </div>
+          {answer.fallback_reason && <p role="status">{answer.fallback_reason}</p>}
 
           <div className="references-block">
             <p className="section-label">References used</p>

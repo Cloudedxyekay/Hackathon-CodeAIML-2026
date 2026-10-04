@@ -167,6 +167,39 @@ For a hackathon demo, Ollama is the most reliable option because it runs locally
 
 Ollama setup:
 
+To persist the model selection across backend restarts, add these settings to
+`project360-app/.env` (or `.env` when already inside the app directory):
+
+```dotenv
+OLLAMA_MODEL=qwen2.5:7b
+OLLAMA_BASE_URL=http://127.0.0.1:11434
+OLLAMA_TIMEOUT=45
+```
+
+Keep Ollama running and restart the backend after changing `.env`. Ask NOVA
+shows the actual answer provider, elapsed time, and the reason if a local
+fallback was necessary. Requests use a 4,096-token context, a 512-token output
+limit, and keep the model loaded for 30 minutes. Commitment questions send
+compact status records and require a separate model response for each item,
+including the Phase 2 scope qualification. Duplicate submissions are blocked
+while an answer is being generated.
+
+Current-risk questions use the latest ingested risk register. NOVA filters closed
+rows, reconciles explicitly dated resolution evidence against each row's status
+observation, and ranks remaining risks by probability × impact. It cites the
+register rows and any closure evidence, reports the source date, and asks the
+model to summarize only the selected risks. A stale open row is explained as a
+discrepancy; the original register is preserved.
+
+For “depuis la semaine dernière”, Ask NOVA uses the previous seven days through
+today in `America/Toronto`, and displays the inclusive date range. “La semaine
+dernière” without “depuis” uses the previous Monday–Sunday calendar week.
+The event date controls inclusion, so a new comment on an older ticket can
+qualify while a recent document repeating an old event does not redate it.
+Planned milestones and spreadsheet snapshots are not reported as realized
+changes. Reminders and maintained statuses appear separately, and the answer
+discloses when the corpus ends before the requested period ends.
+
 ```powershell
 ollama pull qwen2.5:7b
 $env:OLLAMA_MODEL="qwen2.5:7b"
@@ -192,9 +225,9 @@ uvicorn server.main:app --reload --port 8000
 
 Reasoning order:
 
-1. Use `OLLAMA_MODEL` when set.
-2. Use OpenAI when `OPENAI_API_KEY` is set.
-3. Fall back to the local answer extractor.
+1. Use `OLLAMA_MODEL` when set; if it fails, show a local answer with the reason.
+2. Otherwise use OpenAI when `OPENAI_API_KEY` is set.
+3. Fall back to the local answer extractor when no provider is available.
 
 ## What To Improve Next
 
