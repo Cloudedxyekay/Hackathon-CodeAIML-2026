@@ -35,7 +35,7 @@ class AIExtractionTests(unittest.TestCase):
                 self.assertEqual(rejected, 1)
 
     def test_missing_key_never_calls_provider(self):
-        with patch.dict("os.environ", {}, clear=True), patch.object(ai, "urlopen") as provider:
+        with patch.dict("os.environ", {"NOVA_AI_PROVIDER": "openai"}, clear=True), patch.object(ai, "urlopen") as provider:
             with self.assertRaises(ai.EnrichmentError):
                 ai.enrich(self.memory)
             provider.assert_not_called()
@@ -70,6 +70,28 @@ class AIExtractionTests(unittest.TestCase):
             refreshed = ai.attach_enrichment(canonical)
             self.assertEqual(refreshed["ai"]["enriched_events"], 0)
             self.assertNotIn("ai_annotation", refreshed["events"][0])
+
+    def test_ollama_success_is_cached(self):
+        canonical = copy.deepcopy(self.memory)
+        body = {"message": {"content": json.dumps({"annotations": [self.annotation]})}}
+        requests = []
+
+        def transport(request, timeout):
+            requests.append(json.loads(request.data))
+            self.assertEqual(timeout, 120)
+            self.assertEqual(request.full_url, "http://127.0.0.1:11434/api/chat")
+            return io.BytesIO(json.dumps(body).encode())
+
+        with tempfile.TemporaryDirectory() as folder, patch.object(ai, "PROCESSED", Path(folder)), patch.dict("os.environ", {"OLLAMA_MODEL": "qwen2.5:7b"}, clear=True):
+            result = ai.enrich(self.memory, transport=transport)
+            self.assertEqual(result["accepted"], 1)
+            self.assertEqual(result["memory"]["schedule"], canonical["schedule"])
+            self.assertEqual(result["memory"]["events"][0]["status"], canonical["events"][0]["status"])
+            self.assertEqual(requests[0]["model"], "qwen2.5:7b")
+            self.assertEqual(requests[0]["options"]["temperature"], 0)
+            cached = ai.attach_enrichment(copy.deepcopy(canonical))
+            self.assertEqual(cached["ai"]["provider"], "Ollama")
+            self.assertEqual(cached["ai"]["enriched_events"], 1)
 
     def test_provider_failure_is_sanitized_and_retains_existing_data(self):
         before = copy.deepcopy(self.memory)

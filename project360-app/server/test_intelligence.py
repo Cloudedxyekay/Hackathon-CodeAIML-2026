@@ -45,6 +45,16 @@ class TemporalExtractionTests(unittest.TestCase):
         self.assertTrue(any(a["id"] == "stale-plan" for a in memory["alerts"]))
         self.assertTrue(any(e["status"] == "superseded" for e in memory["events"]))
 
+    def test_spreadsheet_plan_rows_are_displayed_as_labeled_summaries(self):
+        plan = document("[sheet Plan projet]\nID | Activité | Statut | Responsable | Début planifié | Fin planifiée | Note\nP-06 | Mise en production | À venir | Nicolas Perron | 2026-10-15 | 2026-10-15 | Cible de planification", "04_Documents_projet/Plan_v3_12sept.xlsx", ".xlsx", "plan")
+        memory = build_project_memory([plan])
+        event = memory["events"][0]
+        self.assertEqual(event["title"], "Mise en production")
+        self.assertIn("Date: 15/10/2026", event["summary"])
+        self.assertIn("Fichier Excel: Plan_v3_12sept.xlsx", event["summary"])
+        self.assertIn("Activite P-06: Mise en production", event["summary"])
+        self.assertNotIn("P-06 | Mise en production", event["summary"])
+
     def test_no_future_realization_or_global_completion_inferred(self):
         doc = document("Date : 7 juillet 2026\nCharte : mise en production ciblée au 15 octobre 2026.")
         memory = build_project_memory([doc])

@@ -2791,7 +2791,7 @@
     "end_date": "2026-10-15",
     "date_kind": "planned",
     "title": "Mise en production",
-    "summary": "P-06 | Mise en production | À venir | Nicolas Perron | 2026-10-15 | 2026-10-15 | Cible de planification",
+    "summary": "Date: 15/10/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-06: Mise en production. Statut: À venir. Responsable: Nicolas Perron. Note: Cible de planification.",
     "type": "milestone",
     "status": "superseded",
     "topic": "schedule",
@@ -2802,7 +2802,7 @@
         "document_id": "doc-032",
         "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
         "locator": "Plan projet · ligne 8",
-        "excerpt": "P-06 | Mise en production | À venir | Nicolas Perron | 2026-10-15 | 2026-10-15 | Cible de planification",
+        "excerpt": "Date: 15/10/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-06: Mise en production. Statut: À venir. Responsable: Nicolas Perron. Note: Cible de planification.",
         "published_on": "2026-09-12"
       }
     ],

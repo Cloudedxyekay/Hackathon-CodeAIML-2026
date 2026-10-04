@@ -911,8 +911,7 @@ export default function Timeline({
     [month, setMonth] = useState(""),
     [dateKind, setDateKind] = useState("");
   const [ascending, setAscending] = useState(false),
-    [selection, setSelection] = useState(null),
-    [showMethod, setShowMethod] = useState(false);
+    [selection, setSelection] = useState(null);
   const closeDrawer = useMemo(() => () => setSelection(null), []);
   const [timelinePage, setTimelinePage] = useState(1);
   const timelineHeading = useRef(null);
@@ -959,13 +958,6 @@ export default function Timeline({
     }
   }
   async function enrichWithAI() {
-    if (!memory?.ai?.configured) {
-      setShowMethod(true);
-      setAiNotice(
-        "L’enrichissement IA nécessite un modèle connecté côté serveur. Les vues et l’extraction locale fonctionnent déjà sans connexion.",
-      );
-      return;
-    }
     setEnriching(true);
     setError("");
     setAiNotice("");
@@ -1081,12 +1073,6 @@ export default function Timeline({
               month: "long",
               year: "numeric",
             })}
-            <button
-              onClick={() => setShowMethod(!showMethod)}
-              aria-expanded={showMethod}
-            >
-              <Sparkles size={14} /> Comment c’est extrait
-            </button>
           </div>
         </div>
         <div className="hero-target">
@@ -1116,29 +1102,6 @@ export default function Timeline({
           )}
         </div>
       </section>
-      {showMethod && (
-        <div className="method-panel">
-          <Sparkles size={18} />
-          <div>
-            <strong>{memory.extraction.label}</strong>
-            <p>{memory.extraction.description}</p>
-            <span>
-              {memory.extraction.excluded_documents} documents connexes ou non
-              exploitables écartés ·{" "}
-              {memory.extraction.undated_documents.length} documents sans date
-              de publication explicite. La date du dossier est distincte
-              d’aujourd’hui.
-            </span>
-            <p>
-              Enrichissement LLM :{" "}
-              {memory.ai?.configured ? "connecté" : "non connecté"}. Le bouton «
-              Enrichir IA » transmet les extraits au modèle connecté pour
-              synthétiser les décisions et repérer les dates et acteurs. Les
-              statuts documentés restent conservés.
-            </p>
-          </div>
-        </div>
-      )}
       {aiNotice && (
         <div className="ai-notice" role="status">
           <Sparkles size={16} />

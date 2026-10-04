@@ -125,6 +125,34 @@ def clean(text):
     return re.sub(r"\s+", " ", text).strip(" -\n")
 
 
+def display_date(value):
+    if value and re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+        year, month, day = value.split("-")
+        return f"{day}/{month}/{year}"
+    return value or "Non precisee"
+
+
+def plan_summary(doc, plan_id, fields, start, end):
+    activity = fields.get("Activité", fields.get("ActivitÃ©", plan_id))
+    status = fields.get("Statut")
+    owner = fields.get("Responsable")
+    note = fields.get("Note")
+    pieces = [
+        f"Date: {display_date(start)}",
+        f"Fichier Excel: {Path(doc['path']).name}",
+        f"Activite {plan_id}: {activity}",
+    ]
+    if end and end != start:
+        pieces.append(f"Fin: {display_date(end)}")
+    if status:
+        pieces.append(f"Statut: {status}")
+    if owner:
+        pieces.append(f"Responsable: {owner}")
+    if note:
+        pieces.append(f"Note: {note}")
+    return ". ".join(pieces) + "."
+
+
 def roster_from(documents):
     roster = set()
     for doc in documents:
@@ -216,7 +244,8 @@ def extract_plan(doc):
         status = "completed" if "termine" in state else "in_progress" if "en cours" in state else "planned"
         owner = fields.get("Responsable")
         activity = fields.get("Activité", columns[0])
-        item = event(doc, start, activity, line, f"Plan projet · ligne {line_number}", owner, "Responsable du plan", "milestone", status, topic_of(activity), "planned", end)
+        summary = plan_summary(doc, columns[0], fields, start, end)
+        item = event(doc, start, activity, summary, f"Plan projet · ligne {line_number}", owner, "Responsable du plan", "milestone", status, topic_of(activity), "planned", end)
         item["plan_id"] = columns[0]
         events.append(item)
         phases.append({"id": columns[0], "title": activity, "start": start, "end": end,

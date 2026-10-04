@@ -1,4 +1,4 @@
-"""Optional grounded semantic enrichment using the OpenAI Responses API.
+"""Optional grounded semantic enrichment using a local Ollama model.
 
 Called only by the explicit enrichment endpoint. No key or no successful response
 leaves the offline extraction available. Model summaries never change canonical
@@ -49,8 +49,25 @@ def fingerprint(memory):
 
 
 def configuration():
-    return {"configured": bool(os.getenv("OPENAI_API_KEY", "").strip()),
-            "model": os.getenv("NOVA_AI_MODEL", "gpt-4.1-mini"), "provider": "OpenAI"}
+    openai_key = bool(os.getenv("OPENAI_API_KEY", "").strip())
+    ollama_model = os.getenv("OLLAMA_MODEL", "").strip()
+    requested = os.getenv("NOVA_AI_PROVIDER", "").strip().lower()
+    if requested in {"openai", "ollama"}:
+        provider = requested
+    elif ollama_model or not openai_key:
+        provider = "ollama"
+    else:
+        provider = "openai"
+    model = ollama_model or "qwen2.5:7b"
+    if provider == "openai":
+        model = os.getenv("NOVA_AI_MODEL", "gpt-4.1-mini")
+    return {
+        "configured": True if provider == "ollama" else openai_key,
+        "model": model,
+        "provider": "Ollama" if provider == "ollama" else "OpenAI",
+        "provider_id": provider,
+        "ollama_base_url": os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434"),
+    }
 
 
 def attach_enrichment(memory):
@@ -109,7 +126,7 @@ def validate_annotations(memory, result):
     return accepted, rejected
 
 
-def request_annotations(candidates, instructions, config, key, transport):
+def request_openai_annotations(candidates, instructions, config, key, transport):
     payload = {"model": config["model"], "store": False, "max_output_tokens": 8000,
                "instructions": instructions, "input": json.dumps(candidates, ensure_ascii=False),
                "text": {"format": {"type": "json_schema", "name": "project_memory_annotations",
@@ -138,10 +155,61 @@ def request_annotations(candidates, instructions, config, key, transport):
         raise EnrichmentError("La réponse IA ne respecte pas le format attendu. L’analyse locale est conservée.") from None
 
 
+def request_ollama_annotations(candidates, instructions, config, transport):
+    schema = AnnotationResult.model_json_schema()
+    payload = {
+        "model": config["model"],
+        "stream": False,
+        "format": schema,
+        "messages": [
+            {"role": "system", "content": instructions},
+            {
+                "role": "user",
+                "content": json.dumps(
+                    {
+                        "events": candidates,
+                        "output": "Retourne uniquement un objet JSON valide respectant le schema fourni.",
+                    },
+                    ensure_ascii=False,
+                ),
+            },
+        ],
+        "options": {"temperature": 0},
+    }
+    base_url = config["ollama_base_url"].rstrip("/")
+    request = Request(
+        f"{base_url}/api/chat",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        timeout = float(os.getenv("OLLAMA_TIMEOUT", "120"))
+        with (transport or urlopen)(request, timeout=timeout) as response:
+            result = json.load(response)
+    except HTTPError as exc:
+        raise EnrichmentError(f"Ollama a refusé la requête (HTTP {exc.code}). L’analyse locale est conservée.") from None
+    except (URLError, TimeoutError, OSError):
+        raise EnrichmentError("Ollama est injoignable ou a dépassé le délai. Démarrez Ollama et vérifiez OLLAMA_MODEL.") from None
+    except (ValueError, TypeError):
+        raise EnrichmentError("Ollama a renvoyé une réponse illisible. L’analyse locale est conservée.") from None
+    try:
+        content = result.get("message", {}).get("content", "")
+        return AnnotationResult.model_validate_json(content)
+    except (ValidationError, TypeError, AttributeError):
+        raise EnrichmentError("La réponse Ollama ne respecte pas le format attendu. L’analyse locale est conservée.") from None
+
+
+def request_annotations(candidates, instructions, config, key, transport):
+    if config["provider_id"] == "ollama":
+        return request_ollama_annotations(candidates, instructions, config, transport)
+    return request_openai_annotations(candidates, instructions, config, key, transport)
+
+
 def enrich(memory, transport=None):
     config = configuration()
     key = os.getenv("OPENAI_API_KEY", "").strip()
-    if not key:
+    if config["provider_id"] == "openai" and not key:
         raise EnrichmentError("Aucun modèle connecté. Configurez la clé API côté serveur ; l’analyse locale reste disponible.")
     if not LOCK.acquire(blocking=False):
         raise EnrichmentError("Un enrichissement est déjà en cours. Patientez avant de réessayer.")
