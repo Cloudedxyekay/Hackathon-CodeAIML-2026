@@ -205,7 +205,7 @@ To persist the model selection across backend restarts, add these settings to
 ```dotenv
 OLLAMA_MODEL=qwen2.5:7b
 OLLAMA_BASE_URL=http://127.0.0.1:11434
-OLLAMA_TIMEOUT=45
+OLLAMA_TIMEOUT=60
 ```
 
 Keep Ollama running and restart the backend after changing `.env`. Ask NOVA

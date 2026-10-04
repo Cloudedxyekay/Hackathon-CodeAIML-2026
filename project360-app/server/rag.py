@@ -690,7 +690,7 @@ def _ollama_reasoning_answer(question, evidence, excerpt_items):
         _reasoning_failure.set("Ollama traite déjà une question. Réessayez après sa réponse.")
         return None
     try:
-        timeout = float(os.getenv("OLLAMA_TIMEOUT", "45"))
+        timeout = float(os.getenv("OLLAMA_TIMEOUT", "60"))
         if not math.isfinite(timeout) or timeout <= 0:
             raise ValueError("Invalid timeout")
         with urllib.request.urlopen(request, timeout=timeout) as response:
