@@ -122,7 +122,7 @@ class OllamaConnectionTests(unittest.TestCase):
             self.assertIsNone(rag._parse_reasoning_json(content, sections))
 
     def test_busy_model_does_not_queue_another_generation(self):
-        with rag._ollama_lock, patch.object(rag.urllib.request, "urlopen") as transport:
+        with rag._ollama_lock, patch.dict(os.environ, {"OLLAMA_QUEUE_TIMEOUT": "0"}), patch.object(rag.urllib.request, "urlopen") as transport:
             result = rag.answer_question("Quelle est la date de mise en production actuellement approuvée?")
         transport.assert_not_called()
         self.assertIn("déjà", result["fallback_reason"])

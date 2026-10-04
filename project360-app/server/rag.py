@@ -693,7 +693,11 @@ def _ollama_reasoning_answer(question, evidence, excerpt_items):
         method="POST",
     )
 
-    if not _ollama_lock.acquire(blocking=False):
+    try:
+        queue_timeout = float(os.getenv("OLLAMA_QUEUE_TIMEOUT", "90"))
+    except ValueError:
+        queue_timeout = 90
+    if not _ollama_lock.acquire(timeout=max(0, queue_timeout)):
         _reasoning_failure.set("Ollama traite déjà une question. Réessayez après sa réponse.")
         return None
     try:
