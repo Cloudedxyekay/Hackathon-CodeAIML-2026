@@ -1,0 +1,45 @@
+"""Attach evidence registers to the existing project categories."""
+from copy import deepcopy
+
+from .synthesis import build_synthesis
+
+
+SECTION_TOPICS = {
+    'pilotage': {'governance', 'delivery'},
+    'go-live': {'schedule', 'operations'},
+    'portee': {'scope'},
+    'finance': {'finance'},
+    'architecture': {'architecture', 'data', 'integration', 'performance'},
+    'securite': {'security'},
+    'accessibilite': {'accessibility'},
+}
+
+
+def build_dossier(base, documents, memory):
+    result = deepcopy(base)
+    registers = build_synthesis(documents, memory)
+    result['evidence_as_of'] = registers['as_of']
+    for section in result.get('sections', []):
+        topics = SECTION_TOPICS.get(section['id'], set())
+        paths = {source['file'] for source in section.get('sources', [])}
+        section['registers'] = {}
+        for group, items in registers['groups'].items():
+            # A risk overview collects all risks. Other categories retain topic
+            # assignments; document matches supplement decisions and promises.
+            section['registers'][group] = [
+                item for item in items
+                if (section['id'] == 'risques' and group == 'risques')
+                or item['topic'] in topics
+                or (group in ('decisions', 'engagements') and
+                    any(proof['path'] in paths for proof in item['evidence']))
+            ]
+        section['alerts'] = [alert for alert in registers['alerts']
+                             if section['id'] == 'risques' or
+                             any(proof['path'] in paths for proof in alert['evidence'])]
+        # Risk ownership is explicit, unlike a ticket's requester field.
+        for risk in section['registers']['risques']:
+            if risk['owner'] and risk['owner_role'] == 'Propriétaire du risque':
+                section['registers']['responsables'].append({
+                    **risk, 'id': 'owner-' + risk['id'], 'status': 'assigned',
+                    'note': 'Responsabilité explicitement déclarée dans le registre des risques.'})
+    return result

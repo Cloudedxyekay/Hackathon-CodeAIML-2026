@@ -115,7 +115,15 @@ def documents():
 
 @app.get("/api/dossier")
 def dossier():
-    return read_json("dossier.json", {"sections": []})
+    from .dossier import build_dossier
+    return build_dossier(read_json("dossier.json", {"sections": []}),
+                         read_json("documents.json", []), get_project_memory())
+
+
+@app.get("/api/synthesis")
+def synthesis():
+    from .synthesis import build_synthesis
+    return build_synthesis(read_json("documents.json", []), get_project_memory())
 
 
 @app.post("/api/search")
