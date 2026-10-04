@@ -4,6 +4,7 @@ from typing import Any
 from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
@@ -17,6 +18,7 @@ from .ai_extraction import attach_enrichment, enrich, EnrichmentError
 ROOT = Path(__file__).resolve().parents[1]
 load_dotenv(ROOT / ".env")
 PROCESSED = ROOT / "data" / "processed"
+FRONTEND_DIST = ROOT / "dist"
 
 app = FastAPI(title="NOVA Project Memory API")
 from .comparison import router as comparison_router
@@ -240,3 +242,9 @@ def integrate_update(identifier: str, request: ImportReview):
 def brief():
     from .executive_pdf import build_executive_summary
     return build_executive_summary(read_json('documents.json', []), get_project_memory())
+
+
+# In production FastAPI serves the Vite build, so the public URL opens the
+# dashboard while the API remains available under /api.
+if FRONTEND_DIST.is_dir():
+    app.mount("/", StaticFiles(directory=FRONTEND_DIST, html=True), name="frontend")

@@ -19,6 +19,7 @@ export function groupDossierDocuments(sections, completedDocuments = []) {
     for (const [group, items] of Object.entries(section.registers || {})) {
       for (const item of items) {
         for (const proof of item.evidence || []) {
+          if (["README.txt", "MANIFEST.csv"].includes(proof.path)) continue;
           const support = documentSupport(proof.path);
           const key = JSON.stringify([proof.document_id || proof.path, proof.published_on || null, support]);
           if (!documents.has(key)) documents.set(key, { key, path: proof.path, date: proof.published_on || null, support, completion: completedIds.get(proof.document_id) || null, categories: new Map(), groups: new Set(), statuses: new Set(), points: new Map(), evidence: new Map() });

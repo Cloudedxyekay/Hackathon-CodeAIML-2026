@@ -76,8 +76,8 @@ class OllamaConnectionTests(unittest.TestCase):
         def transport(request, timeout):
             body = json.loads(request.data)
             self.assertEqual(body["format"], rag.REASONING_SCHEMA)
-            self.assertEqual(body["options"]["num_ctx"], 4096)
-            self.assertEqual(body["options"]["num_predict"], 512)
+            self.assertEqual(body["options"]["num_ctx"], 3072)
+            self.assertEqual(body["options"]["num_predict"], 256)
             self.assertEqual(body["keep_alive"], "30m")
             self.assertEqual(timeout, 45)
             return io.BytesIO(json.dumps({"message": {"content": json.dumps(content)}, "done_reason": "stop"}).encode())
@@ -122,7 +122,7 @@ class OllamaConnectionTests(unittest.TestCase):
             self.assertIsNone(rag._parse_reasoning_json(content, sections))
 
     def test_busy_model_does_not_queue_another_generation(self):
-        with rag._ollama_lock, patch.object(rag.urllib.request, "urlopen") as transport:
+        with rag._ollama_lock, patch.dict(os.environ, {"OLLAMA_QUEUE_TIMEOUT": "0"}), patch.object(rag.urllib.request, "urlopen") as transport:
             result = rag.answer_question("Quelle est la date de mise en production actuellement approuvée?")
         transport.assert_not_called()
         self.assertIn("déjà", result["fallback_reason"])

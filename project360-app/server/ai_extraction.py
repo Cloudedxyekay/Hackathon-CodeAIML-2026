@@ -18,8 +18,8 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError
 from .intelligence import PROCESSED, classify, dates_in, fold
 
 LOCK = threading.Lock()
-OLLAMA_DEFAULT_EVENT_LIMIT = 30
-OLLAMA_DEFAULT_BATCH_SIZE = 6
+OLLAMA_DEFAULT_EVENT_LIMIT = 12
+OLLAMA_DEFAULT_BATCH_SIZE = 4
 OPENAI_DEFAULT_BATCH_SIZE = 30
 
 
@@ -160,6 +160,8 @@ def request_ollama_annotations(candidates, instructions, config, transport):
     payload = {
         "model": config["model"],
         "stream": False,
+        # Avoid unloading/reloading the model for each bounded batch.
+        "keep_alive": "30m",
         "format": schema,
         "messages": [
             {"role": "system", "content": instructions},
@@ -174,7 +176,11 @@ def request_ollama_annotations(candidates, instructions, config, transport):
                 ),
             },
         ],
-        "options": {"temperature": 0},
+        "options": {
+            "temperature": 0,
+            "num_ctx": int(os.getenv("NOVA_OLLAMA_ENRICH_CONTEXT_TOKENS", "3072")),
+            "num_predict": int(os.getenv("NOVA_OLLAMA_ENRICH_PREDICT_TOKENS", "768")),
+        },
     }
     base_url = config["ollama_base_url"].rstrip("/")
     request = Request(
@@ -215,7 +221,7 @@ def enrich(memory, transport=None):
         raise EnrichmentError("Un enrichissement est déjà en cours. Patientez avant de réessayer.")
     try:
         is_ollama = config["provider_id"] == "ollama"
-        excerpt_limit = 900 if is_ollama else 2400
+        excerpt_limit = 600 if is_ollama else 2400
         event_limit = int(os.getenv("NOVA_AI_EVENT_LIMIT", OLLAMA_DEFAULT_EVENT_LIMIT if is_ollama else 0))
         candidates = [{"event_id": e["id"], "date": e["date"], "date_kind": e["date_kind"],
                        "status": e["status"], "owner": e["owner"], "owner_role": e["owner_role"],

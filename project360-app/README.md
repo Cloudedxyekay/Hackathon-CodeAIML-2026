@@ -122,10 +122,11 @@ If Ollama runs somewhere other than `http://127.0.0.1:11434`, set
 the configured model. No provider request is made during page loading or local
 re-ingestion.
 
-Local enrichment is intentionally bounded for demo speed: Ollama enriches the
-highest-signal 30 events by default, in small batches with shorter excerpts. To
-process more or tune throughput, set `NOVA_AI_EVENT_LIMIT`, `NOVA_AI_BATCH_SIZE`
-or `NOVA_AI_WORKERS`.
+Local enrichment is intentionally bounded for responsive demo use: Ollama
+enriches the highest-signal 12 events by default, in batches of four with short
+excerpts, and keeps the model loaded between batches. To process more or tune
+throughput, set `NOVA_AI_EVENT_LIMIT`, `NOVA_AI_BATCH_SIZE` or
+`NOVA_AI_WORKERS`.
 
 The connector asks the model for structured JSON annotations: concise summaries,
 decision descriptions, dates and named actors.
@@ -205,13 +206,18 @@ To persist the model selection across backend restarts, add these settings to
 ```dotenv
 OLLAMA_MODEL=qwen2.5:7b
 OLLAMA_BASE_URL=http://127.0.0.1:11434
-OLLAMA_TIMEOUT=45
+OLLAMA_TIMEOUT=60
+# Faster interactive defaults; raise these only when longer answers are needed.
+NOVA_OLLAMA_CONTEXT_TOKENS=3072
+NOVA_OLLAMA_PREDICT_TOKENS=256
 ```
 
 Keep Ollama running and restart the backend after changing `.env`. Ask NOVA
 shows the actual answer provider, elapsed time, and the reason if a local
-fallback was necessary. Requests use a 4,096-token context, a 512-token output
-limit, and keep the model loaded for 30 minutes. Commitment questions send
+fallback was necessary. Requests use a 3,072-token context, a 256-token output
+limit, and keep the model loaded for 30 minutes. Set
+`NOVA_OLLAMA_CONTEXT_TOKENS` or `NOVA_OLLAMA_PREDICT_TOKENS` to increase those
+limits when necessary. Commitment questions send
 compact status records and require a separate model response for each item,
 including the Phase 2 scope qualification. Duplicate submissions are blocked
 while an answer is being generated.
