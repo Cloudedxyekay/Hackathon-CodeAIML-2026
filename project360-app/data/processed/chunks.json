@@ -481,6 +481,17 @@
   {
     "id": "doc-035-chunk-001",
     "document_id": "doc-035",
+    "path": "04_Documents_projet/~$Registre_Risques_29sept.xlsx",
+    "title": "~$Registre Risques 29sept",
+    "tags": [
+      "risk"
+    ],
+    "locator": "chunk 1",
+    "text": "Extraction failed: File is not a zip file"
+  },
+  {
+    "id": "doc-036-chunk-001",
+    "document_id": "doc-036",
     "path": "05_Contrats_et_finances/CONTRAT_Boreal_NOVA.pdf",
     "title": "CONTRAT Boreal NOVA",
     "tags": [
@@ -490,8 +501,8 @@
     "text": "[page 1] Contrat fictif - Défi Projet 360 Page 1 CONTRAT DE SERVICES - PROJET NOVA Parties Client fictif : Organisation Démo Fournisseur fictif : Boréal Numérique Inc. Objet Conception et réalisation de la phase 1 du portail NOVA. Valeur contractuelle Élément Valeur Montant maximal initial 180 000 $ Devise CAD Période 7 juillet au 31 octobre 2026 Portée incluse SSO, création et suivi de demandes, pièces jointes, workflow de traitement, tableau de suivi et rapports standards. Gestion des changements Tout travail hors portée doit faire l’objet d’une demande de changement écrite et approuvée avant exécution et facturation."
   },
   {
-    "id": "doc-036-chunk-001",
-    "document_id": "doc-036",
+    "id": "doc-037-chunk-001",
+    "document_id": "doc-037",
     "path": "05_Contrats_et_finances/CR-01_Rapports_avances_APPROUVE.pdf",
     "title": "CR-01 Rapports avances APPROUVE",
     "tags": [
@@ -501,8 +512,8 @@
     "text": "[page 1] Document fictif - Changement approuvé Page 1 DEMANDE DE CHANGEMENT CR-01 Objet Ajout de rapports avancés et export de synthèse. Impact financier Montant 24 000 $ Décision APPROUVÉE Date de décision 14 août 2026 Autorité Comité de projet Impact calendrier Aucun changement de la date cible annoncé au moment de l’approbation."
   },
   {
-    "id": "doc-037-chunk-001",
-    "document_id": "doc-037",
+    "id": "doc-038-chunk-001",
+    "document_id": "doc-038",
     "path": "05_Contrats_et_finances/CR-04_Optimisation_mobile_BROUILLON.pdf",
     "title": "CR-04 Optimisation mobile BROUILLON",
     "tags": [
@@ -512,8 +523,8 @@
     "text": "[page 1] BROUILLON - Document fictif Page 1 DEMANDE DE CHANGEMENT CR-04 - BROUILLON Objet Optimisation avancée de l’expérience mobile pour écrans de moins de 768 px. Estimation Montant estimé 18 000 $ Statut BROUILLON - APPROBATION REQUISE Demande initiale 4 septembre 2026 Demandeur Boréal Numérique Note Aucun numéro d’approbation ni signature de comité n’est présent dans ce document."
   },
   {
-    "id": "doc-038-chunk-001",
-    "document_id": "doc-038",
+    "id": "doc-039-chunk-001",
+    "document_id": "doc-039",
     "path": "05_Contrats_et_finances/INV-001.pdf",
     "title": "INV-001",
     "tags": [
@@ -523,8 +534,8 @@
     "text": "[page 1] Document synthétique - Aucun fournisseur réel Page 1 FACTURE INV-001 Fournisseur Boréal Numérique Inc. 1450, rue des Ateliers, Montréal (QC) H3X 0A1 Numéro fournisseur fictif : BN-4481 Détails Facture INV-001 Projet NOVA Date 2026-07-31 Statut Payée Facturation Description Montant Développement phase 1 - acompte 60 000 $ TOTAL 60 000 $"
   },
   {
-    "id": "doc-039-chunk-001",
-    "document_id": "doc-039",
+    "id": "doc-040-chunk-001",
+    "document_id": "doc-040",
     "path": "05_Contrats_et_finances/INV-002.pdf",
     "title": "INV-002",
     "tags": [
@@ -535,8 +546,8 @@
     "text": "[page 1] Document synthétique - Aucun fournisseur réel Page 1 FACTURE INV-002 Fournisseur Boréal Numérique Inc. 1450, rue des Ateliers, Montréal (QC) H3X 0A1 Numéro fournisseur fictif : BN-4481 Détails Facture INV-002 Projet NOVA Date 2026-08-31 Statut Payée Facturation Description Montant Développement phase 1 - jalon 2 48 000 $ Rapports avancés - CR-01 24 000 $ TOTAL 72 000 $"
   },
   {
-    "id": "doc-040-chunk-001",
-    "document_id": "doc-040",
+    "id": "doc-041-chunk-001",
+    "document_id": "doc-041",
     "path": "05_Contrats_et_finances/INV-003.pdf",
     "title": "INV-003",
     "tags": [
@@ -547,8 +558,8 @@
     "text": "[page 1] Document synthétique - Aucun fournisseur réel Page 1 FACTURE INV-003 Fournisseur Boréal Numérique Inc. 1450, rue des Ateliers, Montréal (QC) H3X 0A1 Numéro fournisseur fictif : BN-4481 Détails Facture INV-003 Projet NOVA Date 2026-09-22 Statut En validation Facturation Description Montant Développement phase 1 - jalon 3 36 000 $ Optimisation interface mobile - CR-04 18 000 $ TOTAL 54 000 $ Note La référence CR-04 apparaît sur la ligne mobile."
   },
   {
-    "id": "doc-041-chunk-001",
-    "document_id": "doc-041",
+    "id": "doc-042-chunk-001",
+    "document_id": "doc-042",
     "path": "06_Architecture_et_decisions/ADR-007_Localisation_donnees.md",
     "title": "ADR-007 Localisation donnees",
     "tags": [
@@ -560,8 +571,8 @@
     "text": "# ADR-007 - Localisation des données de production **Date de décision :** 23 juillet 2026 **Statut :** Acceptée ## Contexte L'architecture initiale de NOVA utilisait une région américaine. L'équipe sécurité demande que les données de production du projet demeurent au Canada. ## Décision L'environnement de production de NOVA sera déployé dans **Canada Central**. L'architecture v1 doit être considérée comme remplacée sur ce point. ## Conséquences - Boréal doit migrer les ressources prévues. - L'équipe architecture doit publier une version mise à jour du schéma. - Une validation technique doit confirmer la migration avant les tests de production."
   },
   {
-    "id": "doc-042-chunk-001",
-    "document_id": "doc-042",
+    "id": "doc-043-chunk-001",
+    "document_id": "doc-043",
     "path": "06_Architecture_et_decisions/Architecture_NOVA_v1.pdf",
     "title": "Architecture NOVA v1",
     "tags": [
@@ -571,8 +582,8 @@
     "text": "[page 1] Architecture NOVA - v1 - 18 juillet 2026 Version initiale préparée avant la décision de localisation des données. Utilisateur Portail NOVA API Données East US Schéma fictif - Projet 360"
   },
   {
-    "id": "doc-043-chunk-001",
-    "document_id": "doc-043",
+    "id": "doc-044-chunk-001",
+    "document_id": "doc-044",
     "path": "06_Architecture_et_decisions/Architecture_NOVA_v2.pdf",
     "title": "Architecture NOVA v2",
     "tags": [
@@ -582,8 +593,8 @@
     "text": "[page 1] Architecture NOVA - v2 - 25 août 2026 Version révisée après ADR-007. Utilisateur Portail NOVA API Données Canada Central Schéma fictif - Projet 360"
   },
   {
-    "id": "doc-044-chunk-001",
-    "document_id": "doc-044",
+    "id": "doc-045-chunk-001",
+    "document_id": "doc-045",
     "path": "06_Architecture_et_decisions/Decision_Portee_Phase2.md",
     "title": "Decision Portee Phase2",
     "tags": [
@@ -594,8 +605,8 @@
     "text": "# Décision de portée - expérience mobile avancée **Date :** 24 septembre 2026 **Décision :** Les optimisations mobiles avancées associées à la demande CR-04 sont reportées à la phase 2. La phase 1 doit demeurer utilisable sur mobile, mais les travaux d'optimisation avancée proposés par Boréal ne font pas partie de la portée approuvée de la phase 1. Aucune dépense additionnelle liée à CR-04 ne doit être engagée sans nouvelle approbation."
   },
   {
-    "id": "doc-045-chunk-001",
-    "document_id": "doc-045",
+    "id": "doc-046-chunk-001",
+    "document_id": "doc-046",
     "path": "07_Conversations_Teams/Teams_15sept_ProjetNOVA.txt",
     "title": "Teams 15sept ProjetNOVA",
     "tags": [],
@@ -603,8 +614,8 @@
     "text": "Canal : Projet NOVA / Général 15 septembre 2026 09:12 - Alex : On est toujours bons pour le 15 octobre? Je prépare la communication aux équipes. 09:18 - Nicolas : Non, attention : le comité a approuvé le 22 octobre le 10 septembre. Le plan projet n'a visiblement pas encore été corrigé. 09:20 - Alex : Merci, je change mon brouillon."
   },
   {
-    "id": "doc-046-chunk-001",
-    "document_id": "doc-046",
+    "id": "doc-047-chunk-001",
+    "document_id": "doc-047",
     "path": "07_Conversations_Teams/Teams_16sept_Transition.txt",
     "title": "Teams 16sept Transition",
     "tags": [],
@@ -612,8 +623,8 @@
     "text": "Canal : Projet NOVA / Général 16 septembre 2026 08:45 - Élodie : Petit rappel : à partir d'aujourd'hui, Nicolas reprend officiellement NOVA. Merci de l'inclure dans les suivis et décisions. Je reste joignable quelques jours pour la transition. 08:47 - Nicolas : Merci Élodie. Je reprends aussi le comité du vendredi."
   },
   {
-    "id": "doc-047-chunk-001",
-    "document_id": "doc-047",
+    "id": "doc-048-chunk-001",
+    "document_id": "doc-048",
     "path": "07_Conversations_Teams/Teams_19sept_Securite.txt",
     "title": "Teams 19sept Securite",
     "tags": [
@@ -623,8 +634,8 @@
     "text": "Canal : NOVA / Sécurité 19 septembre 2026 10:24 - Julien (Boréal) : SEC-210 devrait être good maintenant, le fix est déployé. 10:31 - Sophie : Merci. On garde le ticket en validation jusqu'à notre re-test. « déployé » != « accepté » :) 10:34 - Julien : yep, compris."
   },
   {
-    "id": "doc-048-chunk-001",
-    "document_id": "doc-048",
+    "id": "doc-049-chunk-001",
+    "document_id": "doc-049",
     "path": "07_Conversations_Teams/Teams_22sept_Mobile.txt",
     "title": "Teams 22sept Mobile",
     "tags": [
@@ -634,8 +645,8 @@
     "text": "Canal : Projet NOVA / Général 22 septembre 2026 13:03 - Julien (Boréal) : Je pensais que le mobile était inclus dans le scope initial, au moins l'optimisation avancée. 13:06 - Nicolas : La compatibilité de base oui. Le package d'optimisation CR-04 à 18k non. Il n'est pas approuvé. 13:10 - Julien : Je vérifie avec mon équipe."
   },
   {
-    "id": "doc-049-chunk-001",
-    "document_id": "doc-049",
+    "id": "doc-050-chunk-001",
+    "document_id": "doc-050",
     "path": "08_Archives_et_documents_connexes/Courriel_archive_17sept.eml",
     "title": "Courriel archive 17sept",
     "tags": [
@@ -645,8 +656,8 @@
     "text": "Subject: INT-101 fermé - connecteur validé From: Marc Gervais <marc.gervais@demo.example> To: nicolas.perron@demo.example, julien.moreau@boreal.example Date: Thu, 17 Sep 2026 16:22:00 -0400 Bonjour, Je confirme que nous avons rejoué les scénarios du connecteur après le correctif. 120/120 recherches ont retourné les résultats attendus. INT-101 est fermé. Le problème d'intégration qui avait déclenché le risque d'échéancier est considéré résolu. Marc"
   },
   {
-    "id": "doc-050-chunk-001",
-    "document_id": "doc-050",
+    "id": "doc-051-chunk-001",
+    "document_id": "doc-051",
     "path": "08_Archives_et_documents_connexes/INV-778_Projet_ORION.pdf",
     "title": "INV-778 Projet ORION",
     "tags": [
@@ -656,8 +667,8 @@
     "text": "[page 1] Document synthétique - Aucun fournisseur réel Page 1 FACTURE INV-778 Fournisseur Boréal Numérique Inc. 1450, rue des Ateliers, Montréal (QC) H3X 0A1 Numéro fournisseur fictif : BN-4481 Détails Facture INV-778 Projet ORION Date 2026-09-20 Statut Payée Facturation Description Montant Migration données - projet ORION 41 000 $ TOTAL 41 000 $ Note Cette facture concerne un autre projet."
   },
   {
-    "id": "doc-051-chunk-001",
-    "document_id": "doc-051",
+    "id": "doc-052-chunk-001",
+    "document_id": "doc-052",
     "path": "08_Archives_et_documents_connexes/Invitation_Formation_Excel.txt",
     "title": "Invitation Formation Excel",
     "tags": [],
@@ -665,8 +676,8 @@
     "text": "Objet : Formation Excel - tableaux croisés dynamiques Date : 18 septembre 2026 Une formation interne est offerte le 2 octobre de 9 h à 11 h. Inscription via le portail de formation."
   },
   {
-    "id": "doc-052-chunk-001",
-    "document_id": "doc-052",
+    "id": "doc-053-chunk-001",
+    "document_id": "doc-053",
     "path": "08_Archives_et_documents_connexes/Newsletter_Boreal_Septembre.txt",
     "title": "Newsletter Boreal Septembre",
     "tags": [
@@ -676,8 +687,8 @@
     "text": "BORÉAL NUMÉRIQUE - INFOLETTRE SEPTEMBRE Notre équipe sera présente au Salon Numérique Nordique. Venez découvrir nos ateliers sur l'architecture cloud, la livraison produit et les tendances UX."
   },
   {
-    "id": "doc-053-chunk-001",
-    "document_id": "doc-053",
+    "id": "doc-054-chunk-001",
+    "document_id": "doc-054",
     "path": "08_Archives_et_documents_connexes/Notes_personnelles_quelquun.txt",
     "title": "Notes personnelles quelquun",
     "tags": [],
@@ -685,8 +696,8 @@
     "text": "penser à : - café pour vendredi - vérifier si 15 oct encore date? probablement - mobile nice to have - demander à Julien pour les logs Notes personnelles non officielles, auteur non identifié."
   },
   {
-    "id": "doc-054-chunk-001",
-    "document_id": "doc-054",
+    "id": "doc-055-chunk-001",
+    "document_id": "doc-055",
     "path": "08_Archives_et_documents_connexes/Plan_NOVA_preliminaire_juin.xlsx",
     "title": "Plan NOVA preliminaire juin",
     "tags": [
@@ -696,8 +707,8 @@
     "text": "[sheet Plan projet] ID | Activité | Statut | Responsable | Début | Fin | Note P-01 | Cadrage | À venir | Élodie Caron | 2026-07-07 | 2026-07-18 | P-06 | Mise en production | À venir | Élodie Caron | 2026-10-15 | 2026-10-15 | Version préliminaire"
   },
   {
-    "id": "doc-055-chunk-001",
-    "document_id": "doc-055",
+    "id": "doc-056-chunk-001",
+    "document_id": "doc-056",
     "path": "MANIFEST.csv",
     "title": "MANIFEST",
     "tags": [
@@ -713,8 +724,8 @@
     "text": "fichier,extension,taille_octets 01_Courriels/E01_Lancement_NOVA.eml,.eml,735 01_Courriels/E02_Question_hebergement.eml,.eml,32535 01_Courriels/E03_Confirmation_Canada_Central.eml,.eml,32692 01_Courriels/E04_Corrections_accessibilite.eml,.eml,745 01_Courriels/E05_Retard_integration.eml,.eml,794 01_Courriels/E06_Transition_charge_projet.eml,.eml,648 01_Courriels/E07_Facture_003_question.eml,.eml,33006 01_Courriels/E08_Correctif_journalisation.eml,.eml,627 01_Courriels/E09_Rappel_mise_en_production.eml,.eml,840 01_Courriels/E10_Fonction_mobile.eml,.eml,32600 01_Courriels/E11_Communication_statut.eml,.eml,33071 01_Courriels/E12_Resolution_integration.eml,.eml,722 02_Reunions/M01_CR_Demarrage_07juillet.txt,.txt,818 02_Reunions/M02_Transcript_Architecture_23juillet.txt,.txt,2528 02_Reunions/M03_CR_Comite_27aout.txt,.txt,1074 02_Reunions/M04_Transcript_Comite_direction_10sept.txt,.txt,3101 02_Reunions/M05_CR_Suivi_18sept.txt,.txt,877 02_Reunions/M06_Transcript_Comite_26sept.txt,.txt,1934 03_Tickets/ACC-301.txt,.txt,591 03_Tickets/ACC-301_labels.png,.png,21858 03_Tickets/ACC-302.txt,.txt,493 03_Tickets/ACC-302_contraste.png,.png,21911 03_Tickets/ACC-303.txt,.txt,710 03_Tickets/ACC-303_focu"
   },
   {
-    "id": "doc-055-chunk-002",
-    "document_id": "doc-055",
+    "id": "doc-056-chunk-002",
+    "document_id": "doc-056",
     "path": "MANIFEST.csv",
     "title": "MANIFEST",
     "tags": [
@@ -730,8 +741,8 @@
     "text": "CC-301_labels.png,.png,21858 03_Tickets/ACC-302.txt,.txt,493 03_Tickets/ACC-302_contraste.png,.png,21911 03_Tickets/ACC-303.txt,.txt,710 03_Tickets/ACC-303_focus.png,.png,27160 03_Tickets/DATA-401.txt,.txt,725 03_Tickets/DATA-401_doublons.png,.png,34647 03_Tickets/DATA-401_echantillon.csv,.csv,215 03_Tickets/INT-101.txt,.txt,979 03_Tickets/INT-101_aucun_resultat.png,.png,21845 03_Tickets/INT-101_extrait_logs.txt,.txt,245 03_Tickets/OPS-601.txt,.txt,628 03_Tickets/OPS-601_runbook.png,.png,33973 03_Tickets/PERF-501.txt,.txt,640 03_Tickets/PERF-501_lenteur.png,.png,33583 03_Tickets/SEC-210.txt,.txt,1267 03_Tickets/SEC-210_audit.png,.png,44408 04_Documents_projet/Charte_Projet_NOVA_v1.txt,.txt,632 04_Documents_projet/Note_transition_Elodie_16sept.txt,.txt,416 04_Documents_projet/Plan_Projet_NOVA_v2.xlsx,.xlsx,4520 04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx,.xlsx,4569 04_Documents_projet/Rapport_Statut_21sept.pdf,.pdf,23729 04_Documents_projet/Registre_Risques_29sept.xlsx,.xlsx,4540 05_Contrats_et_finances/CONTRAT_Boreal_NOVA.pdf,.pdf,23752 05_Contrats_et_finances/CR-01_Rapports_avances_APPROUVE.pdf,.pdf,23541 05_Contrats_et_finances/CR-04_Optimisation_mobile_BROUILLON.pdf,.pdf"
   },
   {
-    "id": "doc-055-chunk-003",
-    "document_id": "doc-055",
+    "id": "doc-056-chunk-003",
+    "document_id": "doc-056",
     "path": "MANIFEST.csv",
     "title": "MANIFEST",
     "tags": [
@@ -747,8 +758,8 @@
     "text": "_NOVA.pdf,.pdf,23752 05_Contrats_et_finances/CR-01_Rapports_avances_APPROUVE.pdf,.pdf,23541 05_Contrats_et_finances/CR-04_Optimisation_mobile_BROUILLON.pdf,.pdf,23365 05_Contrats_et_finances/INV-001.pdf,.pdf,23376 05_Contrats_et_finances/INV-002.pdf,.pdf,23396 05_Contrats_et_finances/INV-003.pdf,.pdf,23639 06_Architecture_et_decisions/ADR-007_Localisation_donnees.md,.md,680 06_Architecture_et_decisions/Architecture_NOVA_v1.pdf,.pdf,23340 06_Architecture_et_decisions/Architecture_NOVA_v2.pdf,.pdf,23423 06_Architecture_et_decisions/Decision_Portee_Phase2.md,.md,465 07_Conversations_Teams/Teams_15sept_ProjetNOVA.txt,.txt,344 07_Conversations_Teams/Teams_16sept_Transition.txt,.txt,325 07_Conversations_Teams/Teams_19sept_Securite.txt,.txt,282 07_Conversations_Teams/Teams_22sept_Mobile.txt,.txt,338 08_Archives_et_documents_connexes/Courriel_archive_17sept.eml,.eml,722 08_Archives_et_documents_connexes/INV-778_Projet_ORION.pdf,.pdf,23435 08_Archives_et_documents_connexes/Invitation_Formation_Excel.txt,.txt,184 08_Archives_et_documents_connexes/Newsletter_Boreal_Septembre.txt,.txt,201 08_Archives_et_documents_connexes/Notes_personnelles_quelquun.txt,.txt,199 08_Archives_et_documents_connex"
   },
   {
-    "id": "doc-055-chunk-004",
-    "document_id": "doc-055",
+    "id": "doc-056-chunk-004",
+    "document_id": "doc-056",
     "path": "MANIFEST.csv",
     "title": "MANIFEST",
     "tags": [
@@ -764,8 +775,8 @@
     "text": "nts_connexes/Newsletter_Boreal_Septembre.txt,.txt,201 08_Archives_et_documents_connexes/Notes_personnelles_quelquun.txt,.txt,199 08_Archives_et_documents_connexes/Plan_NOVA_preliminaire_juin.xlsx,.xlsx,4197 README.txt,.txt,7103"
   },
   {
-    "id": "doc-056-chunk-001",
-    "document_id": "doc-056",
+    "id": "doc-057-chunk-001",
+    "document_id": "doc-057",
     "path": "README.txt",
     "title": "README",
     "tags": [
@@ -779,8 +790,8 @@
     "text": "DÉFI 24H — PROJET 360 — NOVA MISSION Vous reprenez NOVA, un projet fictif dont les informations sont dispersées. En 24 heures, construisez une mémoire opérationnelle qui permet à une autre personne de comprendre l'état du projet, de retrouver les preuves et de préparer les prochaines actions. Le dossier initial représente les informations disponibles le 30 septembre 2026 à 09 h 00, heure de Montréal (UTC−04:00). Répondez selon cette date fictive, et non selon la date réelle de l'épreuve. Une nouvelle information sera fournie pendant le défi. FORMAT ET OUTILS - Aucune technologie imposée. Un dossier documentaire navigable, un site, un outil de recherche ou une application sont acceptés. Un chatbot et une ingestion entièrement automatique ne sont pas obligatoires. - La solution doit permettre de retrouver une preuve, de répondre à une question et de mettre à jour l'état du projet sans effacer son historique. - Outils d'IA, bibliothèques et services externes autorisés. Indiquez les outils utilisés et les étapes manuelles. Aucun abonnement payant ne doit être nécessaire au jury pour consulter le rendu; fournissez un export autonome si nécessaire. - Les faits concernant NOVA doivent pro"
   },
   {
-    "id": "doc-056-chunk-002",
-    "document_id": "doc-056",
+    "id": "doc-057-chunk-002",
+    "document_id": "doc-057",
     "path": "README.txt",
     "title": "README",
     "tags": [
@@ -794,8 +805,8 @@
     "text": " abonnement payant ne doit être nécessaire au jury pour consulter le rendu; fournissez un export autonome si nécessaire. - Les faits concernant NOVA doivent provenir du corpus remis. Une recherche externe peut aider à utiliser un outil, mais ne remplace pas une preuve du projet. LIVRABLES 1. Un brief de reprise d'une page maximum : responsable, date approuvée et conditions, portée, budget, situation des factures et priorités. 2. Une mémoire consultable avec chronologie, décisions, contradictions résolues, sources et actions restantes. Pour chaque action : responsable proposé ou confirmé, preuve, et échéance connue ou « à confirmer ». Distinguez une recommandation de votre équipe d'un engagement déjà documenté. 3. Les réponses aux dix questions ci-dessous, chacune avec un fichier source et un repère précis (page, cellule, commentaire daté, passage ou capture). 4. Après la nouvelle information : état actualisé, changements par rapport au baseline, preuves et actions touchées. Conservez la version initiale. 5. Un court mode d'emploi : ouverture, navigation, outils utilisés, traitements manuels, limites et informations incertaines. QUESTIONS INITIALES Q01. Quelle est la date de mise en"
   },
   {
-    "id": "doc-056-chunk-003",
-    "document_id": "doc-056",
+    "id": "doc-057-chunk-003",
+    "document_id": "doc-057",
     "path": "README.txt",
     "title": "README",
     "tags": [
@@ -809,8 +820,8 @@
     "text": "mploi : ouverture, navigation, outils utilisés, traitements manuels, limites et informations incertaines. QUESTIONS INITIALES Q01. Quelle est la date de mise en production actuellement approuvée, et avec quelle réserve? Q02. Pourquoi la date a-t-elle changé, et quel est l'état actuel de la cause initiale? Q03. Qui a approuvé le changement et quand? Distinguez proposition et approbation. Q04. Qui est responsable du projet et depuis quand? Q05. Quel est le montant contractuel autorisé et comment se calcule-t-il? Q06. Quel problème présente INV-003? Précisez le montant concerné et le traitement à prévoir. Q07. Où les données de production doivent-elles être hébergées? Quelle preuve confirme la mise en œuvre? Q08. La sécurité est-elle acceptée? Distinguez livraison et validation. Q09. L'accessibilité est-elle complétée? Identifiez ce qui reste à corriger. Q10. Quelles sont les trois conditions de go-live? Précisez les travaux manquants du runbook à partir de sa capture. ÉVALUATION — 100 POINTS - Dix réponses factuelles initiales : 50 points. Chaque réponse vaut 0, 3 ou 5 points selon son exactitude et sa nuance. - Preuves et navigation : 10 points. - Chronologie et contradictions : 10 "
   },
   {
-    "id": "doc-056-chunk-004",
-    "document_id": "doc-056",
+    "id": "doc-057-chunk-004",
+    "document_id": "doc-057",
     "path": "README.txt",
     "title": "README",
     "tags": [
@@ -824,8 +835,8 @@
     "text": " : 50 points. Chaque réponse vaut 0, 3 ou 5 points selon son exactitude et sa nuance. - Preuves et navigation : 10 points. - Chronologie et contradictions : 10 points. - Brief et actions : 10 points. - Utilisation et incertitude : 10 points. - Mise à jour après l'événement : 10 points. Chaque critère pratique comporte deux constats de 5 points : - Preuves : au moins trois réponses avec un fichier et un repère retrouvables; au moins deux de ces réponses croisent des sources distinctes. - Chronologie : distinguer proposition, décision et validation avec dates/sources; expliquer au moins deux contradictions par l'autorité ou la date des faits, dont une dans un plan ou un registre de risques. - Brief/actions : couvrir les cinq thèmes demandés dans une page; relier les trois conditions de lancement à des actions, responsables et échéances connues ou à confirmer. - Utilisation : le jury peut ouvrir le rendu et retrouver une preuve; l'équipe montre sa recherche et explicite les limites lors de la question complémentaire. - Mise à jour : distinguer statut du problème, décision antérieure et nouvelle proposition; conserver le baseline et produire les impacts/actions sourcés sans inventer d'"
   },
   {
-    "id": "doc-056-chunk-005",
-    "document_id": "doc-056",
+    "id": "doc-057-chunk-005",
+    "document_id": "doc-057",
     "path": "README.txt",
     "title": "README",
     "tags": [
@@ -839,8 +850,8 @@
     "text": "our : distinguer statut du problème, décision antérieure et nouvelle proposition; conserver le baseline et produire les impacts/actions sourcés sans inventer d'approbation ni fermer d'autres conditions. Les cinq critères pratiques valent chacun 0, 5 ou 10 points. Une belle interface, une technologie particulière ou le seul recours à l'IA ne donnent pas de points supplémentaires. La précision, les preuves et l'utilité priment. RÈGLES DE LECTURE - Toutes les personnes, entreprises, adresses et données sont fictives. - Certaines sources sont anciennes, incomplètes, contradictoires ou peu utiles. Les contradictions font partie du défi. - Analysez le contenu et son autorité; une date de fichier récente ne garantit pas une information exacte. - Les pièces jointes et captures font partie des sources. Certaines pièces jointes sont aussi présentes comme fichiers séparés : ne les comptez pas comme des confirmations indépendantes. - Une correction annoncée n'est pas nécessairement acceptée. Une proposition n'est pas une décision. - Une capture historique ne démontre pas à elle seule qu'un défaut reste ouvert. - Si une information manque, indiquez-le. N'inventez ni décision, ni échéance, ni ap"
   },
   {
-    "id": "doc-056-chunk-006",
-    "document_id": "doc-056",
+    "id": "doc-057-chunk-006",
+    "document_id": "doc-057",
     "path": "README.txt",
     "title": "README",
     "tags": [

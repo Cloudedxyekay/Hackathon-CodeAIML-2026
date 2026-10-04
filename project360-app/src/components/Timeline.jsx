@@ -144,6 +144,20 @@ function exportCalendar(events) {
   );
 }
 
+async function loadProjectMemory(signal) {
+  const direct = await fetch("/api/project-memory", { signal });
+  if (direct.ok) return direct.json();
+  const dashboard = await fetch("/api/dashboard", { signal });
+  if (!dashboard.ok)
+    throw new Error(
+      "L'API est indisponible. Vérifiez que le serveur Python tourne sur le port 8000.",
+    );
+  const data = await dashboard.json();
+  if (!data.memory)
+    throw new Error("La mémoire du projet est absente de la réponse API.");
+  return data.memory;
+}
+
 function SourceDrawer({ selection, close }) {
   const [sourceDocument, setSourceDocument] = useState(null);
   const [error, setError] = useState("");
@@ -917,14 +931,7 @@ export default function Timeline({
   }, [initialView]);
   useEffect(() => {
     const controller = new AbortController();
-    fetch("/api/project-memory", { signal: controller.signal })
-      .then((response) => {
-        if (!response.ok)
-          throw new Error(
-            "L’API est indisponible. Vérifiez que le serveur Python tourne sur le port 8000.",
-          );
-        return response.json();
-      })
+    loadProjectMemory(controller.signal)
       .then(setMemory)
       .catch((err) => {
         if (err.name !== "AbortError") setError(err.message);
@@ -943,10 +950,7 @@ export default function Timeline({
         );
       const result = await response.json();
       if (!result.ok) throw new Error(result.message || "Corpus introuvable.");
-      const updated = await fetch("/api/project-memory");
-      if (!updated.ok)
-        throw new Error("Impossible de lire la nouvelle analyse.");
-      setMemory(await updated.json());
+      setMemory(await loadProjectMemory());
       onRefresh?.();
     } catch (err) {
       setError(err.message);
