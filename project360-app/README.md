@@ -216,6 +216,43 @@ Reasoning order:
 
 ## What To Improve Next
 
+## Bonus : comparaison de projets
+
+### Briefing exécutif PDF
+
+Le bouton **Générer le briefing PDF** dans Bonus télécharge un rapport NOVA
+via `GET /api/brief/pdf`. Il couvre le cadre initial, les grandes décisions
+de gouvernance, les avancées confirmées et les actions restantes, avec les
+personnes citées et une annexe d’extraits numérotés. Le rapport est généré
+à partir des documents déjà extraits, sans modifier NOVA ni contacter un LLM.
+Les noms d’auteurs et échéances non établis restent indiqués comme inconnus.
+Le périmètre des décisions majeures est adapté au corpus NOVA actuel.
+La génération PDF utilise `reportlab` déclaré dans `requirements.txt`.
+Tests : `.\.venv\Scripts\python.exe -m unittest server.test_executive_pdf`.
+
+Dans **Bonus**, importer un deuxième corpus (PDF, XLSX, EML, TXT, MD, CSV),
+sélectionner 2 à 6 projets puis lancer la comparaison. Le bouton ATLAS ajoute
+une démonstration explicitement fictive, sans prétendre représenter un vrai projet.
+Les imports sont locaux dans `data/comparison/` (100 fichiers / 20 Mo maximum).
+NOVA est lu depuis ses données existantes ; aucune ingestion ni écriture de NOVA
+n’est déclenchée par Bonus. Le briefing exécutif existant reste accessible.
+
+Le tableau compare huit aspects, conserve les sources datées et permet de
+télécharger les fichiers originaux. Les données absentes restent inconnues.
+L’extraction est locale, sans appel à un modèle : elle reconnaît notamment les
+dates explicites, plans structurés et tickets avec clôtures. Des formats libres
+ou des PDF scannés peuvent nécessiter une préparation ; aucun OCR n’est inclus.
+Les suggestions signalent les validations ouvertes et les divergences documentées.
+Les connaissances réutilisables rapprochent les tickets explicitement clos d’un
+projet des tickets ouverts d’un autre sur le même thème. Ce rapprochement propose
+d’examiner une pratique ; il ne garantit pas une cause ou une solution identique.
+Les exigences NOVA spécifiques détectées par les règles existantes nécessitent
+une revue sur les autres projets ; aucun classement global n’est produit.
+
+API dédiée : `/api/comparison/projects`, `/api/comparison/compare`,
+`/api/comparison/demo` et téléchargement sous `/api/comparison/projects/...`.
+Tests : `.\.venv\Scripts\python.exe -m unittest server.test_comparison`.
+
 - Fill `answers.json` with final evidence-backed answers to Q01-Q10.
 - Add PDF and XLSX extraction dependencies if needed.
 - Add real embeddings and LLM synthesis if you have an API key.
