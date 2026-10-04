@@ -1,0 +1,47 @@
+.update-workspace { max-width: 1100px; margin: 0 auto; }
+.update-intro h2 { margin: 8px 0; font-size: 26px; }
+.update-intro p { max-width: 760px; color: #526179; line-height: 1.6; }
+.update-steps { list-style: none; display: flex; gap: 10px; padding: 0; margin: 22px 0 0; flex-wrap: wrap; }
+.update-steps li { padding: 8px 14px; border-radius: 8px; background: #edf3fa; color: #254b76; font-size: 13px; font-weight: 600; }
+.update-dropzone { border: 2px dashed #b4c9e0; text-align: center; background: #f8fbff; padding: 30px; }
+.update-dropzone > svg { color: #356db0; }
+.update-dropzone h3 { margin: 12px 0 6px; }
+.update-dropzone input { display: block; max-width: 100%; width: 380px; margin: 18px auto; padding: 10px; background: white; }
+.update-dropzone small { display: block; color: #64748b; line-height: 1.5; }
+.update-heading, .update-commit { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.update-heading h3 { display: flex; gap: 8px; align-items: center; overflow-wrap: anywhere; }
+.update-review textarea { min-height: 230px; font: 13px/1.65 ui-monospace, monospace; width: 100%; margin-top: 8px; }
+.update-review input[type=date] { margin: 6px 0 18px; padding: 9px 12px; border: 1px solid #cbd5e1; border-radius: 7px; }
+.update-notice { background: #f0f5fb; border-left: 3px solid #719bce; padding: 12px 15px; color: #3b526e; line-height: 1.55; font-size: 13px; }
+.update-help { font-size: 12px; color: #64748b; }
+.update-analysis { display: grid; gap: 18px; }
+.update-stale { opacity: .65; }
+.update-change { border-top: 1px solid #e2e8f0; padding: 18px 0; }
+.update-kind { display: inline-block; margin: 0 0 0 12px; font-size: 11px; padding: 4px 9px; border-radius: 20px; background: #f1f5f9; color: #475569; }
+.update-kind.confirmed { background: #e8f5ec; color: #276742; }
+.update-kind.proposal { background: #fff4dc; color: #856019; }
+.update-change dl { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.update-change dl > div { background: #f8fafc; padding: 12px; border-radius: 8px; }
+.update-change dt { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: #64748b; }
+.update-change dd { margin: 7px 0 0; overflow-wrap: anywhere; }
+.update-analysis summary { cursor: pointer; color: #356393; font-size: 13px; }
+.update-analysis blockquote { white-space: pre-wrap; max-height: 260px; overflow: auto; font-size: 12px; background: #f8fafc; padding: 12px; margin: 8px 0; }
+.update-affected { list-style: none; padding: 0; max-height: 320px; overflow: auto; }
+.update-affected li { padding: 12px 0; border-bottom: 1px solid #edf2f7; }
+.update-affected span, .update-affected small { display: block; margin-top: 5px; color: #64748b; font-size: 12px; }
+.update-actions { padding-left: 22px; }
+.update-actions li { padding: 6px 0; line-height: 1.6; }
+.update-success { display: flex; gap: 16px; border-left: 4px solid #34925b; background: #f5fcf7; }
+.update-success > svg { flex-shrink: 0; color: #28884e; }
+.update-success h3 { margin-top: 0; overflow-wrap: anywhere; }
+.update-links { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 15px; }
+.update-links button, .update-review button { display: inline-flex; gap: 8px; align-items: center; }
+.update-progress { display: flex; gap: 10px; align-items: center; color: #356393; padding: 10px; }
+.update-spinner { animation: update-spin 1.5s linear infinite; }
+.update-history { list-style: none; padding: 0; }
+.update-history button { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 14px; border: 1px solid #e2e8f0; border-radius: 8px; background: white; margin-top: 8px; }
+.update-history button > span { flex: 1; overflow-wrap: anywhere; }
+.update-history small { display: block; color: #64748b; margin-top: 5px; }
+@keyframes update-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .update-spinner { animation: none; } }
+@media (max-width: 650px) { .update-heading, .update-commit { align-items: flex-start; flex-direction: column; } .update-change dl { grid-template-columns: 1fr; } .update-kind { margin: 8px 0; } }

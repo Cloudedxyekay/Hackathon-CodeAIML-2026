@@ -268,6 +268,24 @@ Reasoning order:
 2. Otherwise use OpenAI when `OPENAI_API_KEY` is set.
 3. Fall back to the local answer extractor when no provider is available.
 
+## Importing a demo update
+
+In **Mises à jour**, drop the new file, review its extracted text and source date, then select **Intégrer au projet**. If you edit the text or date, select **Analyser les impacts** first. The report shows changes, related earlier evidence, and suggested actions. Imports update Dossier, calendar, timeline, search, and the shared project memory.
+
+Supported formats: EML, TXT, MD, CSV, XLSX, PDF, PNG, JPG, JPEG, WEBP; maximum 20 MiB per file. Original bytes are preserved under `NOVA_ETUDIANTS/09_Mises_a_jour/`. A sidecar stores reviewed text and import metadata; before/after snapshots and reports persist in `data/updates/`. Back up both directories with the processed data. Reingestion preserves document IDs and reviewed transcriptions. Duplicate imports are rejected.
+
+Images use local Apple Vision OCR on macOS with the Xcode command-line tools, or Tesseract on other hosts. Scanned PDF OCR currently requires Apple Vision. If extraction fails, the preview displays a warning and accepts a manual transcription. Review OCR carefully; the original is never edited. The first macOS OCR request compiles a small helper and can take longer. An unknown source date produces a clearly labelled reception event rather than an invented event date.
+
+Impact analysis uses local evidence rules and does not wait for Ollama. It identifies explicit schedule decisions and later ticket confirmations by the existing named reviewer; ambiguous statements remain information to verify. Related documents are not automatically declared obsolete. This is not a general-purpose semantic comparison of every spreadsheet cell or financial figure.
+
+Run the isolated import and backend tests with:
+
+```sh
+python -m pip install -r requirements-dev.txt
+python -m unittest discover -s server -t .
+npm run build
+```
+
 ## What To Improve Next
 
 - Fill `answers.json` with final evidence-backed answers to Q01-Q10.

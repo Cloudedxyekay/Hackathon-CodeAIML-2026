@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { FileText, RotateCcw, ArrowUpRight, X } from "lucide-react";
 import { groupDossierDocuments } from './dossierDocuments.js';
 
-const registerLabels = { decisions: "Décisions importantes", responsables: "Responsables", engagements: "Engagements", echeances: "Échéances", risques: "Risques" };
+const registerLabels = { decisions: "Décisions importantes", responsables: "Responsables", engagements: "Engagements", echeances: "Échéances", risques: "Risques", documents: "Documents et informations" };
 const registerStatuses = { approved: "Approuvé", conditional: "Conditionnel", not_approved: "Non approuvé", proposed: "Proposé", documented: "Documenté", assigned: "Attribué", historical: "Historique", planned: "Planifié", superseded: "Périmé", open: "Ouvert", in_review: "En validation", completed: "Fermé" };
 
 function shortTitle(item) {
@@ -45,6 +45,7 @@ function sourceContext(item) {
     else if (/\.eml$/i.test(proof.path)) supports.add("Courriel (application non précisée)");
     else if (/\.xlsx$/i.test(proof.path)) supports.add("Classeur Excel");
     else if (/\.pdf$/i.test(proof.path)) supports.add("Document PDF");
+    else if (/\.(png|jpe?g|webp)$/i.test(proof.path)) supports.add("Image / capture");
     else if (/Transcript/i.test(proof.path)) supports.add("Transcription de réunion");
     else supports.add("Document texte");
     const author = proof.excerpt.match(/^From:\s*([^<\n]+)/m);
@@ -224,8 +225,9 @@ export default function Dossier() {
           return <details className="dossier-result-category" key={section.id}>
             <summary className="dossier-item-summary"><span className="dossier-item-heading"><strong>{section.title}</strong><span className="dossier-item-preview">{section.purpose}</span></span><span className="dossier-item-status">{linkedDocuments.length} document{linkedDocuments.length > 1 ? 's' : ''} lié{linkedDocuments.length > 1 ? 's' : ''}</span></summary>
             <div className="dossier-category-content">
-              <div className="dossier-column"><h4 className="section-label">Informations pertinentes</h4><ul className="clean-list">{section.facts.map(fact => <li key={fact}>{fact}</li>)}</ul></div>
-              {section.open_items.length > 0 && <div className="dossier-column"><h4 className="section-label">Actions / points ouverts</h4>{section.open_items.map(item => <p key={item.label}>{item.label}<br /><span className="dossier-item-preview">{item.owner} · {item.due}</span></p>)}</div>}
+              {section.current_statuses?.length > 0 && <div className="dossier-column"><h4 className="section-label">Statuts documentés actuels</h4>{section.current_statuses.map(item => <p key={item.id}><strong>{item.id}</strong> · {registerStatuses[item.status] || item.status} · {item.date || "Date non précisée"}</p>)}</div>}
+              <details className="dossier-column"><summary className="section-label">Repères du dossier initial — historique conservé</summary><ul className="clean-list">{section.facts.map(fact => <li key={fact}>{fact}</li>)}</ul>
+              {section.open_items.length > 0 && <div><h4 className="section-label">Actions mentionnées dans le dossier initial</h4>{section.open_items.map(item => <p key={item.label}>{item.label}<br /><span className="dossier-item-preview">{item.owner} · {item.due}</span></p>)}</div>}</details>
               {documents.map(entry => <DocumentItem key={entry.key} entry={entry} onOpenSource={openSource} />)}
               {linkedDocuments.length > documents.length && <div><p>Certains documents de cette catégorie sont déjà affichés ailleurs pour éviter les doublons.</p><button className="dossier-button dossier-button-secondary" onClick={() => changeFilter('category', section.id)}>Afficher les documents de cette catégorie</button></div>}
               {!linkedDocuments.length && <p>Aucun document ne correspond aux filtres actuels dans cette catégorie.</p>}
@@ -314,4 +316,3 @@ function DocumentItem({ entry, onOpenSource }) {
     </div>
   </details>;
 }
-

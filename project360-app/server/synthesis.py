@@ -10,7 +10,7 @@ def build_synthesis(documents, memory):
                 and d['path'] not in ('README.txt', 'MANIFEST.csv')
                 and not d['text'].startswith('Extraction failed:')]
     roster = roster_from(relevant)
-    groups = {key: [] for key in ('decisions', 'responsables', 'engagements', 'echeances', 'risques')}
+    groups = {key: [] for key in ('decisions', 'responsables', 'engagements', 'echeances', 'risques', 'documents')}
 
     def add(group, title, proofs, owner=None, role=None, status='documented', on=None, due=None, note=None, topic=None):
         signature = f'{group}|{title}|{proofs[0]["document_id"]}|{proofs[0]["locator"]}'
@@ -48,6 +48,11 @@ def build_synthesis(documents, memory):
 
     # Extract only explicit action sections, obligations or first-person promises.
     for doc in relevant:
+        add('documents', doc.get('title') or doc['path'],
+            [evidence(doc, doc['text'] or 'Texte non extrait; consulter le fichier original.', 'Document complet')],
+            status='documented', on=source_date(doc), topic=topic_of(doc['text']),
+            note=('Source ajoutée le ' + doc['imported_at'][:10] + '. Original conservé.' if doc.get('imported_at')
+                  else 'Pièce documentaire. Sa présence ne vaut pas approbation ni engagement.'))
         if doc['extension'] == '.xlsx':
             continue
         on = source_date(doc)
@@ -107,7 +112,7 @@ if __name__ == '__main__':
     output.mkdir(parents=True, exist_ok=True)
     (output / 'synthese.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
     labels = {'decisions': 'Décisions importantes', 'responsables': 'Responsables',
-              'engagements': 'Engagements', 'echeances': 'Échéances', 'risques': 'Risques'}
+              'engagements': 'Engagements', 'echeances': 'Échéances', 'risques': 'Risques', 'documents': 'Documents'}
     lines = ['# Synthèse du projet NOVA', '', f"État documentaire au {result['as_of']}.", '',
              f"Cible approuvée : {result['schedule']['current_target']}. Conditionnelle : {'oui' if result['schedule']['conditional'] else 'non'}.", '',
              'Les engagements restent documentés ; leur réalisation n’est pas déduite. Les dates planifiées ne sont pas des réalisations.', '']

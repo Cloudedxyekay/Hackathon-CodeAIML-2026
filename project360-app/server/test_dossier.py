@@ -19,7 +19,7 @@ class DossierTests(unittest.TestCase):
         self.assertEqual([s['id'] for s in self.result['sections']], [s['id'] for s in self.base['sections']])
         self.assertNotIn('registers', self.base['sections'][0])
         for section in self.result['sections']:
-            self.assertEqual(set(section['registers']), {'decisions', 'responsables', 'engagements', 'echeances', 'risques'})
+            self.assertEqual(set(section['registers']), {'decisions', 'responsables', 'engagements', 'echeances', 'risques', 'documents'})
 
     def test_security_risk_and_explicit_owner_are_in_security(self):
         security = self.section('securite')['registers']

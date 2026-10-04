@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-03T23:52:30.176644+00:00",
+  "generated_at": "2026-10-04T06:46:23.521781+00:00",
   "as_of": "2026-09-29",
   "extraction": {
     "mode": "local-evidence",
     "label": "Extraction locale fondée sur les sources",
     "description": "Dates explicites, champs structurés et règles linguistiques. L’extraction de base ne dépend pas d’un LLM. Les référents et auteurs ne sont pas assimilés à des responsables assignés.",
-    "excluded_documents": 8,
+    "excluded_documents": 9,
     "undated_documents": [
       {
         "id": "doc-023",
@@ -19,7 +19,7 @@
         "reason": "Aucune date de publication explicite"
       },
       {
-        "id": "doc-035",
+        "id": "doc-036",
         "path": "05_Contrats_et_finances/CONTRAT_Boreal_NOVA.pdf",
         "reason": "Aucune date de publication explicite"
       }
@@ -109,7 +109,7 @@
       "end_date": "2026-07-18",
       "date_kind": "planned",
       "title": "Cadrage",
-      "summary": "P-01 | Cadrage | Terminé | Élodie Caron | 2026-07-07 | 2026-07-18 |",
+      "summary": "Date: 07/07/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-01: Cadrage. Fin: 18/07/2026. Statut: Terminé. Responsable: Élodie Caron.",
       "type": "milestone",
       "status": "completed",
       "topic": "delivery",
@@ -120,7 +120,7 @@
           "document_id": "doc-032",
           "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
           "locator": "Plan projet · ligne 3",
-          "excerpt": "P-01 | Cadrage | Terminé | Élodie Caron | 2026-07-07 | 2026-07-18 |",
+          "excerpt": "Date: 07/07/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-01: Cadrage. Fin: 18/07/2026. Statut: Terminé. Responsable: Élodie Caron.",
           "published_on": "2026-09-12"
         }
       ],
@@ -129,14 +129,14 @@
         "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx"
       ],
       "plan_id": "P-01",
-      "id": "evt-c3e2d1d9e95b"
+      "id": "evt-1b43c1856906"
     },
     {
       "date": "2026-07-14",
       "end_date": "2026-08-28",
       "date_kind": "planned",
       "title": "Architecture",
-      "summary": "P-02 | Architecture | Terminé | Marc Gervais | 2026-07-14 | 2026-08-28 | Migration Canada requise",
+      "summary": "Date: 14/07/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-02: Architecture. Fin: 28/08/2026. Statut: Terminé. Responsable: Marc Gervais. Note: Migration Canada requise.",
       "type": "milestone",
       "status": "completed",
       "topic": "architecture",
@@ -147,7 +147,7 @@
           "document_id": "doc-032",
           "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
           "locator": "Plan projet · ligne 4",
-          "excerpt": "P-02 | Architecture | Terminé | Marc Gervais | 2026-07-14 | 2026-08-28 | Migration Canada requise",
+          "excerpt": "Date: 14/07/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-02: Architecture. Fin: 28/08/2026. Statut: Terminé. Responsable: Marc Gervais. Note: Migration Canada requise.",
           "published_on": "2026-09-12"
         }
       ],
@@ -156,7 +156,7 @@
         "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx"
       ],
       "plan_id": "P-02",
-      "id": "evt-2df12c9568ee"
+      "id": "evt-d0e9e905fcb9"
     },
     {
       "date": "2026-07-18",
@@ -171,7 +171,7 @@
       "owner_role": null,
       "evidence": [
         {
-          "document_id": "doc-042",
+          "document_id": "doc-043",
           "path": "06_Architecture_et_decisions/Architecture_NOVA_v1.pdf",
           "locator": "Page 1",
           "excerpt": "[page 1] Architecture NOVA - v1 - 18 juillet 2026\nVersion initiale préparée avant la décision de localisation des données.\nUtilisateur\nPortail NOVA\nAPI\nDonnées\n East US\nSchéma fictif - Projet 360",
@@ -189,7 +189,7 @@
       "end_date": "2026-09-30",
       "date_kind": "planned",
       "title": "Développement phase 1",
-      "summary": "P-03 | Développement phase 1 | En cours | Boréal Numérique | 2026-07-20 | 2026-09-30 |",
+      "summary": "Date: 20/07/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-03: Développement phase 1. Fin: 30/09/2026. Statut: En cours. Responsable: Boréal Numérique.",
       "type": "milestone",
       "status": "in_progress",
       "topic": "delivery",
@@ -200,7 +200,7 @@
           "document_id": "doc-032",
           "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
           "locator": "Plan projet · ligne 5",
-          "excerpt": "P-03 | Développement phase 1 | En cours | Boréal Numérique | 2026-07-20 | 2026-09-30 |",
+          "excerpt": "Date: 20/07/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-03: Développement phase 1. Fin: 30/09/2026. Statut: En cours. Responsable: Boréal Numérique.",
           "published_on": "2026-09-12"
         }
       ],
@@ -209,7 +209,7 @@
         "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx"
       ],
       "plan_id": "P-03",
-      "id": "evt-28a751aac268"
+      "id": "evt-582f8516e24e"
     },
     {
       "date": "2026-07-22",
@@ -458,7 +458,7 @@
       "owner_role": null,
       "evidence": [
         {
-          "document_id": "doc-041",
+          "document_id": "doc-042",
           "path": "06_Architecture_et_decisions/ADR-007_Localisation_donnees.md",
           "locator": "Document",
           "excerpt": "# ADR-007 - Localisation des données de production\n\n**Date de décision :** 23 juillet 2026  \n**Statut :** Acceptée\n\n## Contexte\nL'architecture initiale de NOVA utilisait une région américaine. L'équipe sécurité demande que les données de production du projet demeurent au Canada.\n\n## Décision\nL'environnement de production de NOVA sera déployé dans **Canada Central**. L'architecture v1 doit être considérée comme remplacée sur ce point.\n\n## Conséquences\n- Boréal doit migrer les ressources prévues.\n- L'équipe architecture doit publier une version mise à jour du schéma.\n- Une validation technique doit confirmer la migration avant les tests de production.",
@@ -562,7 +562,7 @@
       "owner_role": null,
       "evidence": [
         {
-          "document_id": "doc-038",
+          "document_id": "doc-039",
           "path": "05_Contrats_et_finances/INV-001.pdf",
           "locator": "Page 1",
           "excerpt": "[page 1] Document synthétique - Aucun fournisseur réel\nPage 1\n FACTURE INV-001\nFournisseur\nBoréal Numérique Inc.\n1450, rue des Ateliers, Montréal (QC) H3X 0A1\nNuméro fournisseur fictif : BN-4481\nDétails\n Facture\nINV-001\nProjet\nNOVA\nDate\n2026-07-31\nStatut\nPayée\nFacturation\n Description\nMontant\nDéveloppement phase 1 - acompte\n60 000 $\nTOTAL\n60 000 $",
@@ -692,7 +692,7 @@
       "owner_role": null,
       "evidence": [
         {
-          "document_id": "doc-036",
+          "document_id": "doc-037",
           "path": "05_Contrats_et_finances/CR-01_Rapports_avances_APPROUVE.pdf",
           "locator": "Page 1",
           "excerpt": "[page 1] Document fictif - Changement approuvé\nPage 1\n DEMANDE DE CHANGEMENT CR-01\nObjet\nAjout de rapports avancés et export de synthèse.\nImpact financier\n Montant\n24 000 $\nDécision\nAPPROUVÉE\nDate de décision\n14 août 2026\nAutorité\nComité de projet\nImpact calendrier\nAucun changement de la date cible annoncé au moment de l’approbation.",
@@ -848,7 +848,7 @@
       "owner_role": null,
       "evidence": [
         {
-          "document_id": "doc-043",
+          "document_id": "doc-044",
           "path": "06_Architecture_et_decisions/Architecture_NOVA_v2.pdf",
           "locator": "Page 1",
           "excerpt": "[page 1] Architecture NOVA - v2 - 25 août 2026\nVersion révisée après ADR-007.\nUtilisateur\nPortail NOVA\nAPI\nDonnées\nCanada Central\nSchéma fictif - Projet 360",
@@ -926,7 +926,7 @@
       "owner_role": null,
       "evidence": [
         {
-          "document_id": "doc-039",
+          "document_id": "doc-040",
           "path": "05_Contrats_et_finances/INV-002.pdf",
           "locator": "Page 1",
           "excerpt": "[page 1] Document synthétique - Aucun fournisseur réel\nPage 1\n FACTURE INV-002\nFournisseur\nBoréal Numérique Inc.\n1450, rue des Ateliers, Montréal (QC) H3X 0A1\nNuméro fournisseur fictif : BN-4481\nDétails\n Facture\nINV-002\nProjet\nNOVA\nDate\n2026-08-31\nStatut\nPayée\nFacturation\n Description\nMontant\nDéveloppement phase 1 - jalon 2\n48 000 $\nRapports avancés - CR-01\n24 000 $\nTOTAL\n72 000 $",
@@ -1030,7 +1030,7 @@
       "owner_role": null,
       "evidence": [
         {
-          "document_id": "doc-037",
+          "document_id": "doc-038",
           "path": "05_Contrats_et_finances/CR-04_Optimisation_mobile_BROUILLON.pdf",
           "locator": "Page 1",
           "excerpt": "[page 1] BROUILLON - Document fictif\nPage 1\n DEMANDE DE CHANGEMENT CR-04 - BROUILLON\nObjet\nOptimisation avancée de l’expérience mobile pour écrans de moins de 768 px.\nEstimation\n Montant estimé\n18 000 $\nStatut\nBROUILLON - APPROBATION REQUISE\nDemande initiale\n4 septembre 2026\nDemandeur\nBoréal Numérique\nNote\nAucun numéro d’approbation ni signature de comité n’est présent dans ce document.",
@@ -1654,7 +1654,7 @@
       "owner_role": "Intervenant",
       "evidence": [
         {
-          "document_id": "doc-045",
+          "document_id": "doc-046",
           "path": "07_Conversations_Teams/Teams_15sept_ProjetNOVA.txt",
           "locator": "09:18 · ligne 5",
           "excerpt": "09:18 - Nicolas : Non, attention : le comité a approuvé le 22 octobre le 10 septembre. Le plan projet n'a visiblement pas encore été corrigé.",
@@ -1680,7 +1680,7 @@
       "owner_role": "Intervenant",
       "evidence": [
         {
-          "document_id": "doc-045",
+          "document_id": "doc-046",
           "path": "07_Conversations_Teams/Teams_15sept_ProjetNOVA.txt",
           "locator": "09:12 · ligne 4",
           "excerpt": "09:12 - Alex : On est toujours bons pour le 15 octobre? Je prépare la communication aux équipes.",
@@ -1706,7 +1706,7 @@
       "owner_role": "Intervenant",
       "evidence": [
         {
-          "document_id": "doc-046",
+          "document_id": "doc-047",
           "path": "07_Conversations_Teams/Teams_16sept_Transition.txt",
           "locator": "08:45 · ligne 4",
           "excerpt": "08:45 - Élodie : Petit rappel : à partir d'aujourd'hui, Nicolas reprend officiellement NOVA. Merci de l'inclure dans les suivis et décisions. Je reste joignable quelques jours pour la transition.",
@@ -1732,7 +1732,7 @@
       "owner_role": "Intervenant",
       "evidence": [
         {
-          "document_id": "doc-046",
+          "document_id": "doc-047",
           "path": "07_Conversations_Teams/Teams_16sept_Transition.txt",
           "locator": "08:47 · ligne 5",
           "excerpt": "08:47 - Nicolas : Merci Élodie. Je reprends aussi le comité du vendredi.",
@@ -1992,7 +1992,7 @@
       "owner_role": "Intervenant",
       "evidence": [
         {
-          "document_id": "doc-047",
+          "document_id": "doc-048",
           "path": "07_Conversations_Teams/Teams_19sept_Securite.txt",
           "locator": "10:31 · ligne 5",
           "excerpt": "10:31 - Sophie : Merci. On garde le ticket en validation jusqu'à notre re-test. « déployé » != « accepté » :)",
@@ -2140,7 +2140,7 @@
       "end_date": "2026-10-05",
       "date_kind": "planned",
       "title": "Tests intégrés",
-      "summary": "P-04 | Tests intégrés | À venir | Mélissa Gagnon | 2026-09-21 | 2026-10-05 |",
+      "summary": "Date: 21/09/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-04: Tests intégrés. Fin: 05/10/2026. Statut: À venir. Responsable: Mélissa Gagnon.",
       "type": "milestone",
       "status": "planned",
       "topic": "delivery",
@@ -2151,7 +2151,7 @@
           "document_id": "doc-032",
           "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
           "locator": "Plan projet · ligne 6",
-          "excerpt": "P-04 | Tests intégrés | À venir | Mélissa Gagnon | 2026-09-21 | 2026-10-05 |",
+          "excerpt": "Date: 21/09/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-04: Tests intégrés. Fin: 05/10/2026. Statut: À venir. Responsable: Mélissa Gagnon.",
           "published_on": "2026-09-12"
         }
       ],
@@ -2160,7 +2160,7 @@
         "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx"
       ],
       "plan_id": "P-04",
-      "id": "evt-0fd8c68829ec"
+      "id": "evt-7027a6b9b256"
     },
     {
       "date": "2026-09-22",
@@ -2175,7 +2175,7 @@
       "owner_role": null,
       "evidence": [
         {
-          "document_id": "doc-040",
+          "document_id": "doc-041",
           "path": "05_Contrats_et_finances/INV-003.pdf",
           "locator": "Page 1",
           "excerpt": "[page 1] Document synthétique - Aucun fournisseur réel\nPage 1\n FACTURE INV-003\nFournisseur\nBoréal Numérique Inc.\n1450, rue des Ateliers, Montréal (QC) H3X 0A1\nNuméro fournisseur fictif : BN-4481\nDétails\n Facture\nINV-003\nProjet\nNOVA\nDate\n2026-09-22\nStatut\nEn validation\nFacturation\n Description\nMontant\nDéveloppement phase 1 - jalon 3\n36 000 $\nOptimisation interface mobile - CR-04\n18 000 $\nTOTAL\n54 000 $\nNote\nLa référence CR-04 apparaît sur la ligne mobile.",
@@ -2201,7 +2201,7 @@
       "owner_role": "Intervenant",
       "evidence": [
         {
-          "document_id": "doc-048",
+          "document_id": "doc-049",
           "path": "07_Conversations_Teams/Teams_22sept_Mobile.txt",
           "locator": "13:06 · ligne 5",
           "excerpt": "13:06 - Nicolas : La compatibilité de base oui. Le package d'optimisation CR-04 à 18k non. Il n'est pas approuvé.",
@@ -2253,7 +2253,7 @@
       "owner_role": null,
       "evidence": [
         {
-          "document_id": "doc-044",
+          "document_id": "doc-045",
           "path": "06_Architecture_et_decisions/Decision_Portee_Phase2.md",
           "locator": "Document",
           "excerpt": "# Décision de portée - expérience mobile avancée\n\n**Date :** 24 septembre 2026  \n**Décision :** Les optimisations mobiles avancées associées à la demande CR-04 sont reportées à la phase 2.\n\nLa phase 1 doit demeurer utilisable sur mobile, mais les travaux d'optimisation avancée proposés par Boréal ne font pas partie de la portée approuvée de la phase 1. Aucune dépense additionnelle liée à CR-04 ne doit être engagée sans nouvelle approbation.",
@@ -2635,7 +2635,7 @@
       "end_date": "2026-10-10",
       "date_kind": "planned",
       "title": "Préparation exploitation",
-      "summary": "P-05 | Préparation exploitation | À venir | Olivier Côté | 2026-09-28 | 2026-10-10 |",
+      "summary": "Date: 28/09/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-05: Préparation exploitation. Fin: 10/10/2026. Statut: À venir. Responsable: Olivier Côté.",
       "type": "milestone",
       "status": "planned",
       "topic": "operations",
@@ -2646,7 +2646,7 @@
           "document_id": "doc-032",
           "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
           "locator": "Plan projet · ligne 7",
-          "excerpt": "P-05 | Préparation exploitation | À venir | Olivier Côté | 2026-09-28 | 2026-10-10 |",
+          "excerpt": "Date: 28/09/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-05: Préparation exploitation. Fin: 10/10/2026. Statut: À venir. Responsable: Olivier Côté.",
           "published_on": "2026-09-12"
         }
       ],
@@ -2655,7 +2655,7 @@
         "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx"
       ],
       "plan_id": "P-05",
-      "id": "evt-a8bc4ee0f8cd"
+      "id": "evt-a73f3841dcf4"
     },
     {
       "date": "2026-09-29",
@@ -2838,7 +2838,7 @@
         "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx"
       ],
       "plan_id": "P-06",
-      "id": "evt-e11260379369"
+      "id": "evt-93943f76683b"
     },
     {
       "date": "2026-10-22",
@@ -2856,14 +2856,14 @@
           "document_id": "doc-009",
           "path": "01_Courriels/E09_Rappel_mise_en_production.eml",
           "locator": "Date cible et décision",
-          "excerpt": "Subject: NOVA - cible du 22 octobre et conditions restantes\nFrom: Nicolas Perron <nicolas.perron@demo.example>\nTo: equipe-nova@demo.example\nDate: Sun, 27 Sep 2026 17:02:00 -0400\nBonjour,\r\n\r\nPetit rappel pour éviter les versions différentes : la cible approuvée demeure le 22 octobre.\r\n\r\nCette date est toutefois conditionnelle aux validations restantes : sécurité, accessibilité et préparation exploitation. Le comité du 26 septembre a précisé les éléments à fermer.\r\n\r\nMerci de ne pas communiquer le 22 comme un go garanti tant que ces validations ne sont pas terminées.\r\n\r\nNicolas",
+          "excerpt": "Subject: NOVA - cible du 22 octobre et conditions restantes\nFrom: Nicolas Perron <nicolas.perron@demo.example>\nTo: equipe-nova@demo.example\nDate: Sun, 27 Sep 2026 17:02:00 -0400\nBonjour,\n\nPetit rappel pour éviter les versions différentes : la cible approuvée demeure le 22 octobre.\n\nCette date est toutefois conditionnelle aux validations restantes : sécurité, accessibilité et préparation exploitation. Le comité du 26 septembre a précisé les éléments à fermer.\n\nMerci de ne pas communiquer le 22 comme un go garanti tant que ces validations ne sont pas terminées.\n\nNicolas",
           "published_on": "2026-09-27"
         },
         {
           "document_id": "doc-006",
           "path": "01_Courriels/E06_Transition_charge_projet.eml",
           "locator": "Attribution explicite de la charge de projet",
-          "excerpt": "Subject: NOVA - transition de la charge de projet\nFrom: Élodie Caron <elodie.caron@demo.example>\nTo: equipe-nova@demo.example\nDate: Wed, 16 Sep 2026 08:35:00 -0400\nBonjour,\r\n\r\nComme convenu, Nicolas Perron prend officiellement la charge du projet NOVA à compter d'aujourd'hui, 16 septembre.\r\n\r\nJe demeure disponible quelques jours pour assurer le transfert, mais merci de diriger les décisions et suivis futurs vers Nicolas.\r\n\r\nMerci à tous,\r\nÉlodie",
+          "excerpt": "Subject: NOVA - transition de la charge de projet\nFrom: Élodie Caron <elodie.caron@demo.example>\nTo: equipe-nova@demo.example\nDate: Wed, 16 Sep 2026 08:35:00 -0400\nBonjour,\n\nComme convenu, Nicolas Perron prend officiellement la charge du projet NOVA à compter d'aujourd'hui, 16 septembre.\n\nJe demeure disponible quelques jours pour assurer le transfert, mais merci de diriger les décisions et suivis futurs vers Nicolas.\n\nMerci à tous,\nÉlodie",
           "published_on": "2026-09-16"
         },
         {
@@ -3107,7 +3107,7 @@
           "document_id": "doc-032",
           "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
           "locator": "Plan projet · ligne 3",
-          "excerpt": "P-01 | Cadrage | Terminé | Élodie Caron | 2026-07-07 | 2026-07-18 |",
+          "excerpt": "Date: 07/07/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-01: Cadrage. Fin: 18/07/2026. Statut: Terminé. Responsable: Élodie Caron.",
           "published_on": "2026-09-12"
         }
       ]
@@ -3124,7 +3124,7 @@
           "document_id": "doc-032",
           "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
           "locator": "Plan projet · ligne 4",
-          "excerpt": "P-02 | Architecture | Terminé | Marc Gervais | 2026-07-14 | 2026-08-28 | Migration Canada requise",
+          "excerpt": "Date: 14/07/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-02: Architecture. Fin: 28/08/2026. Statut: Terminé. Responsable: Marc Gervais. Note: Migration Canada requise.",
           "published_on": "2026-09-12"
         }
       ]
@@ -3141,7 +3141,7 @@
           "document_id": "doc-032",
           "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
           "locator": "Plan projet · ligne 5",
-          "excerpt": "P-03 | Développement phase 1 | En cours | Boréal Numérique | 2026-07-20 | 2026-09-30 |",
+          "excerpt": "Date: 20/07/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-03: Développement phase 1. Fin: 30/09/2026. Statut: En cours. Responsable: Boréal Numérique.",
           "published_on": "2026-09-12"
         }
       ]
@@ -3158,7 +3158,7 @@
           "document_id": "doc-032",
           "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
           "locator": "Plan projet · ligne 6",
-          "excerpt": "P-04 | Tests intégrés | À venir | Mélissa Gagnon | 2026-09-21 | 2026-10-05 |",
+          "excerpt": "Date: 21/09/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-04: Tests intégrés. Fin: 05/10/2026. Statut: À venir. Responsable: Mélissa Gagnon.",
           "published_on": "2026-09-12"
         }
       ]
@@ -3175,7 +3175,7 @@
           "document_id": "doc-032",
           "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
           "locator": "Plan projet · ligne 7",
-          "excerpt": "P-05 | Préparation exploitation | À venir | Olivier Côté | 2026-09-28 | 2026-10-10 |",
+          "excerpt": "Date: 28/09/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-05: Préparation exploitation. Fin: 10/10/2026. Statut: À venir. Responsable: Olivier Côté.",
           "published_on": "2026-09-12"
         }
       ]
@@ -3232,7 +3232,7 @@
           "document_id": "doc-006",
           "path": "01_Courriels/E06_Transition_charge_projet.eml",
           "locator": "Attribution explicite de la charge de projet",
-          "excerpt": "Subject: NOVA - transition de la charge de projet\nFrom: Élodie Caron <elodie.caron@demo.example>\nTo: equipe-nova@demo.example\nDate: Wed, 16 Sep 2026 08:35:00 -0400\nBonjour,\r\n\r\nComme convenu, Nicolas Perron prend officiellement la charge du projet NOVA à compter d'aujourd'hui, 16 septembre.\r\n\r\nJe demeure disponible quelques jours pour assurer le transfert, mais merci de diriger les décisions et suivis futurs vers Nicolas.\r\n\r\nMerci à tous,\r\nÉlodie",
+          "excerpt": "Subject: NOVA - transition de la charge de projet\nFrom: Élodie Caron <elodie.caron@demo.example>\nTo: equipe-nova@demo.example\nDate: Wed, 16 Sep 2026 08:35:00 -0400\nBonjour,\n\nComme convenu, Nicolas Perron prend officiellement la charge du projet NOVA à compter d'aujourd'hui, 16 septembre.\n\nJe demeure disponible quelques jours pour assurer le transfert, mais merci de diriger les décisions et suivis futurs vers Nicolas.\n\nMerci à tous,\nÉlodie",
           "published_on": "2026-09-16"
         },
         {
@@ -3257,7 +3257,7 @@
             "document_id": "doc-001",
             "path": "01_Courriels/E01_Lancement_NOVA.eml",
             "locator": "Date cible et décision",
-            "excerpt": "Subject: NOVA - confirmation du démarrage\nFrom: Élodie Caron <elodie.caron@demo.example>\nTo: equipe-nova@demo.example\nDate: Tue, 07 Jul 2026 16:10:00 -0400\nBonjour,\r\n\r\nMerci pour la rencontre de ce matin. Je confirme le démarrage de NOVA.\r\n\r\nLes éléments de référence sont ceux de la charte : budget initial de 180 000 $, mise en production ciblée au 15 octobre et je prends le rôle de chargée de projet.\r\n\r\nMerci de me signaler rapidement tout enjeu susceptible d'affecter le chemin critique.\r\n\r\nÉlodie",
+            "excerpt": "Subject: NOVA - confirmation du démarrage\nFrom: Élodie Caron <elodie.caron@demo.example>\nTo: equipe-nova@demo.example\nDate: Tue, 07 Jul 2026 16:10:00 -0400\nBonjour,\n\nMerci pour la rencontre de ce matin. Je confirme le démarrage de NOVA.\n\nLes éléments de référence sont ceux de la charte : budget initial de 180 000 $, mise en production ciblée au 15 octobre et je prends le rôle de chargée de projet.\n\nMerci de me signaler rapidement tout enjeu susceptible d'affecter le chemin critique.\n\nÉlodie",
             "published_on": "2026-07-07"
           }
         ],
@@ -3317,7 +3317,7 @@
             "document_id": "doc-005",
             "path": "01_Courriels/E05_Retard_integration.eml",
             "locator": "Date cible et décision",
-            "excerpt": "Subject: NOVA - risque sur la date du 15 octobre\nFrom: Julien Moreau <julien.moreau@boreal.example>\nTo: elodie.caron@demo.example, nicolas.perron@demo.example\nDate: Tue, 08 Sep 2026 11:16:00 -0400\nBonjour,\r\n\r\nLe problème du connecteur interne nous a fait perdre davantage de temps que prévu. Nous pouvons continuer à viser le 15 octobre, mais ce serait avec très peu de marge pour la stabilisation.\r\n\r\nNotre recommandation est de déplacer la mise en production au **22 octobre**.\r\n\r\nÀ ce stade, il s'agit d'une proposition de notre part. À vous de confirmer la décision de gouvernance.\r\n\r\nJulien",
+            "excerpt": "Subject: NOVA - risque sur la date du 15 octobre\nFrom: Julien Moreau <julien.moreau@boreal.example>\nTo: elodie.caron@demo.example, nicolas.perron@demo.example\nDate: Tue, 08 Sep 2026 11:16:00 -0400\nBonjour,\n\nLe problème du connecteur interne nous a fait perdre davantage de temps que prévu. Nous pouvons continuer à viser le 15 octobre, mais ce serait avec très peu de marge pour la stabilisation.\n\nNotre recommandation est de déplacer la mise en production au **22 octobre**.\n\nÀ ce stade, il s'agit d'une proposition de notre part. À vous de confirmer la décision de gouvernance.\n\nJulien",
             "published_on": "2026-09-08"
           }
         ],
@@ -3342,7 +3342,7 @@
             "document_id": "doc-009",
             "path": "01_Courriels/E09_Rappel_mise_en_production.eml",
             "locator": "Date cible et décision",
-            "excerpt": "Subject: NOVA - cible du 22 octobre et conditions restantes\nFrom: Nicolas Perron <nicolas.perron@demo.example>\nTo: equipe-nova@demo.example\nDate: Sun, 27 Sep 2026 17:02:00 -0400\nBonjour,\r\n\r\nPetit rappel pour éviter les versions différentes : la cible approuvée demeure le 22 octobre.\r\n\r\nCette date est toutefois conditionnelle aux validations restantes : sécurité, accessibilité et préparation exploitation. Le comité du 26 septembre a précisé les éléments à fermer.\r\n\r\nMerci de ne pas communiquer le 22 comme un go garanti tant que ces validations ne sont pas terminées.\r\n\r\nNicolas",
+            "excerpt": "Subject: NOVA - cible du 22 octobre et conditions restantes\nFrom: Nicolas Perron <nicolas.perron@demo.example>\nTo: equipe-nova@demo.example\nDate: Sun, 27 Sep 2026 17:02:00 -0400\nBonjour,\n\nPetit rappel pour éviter les versions différentes : la cible approuvée demeure le 22 octobre.\n\nCette date est toutefois conditionnelle aux validations restantes : sécurité, accessibilité et préparation exploitation. Le comité du 26 septembre a précisé les éléments à fermer.\n\nMerci de ne pas communiquer le 22 comme un go garanti tant que ces validations ne sont pas terminées.\n\nNicolas",
             "published_on": "2026-09-27"
           }
         ]
@@ -3386,7 +3386,7 @@
             "document_id": "doc-009",
             "path": "01_Courriels/E09_Rappel_mise_en_production.eml",
             "locator": "Date cible et décision",
-            "excerpt": "Subject: NOVA - cible du 22 octobre et conditions restantes\nFrom: Nicolas Perron <nicolas.perron@demo.example>\nTo: equipe-nova@demo.example\nDate: Sun, 27 Sep 2026 17:02:00 -0400\nBonjour,\r\n\r\nPetit rappel pour éviter les versions différentes : la cible approuvée demeure le 22 octobre.\r\n\r\nCette date est toutefois conditionnelle aux validations restantes : sécurité, accessibilité et préparation exploitation. Le comité du 26 septembre a précisé les éléments à fermer.\r\n\r\nMerci de ne pas communiquer le 22 comme un go garanti tant que ces validations ne sont pas terminées.\r\n\r\nNicolas",
+            "excerpt": "Subject: NOVA - cible du 22 octobre et conditions restantes\nFrom: Nicolas Perron <nicolas.perron@demo.example>\nTo: equipe-nova@demo.example\nDate: Sun, 27 Sep 2026 17:02:00 -0400\nBonjour,\n\nPetit rappel pour éviter les versions différentes : la cible approuvée demeure le 22 octobre.\n\nCette date est toutefois conditionnelle aux validations restantes : sécurité, accessibilité et préparation exploitation. Le comité du 26 septembre a précisé les éléments à fermer.\n\nMerci de ne pas communiquer le 22 comme un go garanti tant que ces validations ne sont pas terminées.\n\nNicolas",
             "published_on": "2026-09-27"
           }
         ],
@@ -3403,7 +3403,7 @@
             "document_id": "doc-001",
             "path": "01_Courriels/E01_Lancement_NOVA.eml",
             "locator": "Date cible et décision",
-            "excerpt": "Subject: NOVA - confirmation du démarrage\nFrom: Élodie Caron <elodie.caron@demo.example>\nTo: equipe-nova@demo.example\nDate: Tue, 07 Jul 2026 16:10:00 -0400\nBonjour,\r\n\r\nMerci pour la rencontre de ce matin. Je confirme le démarrage de NOVA.\r\n\r\nLes éléments de référence sont ceux de la charte : budget initial de 180 000 $, mise en production ciblée au 15 octobre et je prends le rôle de chargée de projet.\r\n\r\nMerci de me signaler rapidement tout enjeu susceptible d'affecter le chemin critique.\r\n\r\nÉlodie",
+            "excerpt": "Subject: NOVA - confirmation du démarrage\nFrom: Élodie Caron <elodie.caron@demo.example>\nTo: equipe-nova@demo.example\nDate: Tue, 07 Jul 2026 16:10:00 -0400\nBonjour,\n\nMerci pour la rencontre de ce matin. Je confirme le démarrage de NOVA.\n\nLes éléments de référence sont ceux de la charte : budget initial de 180 000 $, mise en production ciblée au 15 octobre et je prends le rôle de chargée de projet.\n\nMerci de me signaler rapidement tout enjeu susceptible d'affecter le chemin critique.\n\nÉlodie",
             "published_on": "2026-07-07"
           }
         ],
@@ -3428,7 +3428,7 @@
             "document_id": "doc-009",
             "path": "01_Courriels/E09_Rappel_mise_en_production.eml",
             "locator": "Date cible et décision",
-            "excerpt": "Subject: NOVA - cible du 22 octobre et conditions restantes\nFrom: Nicolas Perron <nicolas.perron@demo.example>\nTo: equipe-nova@demo.example\nDate: Sun, 27 Sep 2026 17:02:00 -0400\nBonjour,\r\n\r\nPetit rappel pour éviter les versions différentes : la cible approuvée demeure le 22 octobre.\r\n\r\nCette date est toutefois conditionnelle aux validations restantes : sécurité, accessibilité et préparation exploitation. Le comité du 26 septembre a précisé les éléments à fermer.\r\n\r\nMerci de ne pas communiquer le 22 comme un go garanti tant que ces validations ne sont pas terminées.\r\n\r\nNicolas",
+            "excerpt": "Subject: NOVA - cible du 22 octobre et conditions restantes\nFrom: Nicolas Perron <nicolas.perron@demo.example>\nTo: equipe-nova@demo.example\nDate: Sun, 27 Sep 2026 17:02:00 -0400\nBonjour,\n\nPetit rappel pour éviter les versions différentes : la cible approuvée demeure le 22 octobre.\n\nCette date est toutefois conditionnelle aux validations restantes : sécurité, accessibilité et préparation exploitation. Le comité du 26 septembre a précisé les éléments à fermer.\n\nMerci de ne pas communiquer le 22 comme un go garanti tant que ces validations ne sont pas terminées.\n\nNicolas",
             "published_on": "2026-09-27"
           }
         ]
@@ -3535,7 +3535,7 @@
           "document_id": "doc-009",
           "path": "01_Courriels/E09_Rappel_mise_en_production.eml",
           "locator": "Date cible et décision",
-          "excerpt": "Subject: NOVA - cible du 22 octobre et conditions restantes\nFrom: Nicolas Perron <nicolas.perron@demo.example>\nTo: equipe-nova@demo.example\nDate: Sun, 27 Sep 2026 17:02:00 -0400\nBonjour,\r\n\r\nPetit rappel pour éviter les versions différentes : la cible approuvée demeure le 22 octobre.\r\n\r\nCette date est toutefois conditionnelle aux validations restantes : sécurité, accessibilité et préparation exploitation. Le comité du 26 septembre a précisé les éléments à fermer.\r\n\r\nMerci de ne pas communiquer le 22 comme un go garanti tant que ces validations ne sont pas terminées.\r\n\r\nNicolas",
+          "excerpt": "Subject: NOVA - cible du 22 octobre et conditions restantes\nFrom: Nicolas Perron <nicolas.perron@demo.example>\nTo: equipe-nova@demo.example\nDate: Sun, 27 Sep 2026 17:02:00 -0400\nBonjour,\n\nPetit rappel pour éviter les versions différentes : la cible approuvée demeure le 22 octobre.\n\nCette date est toutefois conditionnelle aux validations restantes : sécurité, accessibilité et préparation exploitation. Le comité du 26 septembre a précisé les éléments à fermer.\n\nMerci de ne pas communiquer le 22 comme un go garanti tant que ces validations ne sont pas terminées.\n\nNicolas",
           "published_on": "2026-09-27"
         }
       ]

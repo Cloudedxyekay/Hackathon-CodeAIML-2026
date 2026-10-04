@@ -46,6 +46,11 @@ def dates_in(text, year=None):
 
 
 def source_date(doc):
+    if doc.get("source_date_override"):
+        try:
+            return date.fromisoformat(doc["source_date_override"]).isoformat()
+        except ValueError:
+            pass
     text = doc["text"]
     if doc["extension"] == ".eml":
         match = re.search(r"^Date:\s*(.+)$", text, re.M)
@@ -64,7 +69,7 @@ def source_date(doc):
     lines = text.splitlines()
     for number, line in enumerate(lines):
         normalized = fold(line).strip().strip("*# ")
-        metadata = re.match(r"^(?:date(?: de decision)?|cree|demande initiale)(?:\s*[:*]|\s*$)", normalized)
+        metadata = re.match(r"^(?:date(?: de decision)?|cree|demande initiale)(?:\s*[:*|]|\s*$)", normalized)
         dated_header = number < 8 and (re.match(r"^\d{1,2}\s+\w+\s+20\d{2}", normalized) or re.search(r"comite|suivi livraison|architecture nova|rapport de statut", normalized))
         if metadata or dated_header:
             matches = dates_in(line)
@@ -335,13 +340,14 @@ def schedule_history(documents):
             continue
         lower = fold(text)
         year = int(on[:4])
-        candidates = [d for d in dates_in(text, year) if d["date"] > on and "oct" in fold(d["text"])]
+        candidates = [d for d in dates_in(text, year) if d["date"] > on]
         if not candidates or not any(w in lower for w in ("production", "lancement", "date officielle", "cible approuvee")):
             continue
         # Prefer the last target if a source explicitly moves the original date.
         target = candidates[-1]["date"]
-        approved = "approuve" in lower or "charte" in lower or "confirme le demarrage" in lower
-        explicit_decision = bool(re.search(r"donc\W+approuve|date officielle|date cible[^\n]+est deplacee", lower))
+        negated_approval = bool(re.search(r"(?:non|pas|sans)\s+(?:encore\s+|nouvelle\s+)?appro|approbation requise", lower))
+        approved = not negated_approval and ("approuve" in lower or "charte" in lower or "confirme le demarrage" in lower)
+        explicit_decision = bool(re.search(r"donc\W+approuve|date cible[^\n]+est deplacee", lower))
         proposed = ("proposition" in lower or "recommandation" in lower) and not explicit_decision
         stale = "brouillon" in fold(Path(doc["path"]).stem) or "rapport_statut" in fold(doc["path"])
         state = "proposed" if proposed else "approved" if approved and not stale else "reported"
@@ -353,33 +359,90 @@ def schedule_history(documents):
     return history
 
 
+def reconcile_tickets(tickets, documents):
+    """A later ticket version or explicit reviewer confirmation updates current state.
+
+    Supplier delivery and undated statements cannot close a gate. Original
+    ticket evidence and all historical events remain available.
+    """
+    current = {}
+    for ticket in sorted(tickets, key=lambda t: t.get("last_update") or ""):
+        previous = current.get(ticket["id"])
+        item = dict(ticket)
+        if previous:
+            item["evidence"] = ticket["evidence"] + previous["evidence"]
+            item["created_on"] = previous["created_on"] or ticket["created_on"]
+        current[ticket["id"]] = item
+    for doc in sorted(documents, key=lambda d: source_date(d) or ""):
+        if not doc.get("imported_at") or re.search(r"\bTICKET\s+[A-Z]+-\d+", doc["text"]):
+            continue
+        on = source_date(doc)
+        if not on:
+            continue
+        author = re.search(r"^(?:From|Auteur)\s*:\s*([^<\n]+)", doc["text"], re.M)
+        for ticket in current.values():
+            if not ticket.get("owner") or on <= (ticket.get("last_update") or ""):
+                continue
+            # Match the named reviewer/requester already documented on the ticket,
+            # not arbitrary claims of acceptance by a supplier.
+            reviewer = fold(ticket["owner"])
+            first_name = reviewer.split()[0]
+            for sentence in re.split(r"\n|(?<=[.!?])\s+", doc["text"]):
+                value = fold(sentence)
+                if not re.search(r"\b" + re.escape(ticket["id"].lower()) + r"\b", value):
+                    continue
+                authorized = bool(author and fold(author[1].strip()) == reviewer)
+                authorized = authorized or bool(re.search(r"\b" + re.escape(first_name) + r"\s*:", value))
+                if not authorized or re.search(r"\b(?:pas|non|sans|propos|pourrait|devrait|sera|avant|si)\b|a valider|a confirmer", value):
+                    continue
+                state = "open" if re.search(r"\b(?:reouvert|rouvert)\b", value) else "completed" if re.search(r"\b(?:ferme|cloture|accepte|valide)\b", value) else None
+                if state:
+                    ticket["status"] = state
+                    ticket["last_update"] = on
+                    ticket["completed_on"] = on if state == "completed" else None
+                    ticket["evidence"] = [evidence(doc, sentence, "Confirmation du réviseur identifié")] + ticket["evidence"]
+                    ticket["updated_by_import"] = True
+                    break
+    return list(current.values())
+
+
 def build_project_memory(documents):
     relevant = [d for d in documents if not d["path"].startswith("08_Archives") and d["path"] not in ("README.txt", "MANIFEST.csv") and not d["text"].startswith("Extraction failed:")]
     roster = roster_from(relevant)
     assignments = extract_assignments(relevant, roster)
     events, tickets, plans, undated = [], [], [], []
     for doc in relevant:
+        count_before = len(events)
         if doc["extension"] == ".xlsx":
-            if "Plan_" in doc["path"]:
-                plan_events, phases = extract_plan(doc)
+            plan_events, phases = extract_plan(doc)
+            if phases:
                 plans.append((doc["path"], plan_events, phases))
-            elif "Risques" in doc["path"]:
-                events.extend(extract_risks(doc))
-            continue
-        ticket_events, ticket = extract_ticket(doc, roster)
-        if ticket:
-            events.extend(ticket_events)
-            tickets.append(ticket)
+            events.extend(extract_risks(doc))
+            if not phases and len(events) == count_before:
+                events.extend(extract_document(doc, roster))
         else:
-            extracted = extract_document(doc, roster)
-            events.extend(extracted)
-            if not extracted and not source_date(doc):
-                undated.append({"id": doc["id"], "path": doc["path"], "reason": "Aucune date de publication explicite"})
+            ticket_events, ticket = extract_ticket(doc, roster)
+            if ticket:
+                events.extend(ticket_events)
+                tickets.append(ticket)
+            else:
+                events.extend(extract_document(doc, roster))
+        if doc.get("imported_at") and source_date(doc) and not any(e.get("date") for e in events[count_before:]):
+            events.append(event(doc, source_date(doc), doc.get("title", Path(doc["path"]).stem),
+                                doc["text"][:1200], "Document importé", kind="update", status="reported"))
+        if not source_date(doc) and not any(e.get("date") for e in events[count_before:]):
+            undated.append({"id": doc["id"], "path": doc["path"], "reason": "Aucune date de publication explicite"})
+            if doc.get("imported_at"):
+                events.append(event(doc, doc["imported_at"][:10], "Document reçu · " + doc.get("title", Path(doc["path"]).stem),
+                                    "Réception du document. Sa date source est inconnue; aucun changement de projet n'est daté automatiquement.",
+                                    "Réception enregistrée par NOVA", kind="update", status="reported", date_kind="received"))
+    tickets = reconcile_tickets(tickets, relevant)
     # Latest plan version only; historical documents remain available as evidence.
-    plans.sort(key=lambda p: p[0])
+    publications = {doc["path"]: source_date(doc) or "" for doc in relevant}
+    plans.sort(key=lambda p: (publications[p[0]], p[0]))
     phases = plans[-1][2] if plans else []
     # References to earlier targets belong to decision history, not live agenda.
-    events = [e for e in events if e["date_kind"] != "planned"]
+    events = [e for e in events if e.get("date") and e["date_kind"] != "planned"]
     history = schedule_history(relevant)
     authoritative = [h for h in history if h["status"] in ("approved", "conditional")]
     target = authoritative[-1]["target"] if authoritative else None

@@ -249,7 +249,7 @@ function SourceDrawer({ selection, close }) {
             ·{" "}
             {selection.date_kind === "planned"
               ? "Date planifiée"
-              : "Date de la source / du suivi"}
+              : selection.date_kind === "received" ? "Date de réception — date source inconnue" : "Date de la source / du suivi"}
           </p>
         )}
         {selection.status && (
@@ -367,6 +367,7 @@ function EventCard({ event, topics, onSelect, compact = false }) {
           {event.date_kind === "planned" && (
             <span className="planned-label">Planifié</span>
           )}
+          {event.date_kind === "received" && <span className="planned-label">Réception · date source inconnue</span>}
           {event.ai_annotation && (
             <span className="ai-label">
               <Sparkles size={10} /> Résumé IA
@@ -446,10 +447,11 @@ function ActivityStrip({ events, month, setMonth }) {
 }
 
 function Calendar({ events, allEvents, memory, onSelect }) {
+  const referenceDay = allEvents.filter(event => event.date && event.date_kind !== "planned").map(event => event.date).sort().at(-1) || memory.as_of || today();
   const [month, setMonth] = useState(() =>
-    (memory.as_of || today()).slice(0, 7),
+    referenceDay.slice(0, 7),
   );
-  const [selected, setSelected] = useState(memory.as_of || today());
+  const [selected, setSelected] = useState(referenceDay);
   const first = parseDate(`${month}-01`),
     start = new Date(first);
   start.setDate(start.getDate() - ((start.getDay() + 6) % 7));
@@ -1298,6 +1300,7 @@ export default function Timeline({
                     <option value="">Faits et planification</option>
                     <option value="observed">Faits documentés</option>
                     <option value="planned">Dates planifiées</option>
+                    <option value="received">Réceptions sans date source</option>
                   </select>
                 </div>
               </div>

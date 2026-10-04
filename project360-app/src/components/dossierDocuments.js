@@ -1,4 +1,5 @@
 export function documentSupport(path) {
+  if (/\.(png|jpe?g|webp)$/i.test(path)) return 'Image / capture';
   if (/Teams_/i.test(path)) return 'Microsoft Teams';
   if (/\.eml$/i.test(path)) return 'Courriel (application non précisée)';
   if (/\.xlsx$/i.test(path)) return 'Classeur Excel';

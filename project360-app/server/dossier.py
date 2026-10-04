@@ -55,6 +55,10 @@ def build_dossier(base, documents, memory):
         section['alerts'] = [alert for alert in registers['alerts']
                              if section['id'] == 'risques' or
                              any(proof['path'] in paths for proof in alert['evidence'])]
+        section['current_statuses'] = [
+            {'id': ticket['id'], 'status': ticket['status'], 'date': ticket['last_update'], 'evidence': ticket['evidence']}
+            for ticket in memory['tickets'] if ticket['topic'] in topics
+        ]
         # Risk ownership is explicit, unlike a ticket's requester field.
         for risk in section['registers']['risques']:
             if risk['owner'] and risk['owner_role'] == 'Propriétaire du risque':

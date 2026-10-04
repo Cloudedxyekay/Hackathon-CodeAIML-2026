@@ -1,14 +1,15 @@
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
 from .rag import answer_question, reasoning_status, search_documents
-from .ingest import ingest_corpus, DEFAULT_CORPUS
+from .ingest import ingest_corpus, DEFAULT_CORPUS, INGEST_LOCK
+from . import updates
 from .prompts import build_update_analysis, generate_executive_brief
 from .intelligence import get_project_memory
 from .ai_extraction import attach_enrichment, enrich, EnrichmentError
@@ -39,6 +40,11 @@ class SearchRequest(BaseModel):
 
 class UpdateRequest(BaseModel):
     event_text: str
+
+
+class ImportReview(BaseModel):
+    reviewed_text: str | None = Field(default=None, max_length=updates.MAX_TEXT_CHARS)
+    document_date: str | None = None
 
 
 def read_json(name: str, fallback: Any):
@@ -121,9 +127,9 @@ def original_document(document_id: str, download: bool = True):
     path = (corpus / item['path']).resolve()
     if not path.is_relative_to(corpus) or not path.is_file():
         raise HTTPException(status_code=404, detail="Fichier original introuvable")
-    inline = path.suffix.lower() in ('.pdf', '.txt', '.md', '.png', '.jpg', '.jpeg')
+    inline = path.suffix.lower() in ('.pdf', '.txt', '.md', '.png', '.jpg', '.jpeg', '.webp')
     types = {'.pdf': 'application/pdf', '.txt': 'text/plain', '.md': 'text/plain',
-             '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
+             '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp',
              '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
              '.eml': 'message/rfc822'}
     return FileResponse(path, filename=path.name,
@@ -160,6 +166,49 @@ def update(req: UpdateRequest):
     baseline = read_json("baseline.json", {})
     actions = read_json("actions.json", [])
     return build_update_analysis(req.event_text, baseline, actions)
+
+
+def import_result(operation, *args):
+    try:
+        return operation(*args)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from None
+    except Exception:
+        import logging
+        logging.exception("Import NOVA interrompu")
+        raise HTTPException(status_code=500, detail="L'import n'a pas abouti. L'état précédent a été conservé; vous pouvez réessayer.") from None
+
+
+@app.get("/api/updates")
+def update_history():
+    return {"imports": updates.history()}
+
+
+@app.post("/api/updates/preview")
+def preview_update(file: UploadFile = File(...)):
+    try:
+        content = file.file.read(updates.MAX_FILE_BYTES + 1)
+        return import_result(updates.preview_upload, file.filename, content)
+    finally:
+        file.file.close()
+
+
+@app.get("/api/updates/{identifier}/file")
+def preview_update_file(identifier: str):
+    path = import_result(updates.preview_file, identifier)
+    inline = path.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp", ".pdf", ".txt"}
+    return FileResponse(path, filename=path.name, content_disposition_type="inline" if inline else "attachment",
+                        headers={"X-Content-Type-Options": "nosniff", "Cache-Control": "no-store"})
+
+
+@app.post("/api/updates/{identifier}/analyze")
+def analyze_update(identifier: str, request: ImportReview):
+    return import_result(updates.analyze_upload, identifier, request.reviewed_text, request.document_date)
+
+
+@app.post("/api/updates/{identifier}/integrate")
+def integrate_update(identifier: str, request: ImportReview):
+    return import_result(updates.integrate_upload, identifier, request.reviewed_text, request.document_date)
 
 
 @app.get("/api/brief")
