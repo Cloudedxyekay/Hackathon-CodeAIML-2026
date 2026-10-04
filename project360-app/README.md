@@ -108,21 +108,35 @@ Generated files: `data/processed/project_memory.json` and `timeline.json`.
 
 ### Optional LLM enrichment
 
-Copy `.env.example` to `.env`, set `OPENAI_API_KEY` on the backend, and restart
-Uvicorn. `NOVA_AI_MODEL` is configurable (default: `gpt-4.1-mini`). Click
-**Enrichir IA** to explicitly send evidence excerpts to the configured model.
-No provider request is made during page loading or local re-ingestion.
+The **Enrichir IA** button uses Ollama by default, so the demo can run without a
+paid API key. Install Ollama, pull a model, and restart Uvicorn:
 
-The connector uses the [OpenAI Responses API with structured outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
-to extract concise summaries, decision descriptions, dates and named actors.
+```powershell
+ollama pull qwen2.5:7b
+$env:OLLAMA_MODEL="qwen2.5:7b"
+uvicorn server.main:app --reload --port 8000
+```
+
+If Ollama runs somewhere other than `http://127.0.0.1:11434`, set
+`OLLAMA_BASE_URL`. Click **Enrichir IA** to explicitly send evidence excerpts to
+the configured model. No provider request is made during page loading or local
+re-ingestion.
+
+Local enrichment is intentionally bounded for demo speed: Ollama enriches the
+highest-signal 30 events by default, in small batches with shorter excerpts. To
+process more or tune throughput, set `NOVA_AI_EVENT_LIMIT`, `NOVA_AI_BATCH_SIZE`
+or `NOVA_AI_WORKERS`.
+
+The connector asks the model for structured JSON annotations: concise summaries,
+decision descriptions, dates and named actors.
 Annotations must reference an existing event and quote exact source text;
 unsupported dates, names and citations are discarded. AI summaries are labelled
 and kept separate from canonical approvals, ticket states and assigned roles.
 Results are cached against a corpus fingerprint. A changed corpus invalidates
 the annotations, and a provider error preserves local extraction.
-The API key is never sent to the browser. Provider storage is disabled using
-`store: false`. This optional mode requires a working API account; live provider
-calls have not been validated without a configured key.
+OpenAI remains available as an explicit fallback: set `NOVA_AI_PROVIDER=openai`,
+`OPENAI_API_KEY`, and `NOVA_AI_MODEL`. The API key is never sent to the browser.
+Provider storage is disabled for OpenAI using `store: false`.
 
 API: `POST /api/project-memory/enrich`. Cache: `data/processed/ai_enrichment.json`.
 
@@ -135,6 +149,24 @@ npm.cmd run build
 ```
 
 ## Demo Flow
+
+## Suivi par catégorie dans le Dossier
+
+L’onglet **Dossier** conserve ses catégories du projet et présente dans chacune
+les décisions, responsables explicitement désignés, engagements, échéances
+et risques via `GET /api/dossier`.
+Chaque élément conserve ses extraits, son document et son localisateur.
+Les propositions, décisions conditionnelles et dates périmées sont distinguées.
+Les engagements sont des obligations ou promesses documentées ; leur réalisation
+n’est pas déduite. Les échéances relatives restent dans l’extrait et les dates
+inconnues restent inconnues. Les demandeurs de tickets ne sont pas assimilés à
+des responsables assignés. Les divergences du plan et du registre sont affichées.
+Les filtres sélectionnent les catégories du projet ; l’export JSON inclut le dossier complet.
+**Ré-analyser le corpus** régénère les sources et la mémoire locale sans appel LLM.
+
+Vérification : `.\.venv\Scripts\python.exe -m unittest server.test_synthesis server.test_dossier`.
+Export Markdown et JSON : `.\.venv\Scripts\python.exe -m server.synthesis`
+(fichiers dans `data/reports`).
 
 1. Open Dashboard.
 2. Ask: `Quelle est la date de mise en production actuellement approuvee?`
@@ -167,6 +199,39 @@ For a hackathon demo, Ollama is the most reliable option because it runs locally
 
 Ollama setup:
 
+To persist the model selection across backend restarts, add these settings to
+`project360-app/.env` (or `.env` when already inside the app directory):
+
+```dotenv
+OLLAMA_MODEL=qwen2.5:7b
+OLLAMA_BASE_URL=http://127.0.0.1:11434
+OLLAMA_TIMEOUT=45
+```
+
+Keep Ollama running and restart the backend after changing `.env`. Ask NOVA
+shows the actual answer provider, elapsed time, and the reason if a local
+fallback was necessary. Requests use a 4,096-token context, a 512-token output
+limit, and keep the model loaded for 30 minutes. Commitment questions send
+compact status records and require a separate model response for each item,
+including the Phase 2 scope qualification. Duplicate submissions are blocked
+while an answer is being generated.
+
+Current-risk questions use the latest ingested risk register. NOVA filters closed
+rows, reconciles explicitly dated resolution evidence against each row's status
+observation, and ranks remaining risks by probability × impact. It cites the
+register rows and any closure evidence, reports the source date, and asks the
+model to summarize only the selected risks. A stale open row is explained as a
+discrepancy; the original register is preserved.
+
+For “depuis la semaine dernière”, Ask NOVA uses the previous seven days through
+today in `America/Toronto`, and displays the inclusive date range. “La semaine
+dernière” without “depuis” uses the previous Monday–Sunday calendar week.
+The event date controls inclusion, so a new comment on an older ticket can
+qualify while a recent document repeating an old event does not redate it.
+Planned milestones and spreadsheet snapshots are not reported as realized
+changes. Reminders and maintained statuses appear separately, and the answer
+discloses when the corpus ends before the requested period ends.
+
 ```powershell
 ollama pull qwen2.5:7b
 $env:OLLAMA_MODEL="qwen2.5:7b"
@@ -192,9 +257,9 @@ uvicorn server.main:app --reload --port 8000
 
 Reasoning order:
 
-1. Use `OLLAMA_MODEL` when set.
-2. Use OpenAI when `OPENAI_API_KEY` is set.
-3. Fall back to the local answer extractor.
+1. Use `OLLAMA_MODEL` when set; if it fails, show a local answer with the reason.
+2. Otherwise use OpenAI when `OPENAI_API_KEY` is set.
+3. Fall back to the local answer extractor when no provider is available.
 
 ## What To Improve Next
 
