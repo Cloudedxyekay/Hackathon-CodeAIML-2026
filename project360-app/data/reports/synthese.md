@@ -595,7 +595,7 @@ Attribution déclarée dans le plan ; les transitions de gouvernance prévalent.
 
 Source : 04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx — Plan projet · ligne 8 (doc-032).
 
-> P-06 | Mise en production | À venir | Nicolas Perron | 2026-10-15 | 2026-10-15 | Cible de planification
+> Date: 15/10/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-06: Mise en production. Statut: À venir. Responsable: Nicolas Perron. Note: Cible de planification.
 
 ## Engagements
 
@@ -755,7 +755,7 @@ Date périmée · cible approuvée : 2026-10-22
 
 Source : 04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx — Plan projet · ligne 8 (doc-032).
 
-> P-06 | Mise en production | À venir | Nicolas Perron | 2026-10-15 | 2026-10-15 | Cible de planification
+> Date: 15/10/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-06: Mise en production. Statut: À venir. Responsable: Nicolas Perron. Note: Cible de planification.
 
 ### Mise en production NOVA
 
@@ -971,7 +971,7 @@ Le plan indique le 2026-10-15, alors que la cible approuvée est le 2026-10-22. 
 
 Source : 04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx — Plan projet · ligne 8.
 
-> P-06 | Mise en production | À venir | Nicolas Perron | 2026-10-15 | 2026-10-15 | Cible de planification
+> Date: 15/10/2026. Fichier Excel: Plan_Projet_NOVA_v3_12sept.xlsx. Activite P-06: Mise en production. Statut: À venir. Responsable: Nicolas Perron. Note: Cible de planification.
 
 Source : 01_Courriels/E09_Rappel_mise_en_production.eml — Date cible et décision.
 

@@ -1,8 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  ArrowDown,
   ArrowRight,
-  ArrowUp,
   CalendarDays,
   CheckCircle2,
   ChevronLeft,
@@ -910,11 +908,9 @@ export default function Timeline({
     [topic, setTopic] = useState(""),
     [month, setMonth] = useState(""),
     [dateKind, setDateKind] = useState("");
-  const [ascending, setAscending] = useState(false),
-    [selection, setSelection] = useState(null),
-    [showMethod, setShowMethod] = useState(false);
+  const [selection, setSelection] = useState(null);
   const closeDrawer = useMemo(() => () => setSelection(null), []);
-  const [timelinePage, setTimelinePage] = useState(1);
+  const [timelineOffset, setTimelineOffset] = useState(0);
   const timelineHeading = useRef(null);
   useEffect(() => {
     setView(initialView);
@@ -959,13 +955,6 @@ export default function Timeline({
     }
   }
   async function enrichWithAI() {
-    if (!memory?.ai?.configured) {
-      setShowMethod(true);
-      setAiNotice(
-        "L’enrichissement IA nécessite un modèle connecté côté serveur. Les vues et l’extraction locale fonctionnent déjà sans connexion.",
-      );
-      return;
-    }
     setEnriching(true);
     setError("");
     setAiNotice("");
@@ -1005,26 +994,51 @@ export default function Timeline({
       ),
     [memory, query, owner, type, topic, month, dateKind],
   );
-  const sortedEvents = useMemo(() => [...events].sort(
-      (a, b) =>
-        (a.date || "").localeCompare(b.date || "") * (ascending ? 1 : -1),
-    ), [events, ascending]);
   const pageSize = 10;
-  const pageCount = Math.max(1, Math.ceil(events.length / pageSize));
-  const currentPage = Math.min(timelinePage, pageCount);
+  const timelineToday = today();
+  const sortedEvents = useMemo(
+    () =>
+      [...events].sort((a, b) =>
+        (a.date || "9999-12-31").localeCompare(b.date || "9999-12-31"),
+      ),
+    [events],
+  );
+  const anchorIndex = useMemo(() => {
+    if (!sortedEvents.length) return 0;
+    const index = sortedEvents.findIndex(
+      (event) => event.date && event.date >= timelineToday,
+    );
+    return index === -1
+      ? Math.max(0, sortedEvents.length - pageSize)
+      : index;
+  }, [sortedEvents, timelineToday]);
+  const hasTodayOrFuture = sortedEvents.some(
+    (event) => event.date && event.date >= timelineToday,
+  );
+  const timelineStart =
+    timelineOffset < 0
+      ? Math.max(0, anchorIndex + timelineOffset * pageSize)
+      : Math.min(anchorIndex + timelineOffset * pageSize, sortedEvents.length);
+  const timelineEnd =
+    timelineOffset < 0
+      ? Math.max(
+          timelineStart,
+          Math.min(anchorIndex + (timelineOffset + 1) * pageSize, anchorIndex),
+        )
+      : Math.min(timelineStart + pageSize, sortedEvents.length);
   useEffect(() => {
-    setTimelinePage(1);
-  }, [events, ascending]);
-  const changeTimelinePage = (page) => {
-    setTimelinePage(page);
+    setTimelineOffset(0);
+  }, [events]);
+  const changeTimelineOffset = (offset) => {
+    setTimelineOffset(offset);
     timelineHeading.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   const grouped = useMemo(() => {
     const groups = {};
-    for (const event of sortedEvents.slice((currentPage - 1) * pageSize, currentPage * pageSize))
+    for (const event of sortedEvents.slice(timelineStart, timelineEnd))
       (groups[event.date || "undated"] ||= []).push(event);
     return Object.entries(groups);
-  }, [sortedEvents, currentPage]);
+  }, [sortedEvents, timelineStart, timelineEnd]);
   const filtered = Boolean(
     query || owner || type || topic || month || dateKind,
   );
@@ -1081,12 +1095,6 @@ export default function Timeline({
               month: "long",
               year: "numeric",
             })}
-            <button
-              onClick={() => setShowMethod(!showMethod)}
-              aria-expanded={showMethod}
-            >
-              <Sparkles size={14} /> Comment c’est extrait
-            </button>
           </div>
         </div>
         <div className="hero-target">
@@ -1116,29 +1124,6 @@ export default function Timeline({
           )}
         </div>
       </section>
-      {showMethod && (
-        <div className="method-panel">
-          <Sparkles size={18} />
-          <div>
-            <strong>{memory.extraction.label}</strong>
-            <p>{memory.extraction.description}</p>
-            <span>
-              {memory.extraction.excluded_documents} documents connexes ou non
-              exploitables écartés ·{" "}
-              {memory.extraction.undated_documents.length} documents sans date
-              de publication explicite. La date du dossier est distincte
-              d’aujourd’hui.
-            </span>
-            <p>
-              Enrichissement LLM :{" "}
-              {memory.ai?.configured ? "connecté" : "non connecté"}. Le bouton «
-              Enrichir IA » transmet les extraits au modèle connecté pour
-              synthétiser les décisions et repérer les dates et acteurs. Les
-              statuts documentés restent conservés.
-            </p>
-          </div>
-        </div>
-      )}
       {aiNotice && (
         <div className="ai-notice" role="status">
           <Sparkles size={16} />
@@ -1337,14 +1322,15 @@ export default function Timeline({
               />
               <div className="timeline-list-heading" ref={timelineHeading}>
                 <span>
-                  {events.length} événements · cliquez pour voir les preuves
+                  {events.length} événements · départ aujourd'hui, preuves au clic
                 </span>
                 <button
                   className="text-button"
-                  onClick={() => setAscending(!ascending)}
+                  onClick={() => changeTimelineOffset(0)}
+                  disabled={timelineOffset === 0}
                 >
-                  {ascending ? <ArrowUp size={14} /> : <ArrowDown size={14} />}
-                  {ascending ? "Plus anciens d’abord" : "Plus récents d’abord"}
+                  <Clock3 size={14} />
+                  Revenir à aujourd'hui
                 </button>
               </div>
               <div className="chronology">
@@ -1394,26 +1380,25 @@ export default function Timeline({
               {events.length > 0 && (
                 <nav className="timeline-pagination" aria-label="Pages de la chronologie">
                   <span aria-live="polite">
-                    Événements {(currentPage - 1) * pageSize + 1}–{Math.min(currentPage * pageSize, events.length)} sur {events.length}
+                    Événements {timelineStart + 1}–{timelineEnd} sur {events.length}
                   </span>
                   <div>
-                    <button className="quiet-button" disabled={currentPage === 1}
-                      onClick={() => changeTimelinePage(currentPage - 1)} aria-label="Page précédente">
-                      <ChevronLeft size={16} /> Précédent
+                    <button className="quiet-button" disabled={timelineStart === 0}
+                      onClick={() => changeTimelineOffset(timelineOffset - 1)} aria-label="Voir les événements passés">
+                      <ChevronLeft size={16} /> Passé
                     </button>
-                    <label>
-                      Page
-                      <select aria-label="Page de la chronologie" value={currentPage}
-                        onChange={(event) => changeTimelinePage(Number(event.target.value))}>
-                        {Array.from({ length: pageCount }, (_, index) => (
-                          <option key={index + 1} value={index + 1}>{index + 1}</option>
-                        ))}
-                      </select>
-                      sur {pageCount}
-                    </label>
-                    <button className="quiet-button" disabled={currentPage === pageCount}
-                      onClick={() => changeTimelinePage(currentPage + 1)} aria-label="Page suivante">
-                      Suivant <ChevronRight size={16} />
+                    <span>
+                      {timelineOffset < 0
+                        ? "Historique"
+                        : timelineOffset > 0
+                          ? "Suite"
+                          : hasTodayOrFuture
+                            ? "Aujourd'hui et suite"
+                            : "Derniers événements"}
+                    </span>
+                    <button className="quiet-button" disabled={timelineEnd >= events.length}
+                      onClick={() => changeTimelineOffset(timelineOffset + 1)} aria-label="Voir les événements suivants">
+                      Plus tard <ChevronRight size={16} />
                     </button>
                   </div>
                 </nav>

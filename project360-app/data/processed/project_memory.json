@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
   "generated_at": "2026-10-03T23:52:30.176644+00:00",
+=======
   "as_of": "2026-09-29",
   "extraction": {
     "mode": "local-evidence",
@@ -2818,7 +2819,6 @@
       "end_date": "2026-10-15",
       "date_kind": "planned",
       "title": "Mise en production",
-      "summary": "P-06 | Mise en production | À venir | Nicolas Perron | 2026-10-15 | 2026-10-15 | Cible de planification",
       "type": "milestone",
       "status": "superseded",
       "topic": "schedule",
@@ -2829,7 +2829,6 @@
           "document_id": "doc-032",
           "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
           "locator": "Plan projet · ligne 8",
-          "excerpt": "P-06 | Mise en production | À venir | Nicolas Perron | 2026-10-15 | 2026-10-15 | Cible de planification",
           "published_on": "2026-09-12"
         }
       ],
@@ -3192,7 +3191,6 @@
           "document_id": "doc-032",
           "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
           "locator": "Plan projet · ligne 8",
-          "excerpt": "P-06 | Mise en production | À venir | Nicolas Perron | 2026-10-15 | 2026-10-15 | Cible de planification",
           "published_on": "2026-09-12"
         }
       ],
@@ -3528,7 +3526,6 @@
           "document_id": "doc-032",
           "path": "04_Documents_projet/Plan_Projet_NOVA_v3_12sept.xlsx",
           "locator": "Plan projet · ligne 8",
-          "excerpt": "P-06 | Mise en production | À venir | Nicolas Perron | 2026-10-15 | 2026-10-15 | Cible de planification",
           "published_on": "2026-09-12"
         },
         {
