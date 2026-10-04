@@ -108,7 +108,7 @@ def impact_report(document, before_documents, before, after):
             continue
         latest = max(candidates, key=lambda e: e.get("date") or "")
         selected_events.update(e["id"] for e in candidates)
-        affected.append({"id": ticket["id"], "title": ticket["id"] + " ? " + ticket["title"],
+        affected.append({"id": ticket["id"], "title": ticket["id"] + " · " + ticket["title"],
                          "event_id": latest["id"], "date": latest.get("date"), "kind": "task"})
     for old_event in before["events"]:
         if old_event["id"] in selected_events:
@@ -123,7 +123,7 @@ def impact_report(document, before_documents, before, after):
             affected.append({"id": old_event["id"], "title": old_event["title"],
                              "event_id": destination["id"], "date": destination.get("date"), "kind": "event",
                              "previous_event_id": old_event["id"]})
-    for action in build_synthesis([document], after)["groups"]["engagements"]:
+    for action in build_synthesis(before_documents + [document], after)["groups"]["engagements"]:
         if any(proof["document_id"] == identifier for proof in action["evidence"]):
             actions.append("Engagement mentionné dans la nouvelle source : " + action["title"])
     if not source_date(document):

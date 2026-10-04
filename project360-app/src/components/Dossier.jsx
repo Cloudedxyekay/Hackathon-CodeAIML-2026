@@ -74,7 +74,7 @@ function professionalSubject(item, group) {
   return `${prefixes[group]} : ${subject}`;
 }
 
-export default function Dossier() {
+export default function Dossier({ onRefresh }) {
   const [dossier, setDossier] = useState(null);
   const [filters, setFilters] = useState({ category: "", group: "", person: "", support: "", status: "", from: "", to: "" });
   const [error, setError] = useState("");
@@ -124,6 +124,7 @@ export default function Dossier() {
       const response = await fetch("/api/dossier");
       if (!response.ok) throw new Error("Impossible de charger le dossier.");
       setDossier(await response.json());
+      await onRefresh?.();
     } catch (err) { setError(err.message); }
     finally { setBusy(false); }
   }
@@ -247,7 +248,7 @@ export default function Dossier() {
       <div className="dossier-column"><h4 className="section-label">Informations pertinentes</h4><ul className="clean-list">{section.facts.map(fact => <li key={fact}>{fact}</li>)}</ul></div>
       {section.current_statuses?.length > 0 && <div className="dossier-column"><h4 className="section-label">Statuts documentés actuels</h4>{section.current_statuses.map(item => <p key={item.id}><strong>{item.id}</strong> · {registerStatuses[item.status] || item.status} · {item.date || "Date non précisée"}</p>)}</div>}
       {section.open_items.length > 0 && <div className="dossier-column"><h4 className="section-label">Actions / points ouverts</h4>{section.open_items.map(item => <p key={item.label}>{item.label}<br /><span className="dossier-item-preview">{item.owner} · {item.due}</span></p>)}</div>}
-      <details className="dossier-column"><summary className="section-label">Repères du dossier initial — historique conservé</summary><ul className="clean-list">{section.facts.map(fact => <li key={fact}>{fact}</li>)}</ul></details>
+      <details className="dossier-column"><summary className="section-label">Repères du dossier initial — historique conservé</summary><ul className="clean-list">{(section.historical_facts || []).map(fact => <li key={fact}>{fact}</li>)}</ul>{section.historical_open_items?.map((item, index) => <p key={index}>{item.label}<br /><span className="dossier-item-preview">{item.owner} · {item.due}</span></p>)}</details>
       {documents.map(entry => <DocumentItem key={entry.key} entry={entry} onOpenSource={openSource} />)}
       {!documents.length && <p>Aucun document ne correspond aux filtres actuels dans cette catégorie.</p>}
     </div>
@@ -301,7 +302,7 @@ function BriefItem({ label, value }) {
   );
 }
 
-function Evidence({ proofs }) {
+function Evidence({ proofs, onOpenSource }) {
   const files = new Map();
   for (const proof of proofs) {
     const key = proof.path || proof.document_id;
@@ -314,6 +315,7 @@ function Evidence({ proofs }) {
       <p className="dossier-proof-meta">{proof.locator} · Publication : {proof.published_on || "non précisée"}</p>
       <details className="dossier-excerpt"><summary>Voir l’extrait justificatif · {proof.locator}</summary><blockquote>{proof.excerpt}</blockquote></details>
     </div>)}
+    {onOpenSource && <button className="dossier-button dossier-button-secondary" onClick={() => onOpenSource(source.document_id)}><FileText size={16} aria-hidden="true" />Lire le document extrait</button>}
     <a className="dossier-button dossier-button-primary" href={`/api/documents/${encodeURIComponent(source.document_id)}/original?download=true`} download><FileText size={16} aria-hidden="true" />Télécharger l’original ({source.path.split('/').at(-1)})<ArrowUpRight size={16} aria-hidden="true" /></a>
   </div>);
 }

@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 from .rag import answer_question, reasoning_status, search_documents
 from .ingest import ingest_corpus, DEFAULT_CORPUS, INGEST_LOCK
 from . import updates
-from .prompts import build_update_analysis, generate_executive_brief
+from .prompts import build_update_analysis
 from .intelligence import get_project_memory
 from .ai_extraction import attach_enrichment, enrich, EnrichmentError
 
@@ -238,9 +238,5 @@ def integrate_update(identifier: str, request: ImportReview):
 
 @app.get("/api/brief")
 def brief():
-    return generate_executive_brief(
-        baseline=read_json("baseline.json", {}),
-        answers=read_json("answers.json", []),
-        timeline=read_json("timeline.json", []),
-        actions=read_json("actions.json", []),
-    )
+    from .executive_pdf import build_executive_summary
+    return build_executive_summary(read_json('documents.json', []), get_project_memory())

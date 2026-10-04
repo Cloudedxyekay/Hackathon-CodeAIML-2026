@@ -5,6 +5,76 @@ import re
 from .intelligence import dates_in, evidence, fold, resolve_owner, roster_from, source_date, topic_of
 
 
+def extract_commitments(doc, roster):
+    """Recognize explicit assignments and promises in sentences, not whole paragraphs."""
+    on = source_date(doc)
+    year = int(on[:4]) if on else None
+    sender = re.search(r'^From:\s*([^<\n]+)', doc['text'], re.M)
+    names = {fold(name): name for name in roster.values()}
+    names.update(roster)
+    in_actions = False
+    for number, line in enumerate(doc['text'].splitlines(), 1):
+        stripped = line.strip()
+        if stripped.startswith('>') or re.match(r'^(Subject|From|To|Date):', stripped):
+            continue
+        if fold(stripped) in ('actions', 'actions :', '## consequences'):
+            in_actions = True
+            continue
+        if in_actions and stripped and not stripped.startswith('-'):
+            in_actions = False
+        action = re.match(r'^-\s*([^:]+):\s*(.+)', stripped) if in_actions else None
+        speaker = re.match(r'^\d{2}:\d{2}(?:\s*[-–])?\s+([^:]+):\s*(.+)', stripped)
+        content = action[2] if action else speaker[2] if speaker else stripped
+        clauses = [stripped] if action else re.split(r'(?<=[.!?])\s+', content)
+        for clause in clauses:
+            owner, role = None, None
+            obligation = re.match(r'^(?:-\s*|Action\s*:\s*)?([^.:]+?)\s+(?:doit|devra)\s+(.+)', clause)
+            promise = re.match(r"^(?:je (?:vais (?:fournir|livrer|finaliser|corriger|publier|confirmer|preparer|mettre)|mettrai|fournirai|livrerai|finaliserai|corrigerai|publierai|confirmerai|preparerai|reprends|publie)|on vise|pour le runbook je relance)\b", fold(clause))
+            if action:
+                owner = names.get(fold(action[1]), resolve_owner(action[1], roster))
+                role = 'Responsable explicitement désigné'
+            elif obligation:
+                subject = obligation[1].strip()
+                named = fold(subject) in names or 'boreal' in fold(subject)
+                # A full capitalized name in an explicit assignment is evidence;
+                # passive subjects such as "Une validation technique" are not.
+                full_name = bool(re.fullmatch(r"[A-ZÀ-ÖØ-Þ][\w’'-]+(?:\s+[A-ZÀ-ÖØ-Þ][\w’'-]+){1,2}", subject))
+                team = bool(re.match(r"^(?:l['’])?equipe\b", fold(subject)))
+                if not (named or full_name or team or fold(subject) in ('on', 'nous')):
+                    continue
+                owner = names.get(fold(subject), subject) if named or full_name or team else None
+                role = 'Responsable explicitement désigné' if owner else None
+            elif promise:
+                author = speaker[1] if speaker else sender[1].strip() if sender else ''
+                owner = names.get(fold(author), resolve_owner(author, roster))
+                role = 'Auteur de l’engagement' if owner else None
+            else:
+                continue
+            if 'cafe' in fold(clause) or 'hdmi' in fold(clause):
+                continue
+            dated = dates_in(clause, year)
+            future = [item['date'] for item in dated if on and item['date'] >= on]
+            yield {'title': clause, 'owner': owner, 'role': role,
+                   'date': on, 'due': future[-1] if future else None,
+                   'evidence': evidence(doc, clause, f'Ligne {number}')}
+
+
+def current_commitments(synthesis, memory):
+    """Do not keep an earlier ticket obligation open after its explicit closure."""
+    tickets = {item['id']: item for item in memory['tickets']}
+    result = []
+    for item in synthesis['groups']['engagements']:
+        references = re.findall(r'\b[A-Z]{2,}-\d+\b', item['title'])
+        closed = references and all(
+            tickets.get(identifier, {}).get('status') == 'completed'
+            and tickets[identifier].get('completed_on')
+            and item['date'] and item['date'] <= tickets[identifier]['completed_on']
+            for identifier in references)
+        if not closed:
+            result.append(item)
+    return result
+
+
 def build_synthesis(documents, memory):
     relevant = [d for d in documents if not d['path'].startswith('08_Archives')
                 and d['path'] not in ('README.txt', 'MANIFEST.csv')
@@ -55,47 +125,9 @@ def build_synthesis(documents, memory):
                   else 'Pièce documentaire. Sa présence ne vaut pas approbation ni engagement.'))
         if doc['extension'] == '.xlsx':
             continue
-        on = source_date(doc)
-        year = int(on[:4]) if on else None
-        sender = re.search(r'^From:\s*([^<\n]+)', doc['text'], re.M)
-        in_actions = False
-        for number, line in enumerate(doc['text'].splitlines(), 1):
-            stripped = line.strip()
-            normalized = fold(stripped)
-            if normalized in ('actions', 'actions :', '## consequences'):
-                in_actions = True
-                continue
-            if in_actions and stripped and not stripped.startswith('-'):
-                in_actions = False
-            owner, role = None, None
-            action = re.match(r'^-\s*([^:]+):\s*(.+)', stripped) if in_actions else None
-            speaker = re.match(r'^\d{2}:\d{2}(?:\s*[-–])?\s+([^:]+):\s*(.+)', stripped)
-            content = speaker[2] if speaker else stripped
-            obligation = re.match(r'^(?:-\s*|Action\s*:\s*)?([^.:]+?)\s+(?:doit|devra)\s+(.+)', content)
-            promise = re.match(r"^(?:je (?:vais (?:fournir|livrer|finaliser|corriger|publier|confirmer|preparer)|reprends|publie)|on vise|pour le runbook je relance)", fold(content))
-            if action:
-                owner = resolve_owner(action[1], roster)
-                role = 'Responsable explicitement désigné'
-            elif obligation:
-                subject = obligation[1].strip()
-                named = fold(subject) in roster or subject in roster.values() or 'boreal' in fold(subject)
-                team = bool(re.match(r"^(?:l['’])?equipe\b", fold(subject)))
-                if not (named or team or fold(subject) in ('on', 'nous')):
-                    continue
-                owner = resolve_owner(subject, roster) if named or team else None
-                role = 'Responsable explicitement désigné' if owner else None
-            elif promise:
-                owner = resolve_owner(speaker[1], roster) if speaker else (sender[1].strip() if sender else None)
-                role = 'Auteur de l’engagement' if owner else None
-            else:
-                continue
-            if not stripped or 'cafe' in normalized or 'hdmi' in normalized:
-                continue
-            dated = dates_in(content, year)
-            future = [d['date'] for d in dated if on and d['date'] > on]
-            due = future[-1] if future else None
-            add('engagements', stripped, [evidence(doc, stripped, f'Ligne {number}')], owner, role,
-                'documented', on, due,
+        for commitment in extract_commitments(doc, roster):
+            add('engagements', commitment['title'], [commitment['evidence']], commitment['owner'], commitment['role'],
+                'documented', commitment['date'], commitment['due'],
                 'Engagement documenté ; réalisation non déduite. Les échéances relatives restent dans l’extrait.')
     return {'as_of': memory['as_of'], 'groups': groups, 'alerts': memory['alerts'],
             'schedule': memory['schedule'], 'counts': {key: len(items) for key, items in groups.items()}}

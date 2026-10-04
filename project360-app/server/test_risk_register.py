@@ -15,7 +15,7 @@ class RiskRegisterTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.documents = json.loads((rag.PROCESSED / "documents.json").read_text())
+        cls.documents = json.loads((rag.PROCESSED / "documents.json").read_text(encoding="utf-8"))
         cls.register = next(d for d in cls.documents if "Registre_Risques_29sept" in d["path"])
 
     def test_original_workbook_and_flattened_cache_have_the_same_rows(self):

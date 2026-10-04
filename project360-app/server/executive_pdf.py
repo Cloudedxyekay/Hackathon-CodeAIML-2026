@@ -8,13 +8,46 @@ from xml.sax.saxutils import escape
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import Response
 
-from .intelligence import PROCESSED, build_project_memory, evidence, fold, source_date
+from .intelligence import PROCESSED, build_project_memory, evidence, fold, source_date, dates_in, roster_from, resolve_owner
+from .synthesis import build_synthesis, current_commitments
 
 router = APIRouter(tags=['executive-brief'])
 
 
-def build_brief(documents):
-    memory = build_project_memory(documents)
+def schedule_context(doc, target, roster):
+    """Quote the decision's own source; never reuse another report's rationale."""
+    on = source_date(doc)
+    year = int(on[:4]) if on else None
+    sender = re.search(r'^From:\s*([^<\n]+)', doc['text'], re.M)
+    author = resolve_owner(sender[1], {**roster, **{fold(v): v for v in roster.values()}}) if sender else None
+    decision_line = None
+    context = []
+    reasons = []
+    for line in doc['text'].splitlines():
+        if line.lstrip().startswith('>') or re.match(r'^(Subject|From|To|Date):', line):
+            continue
+        speaker = re.match(r'^\d{2}:\d{2}(?:\s*[-–])?\s+([^:]+):\s*(.+)', line)
+        content = speaker[2] if speaker else line.strip()
+        value = fold(content)
+        if target in [item['date'] for item in dates_in(content, year)] and re.search(r'decision|approuv|date officielle|date cible.*deplac', value):
+            if decision_line is None:
+                decision_line = line
+                if speaker:
+                    author = resolve_owner(speaker[1], roster)
+        if re.search(r'parce que|en raison|a cause|afin de|motif|raison du report', value):
+            reasons.append(content)
+        elif re.search(r'stabilis|reprise des tests|re-test|validation|risque|condition', value):
+            if content:
+                context.append(content)
+    explanation = ('Motif cité dans la source : « ' + ' '.join(reasons)[:900] + ' ».' if reasons
+                   else 'Motif explicite non précisé dans cette source.')
+    if context:
+        explanation += ' Contexte cité dans la même source : « ' + ' '.join(context[:3])[:900] + ' ».'
+    return author, explanation, decision_line
+
+
+def build_brief(documents, memory=None):
+    memory = memory if memory is not None else build_project_memory(documents)
     documents = [d for d in documents if not d['path'].startswith('08_Archives')]
     decisions, tasks = [], []
 
@@ -64,13 +97,18 @@ def build_brief(documents):
         if change['target'] == memory['schedule']['changes'][0]['target']:
             continue
         source = next((d for d in documents if d['id'] == change['evidence'][0]['document_id']), None)
-        committee = find('M04_Transcript_Comite_direction')
-        if committee and change['date'] == source_date(committee):
-            source = committee
-        add('Le lancement est reporté',
-            'La date approuvée de mise en production passe au ' + change['target'] + '. Le report donne du temps pour stabiliser le connecteur et reprendre les tests.',
-            source, 'Élodie formule puis confirme l’approbation au comité.' if source and 'M04_' in source['path'] else 'Autorité non nommée dans cet extrait.',
-            ['15:22', '15:25', 'recommandation', 'date officielle'], on=change['date'])
+        source_ids = {proof['document_id'] for item in memory['schedule']['history']
+                      if item['date'] == change['date'] and item['target'] == change['target']
+                      and item['status'] in ('approved', 'conditional') for proof in item['evidence']}
+        transcript = next((doc for doc in documents if doc['id'] in source_ids and 'Transcript' in doc['path']), None)
+        if transcript:
+            source = transcript
+        if source:
+            author, explanation, _ = schedule_context(source, change['target'], roster_from(documents))
+            add('Le lancement est reporté',
+                'La date approuvée de mise en production passe au ' + change['target'] + '. ' + explanation,
+                source, author + ' (auteur ou intervenant ayant annoncé la décision).' if author else 'Auteur de la décision non précisé dans la source.',
+                ['from:', 'decision', 'approuv', 'date officielle', 'deplace', 'stabilis', 'reprise des tests', 'risque', 'validation', 're-test', 'parce que', 'en raison', 'afin de'], on=change['date'])
     for assignment in memory['assignments'][1:]:
         doc = next((d for d in documents if d['id'] == assignment['evidence'][0]['document_id']), None)
         note = find('Note_transition')
@@ -89,8 +127,8 @@ def build_brief(documents):
             ['optimisations', 'phase 1', 'depense'], [proof(email, ['from:', 'approuve', 'phase 2', 'depense'])] if email else None)
     committee = find('M06_Transcript')
     if committee and memory['gates']:
-        add('Le lancement reste soumis à trois validations',
-            'Le lancement nécessite l’acceptation sécurité de SEC-210, la fermeture du blocage clavier ACC-303 et un runbook approuvé avec rollback. Un correctif livré ne vaut pas acceptation.',
+        add('Le comité définit les conditions de lancement',
+            'Le comité a exigé l’acceptation sécurité de SEC-210, la fermeture du blocage clavier ACC-303 et un runbook approuvé avec rollback. Les conditions encore ouvertes figurent dans les actions actuelles. Un correctif livré ne vaut pas acceptation.',
             committee, 'Nicolas énonce les conditions ; Sophie, Mélissa et Olivier les confirment.',
             ['10:02', '10:05', '10:07', '10:09', '10:10', '10:15'])
     for gate in memory['gates']:
@@ -109,12 +147,36 @@ def build_brief(documents):
         if alert['id'] in ('stale-plan', 'status-conflict', 'stale-risk'):
             tasks.append({'title': alert['title'], 'who': 'Responsable de mise à jour à confirmer.',
                           'due': 'À confirmer.', 'priority': 'Important', 'evidence': alert['evidence']})
+    synthesis = build_synthesis(documents, memory)
+    for commitment in sorted(current_commitments(synthesis, memory), key=lambda item: item['date'] or '', reverse=True):
+        tasks.append({'title': commitment['title'],
+                      'who': (commitment['owner'] or 'Non précisé') + ' (' + (commitment['owner_role'] or 'responsable non attribué') + ')',
+                      'due': commitment['due'] or 'À confirmer ; consulter l’extrait pour les échéances relatives.',
+                      'priority': 'Engagement documenté — réalisation à confirmer', 'evidence': commitment['evidence']})
     resolved = [t for t in memory['tickets'] if t['status'] == 'completed' and t['completed_on']]
     return {'as_of': memory['as_of'], 'target': memory['schedule']['current_target'],
             'conditional': memory['schedule']['conditional'],
             'owner': memory['assignments'][-1]['owner'] if memory['assignments'] else 'Non précisé',
             'decisions': sorted(decisions, key=lambda d: d['date'] or '9999'), 'tasks': tasks,
             'resolved': sorted(resolved, key=lambda t: t['completed_on']), 'documents': memory['stats']['documents']}
+
+
+def build_executive_summary(documents, memory):
+    """Keep the existing JSON briefing on the same current model as the PDF."""
+    brief = build_brief(documents, memory)
+    target = brief['target'] or 'À confirmer'
+    condition = ' — conditionnelle aux validations restantes' if brief['conditional'] else ''
+    finance = [item['text'] for item in brief['decisions'] if item['title'] in ('Le cadre initial du projet', 'Les rapports avancés sont autorisés')]
+    return {'title': 'Brief executif NOVA', 'as_of': brief['as_of'],
+            'status': 'Cible approuvée : ' + target + condition + '.',
+            'top_points': ['Responsable actuel : ' + brief['owner'] + '.',
+                           'Cible approuvée : ' + target + condition + '.',
+                           ' '.join(finance) if finance else 'Portée et budget non précisés dans les sources disponibles.'],
+            'risks': [f"{gate['id']} : {gate['title']} — validation restante." for gate in memory['gates']]
+                     + [alert['description'] for alert in memory['alerts'] if alert['id'] != 'pending-gates'],
+            'open_actions': brief['tasks'], 'decisions': brief['decisions'],
+            'timeline_events': len(memory['events']),
+            'evidence_ready_answers': 0}
 
 
 def render_pdf(brief):

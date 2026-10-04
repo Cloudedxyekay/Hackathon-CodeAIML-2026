@@ -1,0 +1,14 @@
+sandbox/
+original-hashes.json
+*-results.json
+summary-consistency.json
+email-commitments.json
+*.png
+*.pdf
+*.ics
+*.txt
+dossier.json
+comparison.json
+fixed-import.json
+fixed-dossier.json
+__pycache__/

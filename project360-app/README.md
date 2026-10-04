@@ -122,14 +122,11 @@ If Ollama runs somewhere other than `http://127.0.0.1:11434`, set
 the configured model. No provider request is made during page loading or local
 re-ingestion.
 
-<<<<<<< Updated upstream
 Local enrichment is intentionally bounded for demo speed: Ollama enriches the
 highest-signal 30 events by default, in small batches with shorter excerpts. To
 process more or tune throughput, set `NOVA_AI_EVENT_LIMIT`, `NOVA_AI_BATCH_SIZE`
 or `NOVA_AI_WORKERS`.
 
-=======
->>>>>>> Stashed changes
 The connector asks the model for structured JSON annotations: concise summaries,
 decision descriptions, dates and named actors.
 Annotations must reference an existing event and quote exact source text;
@@ -137,10 +134,6 @@ unsupported dates, names and citations are discarded. AI summaries are labelled
 and kept separate from canonical approvals, ticket states and assigned roles.
 Results are cached against a corpus fingerprint. A changed corpus invalidates
 the annotations, and a provider error preserves local extraction.
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 OpenAI remains available as an explicit fallback: set `NOVA_AI_PROVIDER=openai`,
 `OPENAI_API_KEY`, and `NOVA_AI_MODEL`. The API key is never sent to the browser.
 Provider storage is disabled for OpenAI using `store: false`.
